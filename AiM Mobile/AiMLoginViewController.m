@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UILabel *errorTextLabel;
+@property (strong, nonatomic)  NSURLProtectionSpace *loginProtectionSpace;
 
 
 @end
@@ -79,10 +80,53 @@
     
 }
 
+- (void) initProtectionSpace
+{
+    NSURL *url = [NSURL URLWithString:AUTH_URL];
+    self.loginProtectionSpace = [[NSURLProtectionSpace alloc] initWithHost:url.host
+                                                                      port:[url.port integerValue]
+                                                                  protocol:url.scheme
+                                                                     realm:nil
+                                                      authenticationMethod:NSURLAuthenticationMethodHTTPDigest];
+
+}
+
+- (void) setUserCredential: (NSString *)username withPassword:(NSString *)password
+{
+    //Check if username already stored before adding
+    NSURLCredential *credential;
+    NSDictionary *credentials;
+    
+    credentials = [[NSURLCredentialStorage sharedCredentialStorage] credentialsForProtectionSpace:self.loginProtectionSpace];
+    credential = [credentials objectForKey:username];
+    
+    //If this username is not already stored
+    if (!credential)
+    {
+        credential = [NSURLCredential credentialWithUser:username password:password persistence:NSURLCredentialPersistencePermanent];
+        [[NSURLCredentialStorage sharedCredentialStorage] setCredential:credential forProtectionSpace:self.loginProtectionSpace];
+    }
+
+}
+
+
+
+- (NSURLCredential *) getUserCredential
+{
+    NSURLCredential *credential;
+    NSDictionary *credentials;
+    
+    credentials = [[NSURLCredentialStorage sharedCredentialStorage] credentialsForProtectionSpace:self.loginProtectionSpace];
+    credential = [credentials.objectEnumerator nextObject];
+    
+    return credential;
+}
+
 
 
 - (void)authenticateUser:(NSString *)username withPassword:(NSString *)password
 {
+    
     NSString *userDataString = [NSString stringWithFormat:@"username=%@password=%@", username, password];
     
     NSURL *url = [NSURL URLWithString:AUTH_URL];
@@ -95,12 +139,17 @@
     //[sessionConfiguration setHTTPAdditionalHeaders:@{@"Accept":@"application/json"}];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
     //session.delegate = [NSOperationQueue mainQueue];
-
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //NSLog(@"Reponse recieved! Data: %@, Response: %@, Error: %@", data, response, error);
+
+        
         if(!error)
         {
             NSLog(@"User authenticated. Retrieving work orders... %@", data);
+
+            //Assume credentials are valid, attempt to store in keychain for future use
+            [self setUserCredential:username withPassword:password];
+
             
             // TODO: set recievedWorkOrders
             //for loop adding each workOrder object to array
@@ -130,6 +179,7 @@
                 //NSLog(@"2recievedWorkOrders : %@", test);
             }
             
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 AiMWorkOrderTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WorkOrderTableView"];
                 vc.workOrders = self.receivedWorkOrders;
@@ -145,7 +195,7 @@
     [postDataTask resume];
 
     
-    
+   
     
 
 }
@@ -158,33 +208,19 @@
     
     // Do any additional setup after loading the view.
     
-    NSString *service = @"AiM Mobile";
-    NSError *error = nil;
-    
-    NSUserDefaults *appDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *username = [appDefaults objectForKey:@"username"];
-    if(username)
-    {
-        NSString *password = [SSKeychain passwordForService:service account:username error:&error];
-        if(password)
-        {
-            [self authenticateUser:username withPassword: password];
-        } else
-        {
-            NSLog(@"Could not retrieve password for username: %@\nERROR: %@", username, error);
-        }
-    } else
-    {
-        NSLog(@"No username saved.");
-    }
-    
-    //[self authenticateUser:@"test" withPassword:@"test"];
-    
+    [self initProtectionSpace];
 
+    NSURLCredential *credential = [self getUserCredential];
     
-//    SSKeychain *keychain = [[SSKeychain alloc] init];
-//    NSString *password = [SSKeychain passwordForService:service account:_usernameTextField.text error:&error];
-    
+    if (credential)
+    {
+        NSLog(@"User %@ already connected with password %@", credential.user, credential.password);
+        [self authenticateUser:credential.user withPassword: credential.password];
+
+    } else {
+        NSLog(@"No credentials found.");
+        //Assume user will enter credentials into text fields and press login button
+    }
 
     
     
