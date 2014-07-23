@@ -68,6 +68,7 @@
 
 - (void)authenticateUser:(NSString *)username withPassword:(NSString *)password
 {
+    
     NSString *userDataString = [NSString stringWithFormat:@"username=%@password=%@", username, password];
     
     NSURL *url = [NSURL URLWithString:AUTH_URL];
@@ -80,25 +81,21 @@
     [sessionConfiguration setHTTPAdditionalHeaders:@{@"Accept":@"application/json"}];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:[NSOperationQueue mainQueue] delegateQueue:nil];
     //session.delegate = [NSOperationQueue mainQueue];
-
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //NSLog(@"Reponse recieved! Data: %@, Response: %@, Error: %@", data, response, error);
+
+        
         if(!error)
         {
+            
             NSLog(@"User authenticated. Retrieving work orders...");
             //Initiate new HTTP request to get work orders
-            
-            AiMWorkOrderTableViewController *vc = [[AiMWorkOrderTableViewController alloc] init];
-            //[self.storyboard instantiateViewControllerWithIdentifier:@"WorkOrderTableView"];
-            vc.view.backgroundColor = [UIColor purpleColor];
-            
-            
-           [self.navigationController pushViewController:vc animated:NO];
-            //[self presentViewController:vc animated:YES completion:NULL];
-            //[self performSegueWithIdentifier:@"LoginShowTable" sender:self];
-            
-            
           
+            //Go back to main thread to execute UI changes
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                AiMWorkOrderTableViewController *vc = [[AiMWorkOrderTableViewController alloc] init];
+                [self.navigationController pushViewController:vc animated:NO];
+            });
             
         }else
         {
@@ -108,7 +105,7 @@
     }];
     [postDataTask resume];
     
-    
+   
     
 
 }

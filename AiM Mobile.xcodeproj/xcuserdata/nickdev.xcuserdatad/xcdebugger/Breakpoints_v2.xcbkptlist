@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AiM Mobile/AiMLoginViewController.m"
-            timestampString = "427765722.144485"
+            timestampString = "427823644.638865"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "248"
+            endingLineNumber = "248"
             landmarkName = "@implementation AiMLoginViewController"
             landmarkType = "3">
          </BreakpointContent>
