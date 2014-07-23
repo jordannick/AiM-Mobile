@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AiMWorkOrder.h"
+
 
 @interface AiMWorkOrderTableViewController : UITableViewController
 
-
+@property (strong, nonatomic) NSMutableArray *workOrders;
 
 @end

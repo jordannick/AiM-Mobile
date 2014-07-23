@@ -10,6 +10,6 @@
 
 @interface AiMLoginViewController : UIViewController
 
-
+@property (strong, nonatomic) NSMutableArray *receivedWorkOrders;
 
 @end
