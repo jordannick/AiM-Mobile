@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UILabel *errorTextLabel;
 @property (strong, nonatomic)  NSURLProtectionSpace *loginProtectionSpace;
-
+@property (strong, nonatomic) NSString *currentUser;
 
 @end
 
@@ -98,6 +98,8 @@
 
 - (NSURLCredential *) getUserCredential
 {
+    //Find and return the first credential found
+    
     NSURLCredential *credential;
     NSDictionary *credentials;
     
@@ -106,6 +108,26 @@
     
     return credential;
 }
+
+
+- (void) removeUserCredential: (NSString *)username
+{
+    NSURLCredential *credential;
+    NSDictionary *credentials;
+    
+    credentials = [[NSURLCredentialStorage sharedCredentialStorage] credentialsForProtectionSpace:self.loginProtectionSpace];
+    
+    //Search if it exists before removing
+    credential = [credentials objectForKey:username];
+    
+    if (credential)
+    {
+        [[NSURLCredentialStorage sharedCredentialStorage] removeCredential:credential forProtectionSpace:self.loginProtectionSpace];
+    } else {
+        NSLog(@"Could not find credential to remove");
+    }
+}
+
 
 
 
@@ -131,6 +153,7 @@
         if(!error)
         {
             //Assume credentials are valid, attempt to store in keychain for future use
+            self.currentUser = username;
             [self setUserCredential:username withPassword:password];
             
             
@@ -159,12 +182,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
     self.usernameTextField.delegate = self;
     self.passwordTextField.delegate = self;
     
-    // Do any additional setup after loading the view.
-    
     [self initProtectionSpace];
+    
+    self.passwordTextField.secureTextEntry = YES;
+ 
+    
 
     NSURLCredential *credential = [self getUserCredential];
     
@@ -260,5 +287,18 @@
     
 }
 */
+
+
+
+
+- (IBAction)unwindToLoginView:(UIStoryboardSegue *)segue
+{
+    NSLog(@"segue: %@", segue.identifier);
+    [self removeUserCredential:self.currentUser];
+    self.errorTextLabel.text = @"Please enter username and password";
+    
+}
+
+
 
 @end

@@ -23,12 +23,15 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    NSLog(@"test-----: %@", self.view);
+    NSLog(@"This is my ID: %@", self);
+    //[self.navigationItem setHidesBackButton:YES];
     
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
