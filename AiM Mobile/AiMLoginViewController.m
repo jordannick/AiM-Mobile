@@ -8,13 +8,17 @@
 
 #import "AiMLoginViewController.h"
 #import "AiMWorkOrderTableViewController.h"
+#import "AiMWorkOrder.h"
 #import "AiMUser.h"
 #import "SSKeychain.h"
+#include <stdlib.h>
 
 #define AUTH_URL @"http://httpbin.org"
 
 
-@interface AiMLoginViewController ()
+@interface AiMLoginViewController () <NSURLSessionDelegate, NSURLSessionDataDelegate>
+
+
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UILabel *errorTextLabel;
@@ -24,6 +28,17 @@
 @end
 
 @implementation AiMLoginViewController
+
+- (NSMutableArray *)receivedWorkOrders
+{
+    //NSLog(@"!!!!!!!Setting recievedWorkOrders... %@", _receivedWorkOrders);
+    if(!_receivedWorkOrders)
+    {
+        //NSLog(@"!!!!!!!Setting recievedWorkOrders...");
+        _receivedWorkOrders = [[NSMutableArray alloc] init];
+    }
+    return _receivedWorkOrders;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -143,8 +158,8 @@
     request.HTTPMethod = @"POST";
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    [sessionConfiguration setHTTPAdditionalHeaders:@{@"Accept":@"application/json"}];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:[NSOperationQueue mainQueue] delegateQueue:nil];
+    //[sessionConfiguration setHTTPAdditionalHeaders:@{@"Accept":@"application/json"}];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
     //session.delegate = [NSOperationQueue mainQueue];
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //NSLog(@"Reponse recieved! Data: %@, Response: %@, Error: %@", data, response, error);
@@ -152,20 +167,48 @@
         
         if(!error)
         {
+            NSLog(@"User authenticated. Retrieving work orders... %@", data);
+
             //Assume credentials are valid, attempt to store in keychain for future use
             self.currentUser = username;
             [self setUserCredential:username withPassword:password];
+
             
+            // TODO: set recievedWorkOrders
+            //for loop adding each workOrder object to array
+            //self.receivedWorkOrders
+            for(int i = 0; i < 10; i++)
+            {
+                AiMWorkOrder *newWorkOrder = [[AiMWorkOrder alloc] init];
+                int r = rand() % 1000;
+                
+                newWorkOrder.taskID = [NSNumber numberWithInt:r];
+                newWorkOrder.category = @"TestCategory";
+                newWorkOrder.description = @"Test Description";
+                newWorkOrder.createdBy = @"Kevin";
+                newWorkOrder.dateCreated = [NSDate date];
+                newWorkOrder.customerRequest = @12;
+                newWorkOrder.type = @"1";
+                newWorkOrder.organization = [[AiMOrganization alloc] init];
+                newWorkOrder.phase = [[AiMWorkOrderPhase alloc] init];
+                
+                
+                
+                
+                //NSLog(@"Work order: %@ 1", newWorkOrder.taskID);
+                //NSLog(@"Idk what to do %@", self.receivedWorkOrders);
+                [self.receivedWorkOrders addObject:newWorkOrder];
+                //AiMWorkOrder *test = [self.receivedWorkOrders objectAtIndex:0];
+                //NSLog(@"2recievedWorkOrders : %@", test);
+            }
             
-            NSLog(@"User authenticated. Retrieving work orders...");
-            //Initiate new HTTP request to get work orders
-          
-            //Go back to main thread to execute UI changes
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                AiMWorkOrderTableViewController *vc = [[AiMWorkOrderTableViewController alloc] init];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                AiMWorkOrderTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WorkOrderTableView"];
+                vc.workOrders = self.receivedWorkOrders;
+                NSLog(@"Setting vc.workOrders = %@", _receivedWorkOrders);
                 [self.navigationController pushViewController:vc animated:NO];
             });
-            
         }else
         {
             //Alert user. Get new user credentials
@@ -173,6 +216,7 @@
         }
     }];
     [postDataTask resume];
+
     
    
     
@@ -204,7 +248,7 @@
         NSLog(@"No credentials found.");
         //Assume user will enter credentials into text fields and press login button
     }
-    
+
     
     
     /*
@@ -270,7 +314,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -279,14 +324,14 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    //if ([[segue identifier] isEqualToString:@"LoginShowTable"])
-//{
+    if ([[segue identifier] isEqualToString:@"LoginShowTable"])
+    {
         AiMWorkOrderTableViewController *vc = [segue destinationViewController];
     
-   // }
+    }
     
 }
-*/
+
 
 
 
