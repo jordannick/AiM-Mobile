@@ -11,6 +11,25 @@
 @implementation AiMUser
 
 
+- (NSMutableArray *)workOrders
+{
+    if(!_workOrders)
+    {
+        _workOrders = [[NSMutableArray alloc] init];
+    }
+    return _workOrders;
+}
+
+- (NSMutableArray *)syncQueue
+{
+    if(!_syncQueue)
+    {
+        _syncQueue = [[NSMutableArray alloc] init];
+    }
+    return _syncQueue;
+}
+
+
 - (BOOL) addWorkOrder:(AiMWorkOrder *)newWorkOrder
 {
     [self.workOrders addObject:newWorkOrder];

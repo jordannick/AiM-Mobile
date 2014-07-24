@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "AiMWorkOrder.h"
+#import "AiMUser.h"
 
 
 @interface AiMWorkOrderTableViewController : UITableViewController
 
-@property (strong, nonatomic) NSMutableArray *workOrders;
+//@property (strong, nonatomic) NSMutableArray *workOrders;
+//@property (strong, nonatomic) NSString *currentUser;
+@property (strong, nonatomic) AiMUser *currentUser;
 
 @end

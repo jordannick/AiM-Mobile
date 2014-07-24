@@ -10,22 +10,15 @@
 
 @interface AiMAddActionViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *sliderLabel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveActionButton;
+@property (strong, nonatomic) NSString *actionTime;
 
 @end
 
 @implementation AiMAddActionViewController
+    
 
-- (IBAction)saveActionButton:(UIBarButtonItem *)sender
-{
-    //Check to make sure action is valid
-    
-    
-    
-    
-    //If so, unwind to detail view.
-    //If not, alert user.
-    
-}
+
 - (IBAction)sliderTimeChanged:(UISlider *)sender
 {
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
@@ -36,13 +29,13 @@
     NSString *numberString = [formatter stringFromNumber:[NSNumber numberWithFloat:sender.value]];
     
     if(sender.value < 1){
-        self.sliderLabel.text = @"30 minutes";
+        self.sliderLabel.text = self.actionTime = @"30 minutes";
     }else if(sender.value < 1.5){
-        self.sliderLabel.text = @"1 hour";
+        self.sliderLabel.text = self.actionTime = @"1 hour";
     }else if(sender.value == 8){
-        self.sliderLabel.text = @"8+ hours";
+        self.sliderLabel.text = self.actionTime = @"8+ hours";
     }else{
-        self.sliderLabel.text = [NSString stringWithFormat:@"%@ hours", numberString];
+        self.sliderLabel.text = self.actionTime = [NSString stringWithFormat:@"%@ hours", numberString];
     }
     
 }
@@ -52,6 +45,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _actionToAdd = [[AiMAction alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,13 +69,32 @@
 
 #pragma mark - Navigation
 
-/*
+
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    
+    //Check to make sure action is valid
+    //If so, unwind to detail view.
+    //If not, alert user.
+
+    
+    if (sender != self.saveActionButton) return;
+    else
+    {
+        //set the action
+        
+        self.actionToAdd.workOrderID = self.workOrder.taskID;
+        self.actionToAdd.name = @"replace this name";
+        self.actionToAdd.time = self.actionTime;
+        self.actionToAdd.note = @"replace this note";
+        
+    }
+
+    
 }
-*/
 
 @end
