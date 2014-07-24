@@ -18,6 +18,34 @@
 
 @implementation AiMWorkOrderTableViewController
 
+
+- (IBAction)onSyncButtonPress:(UIBarButtonItem *)sender {
+    
+    //call [_currentUser syncWorkOrders] somewhere to remove items from sync queue
+    //call specific functions to push sync queue data
+    
+    
+    NSURL *url = [NSURL URLWithString:@"www.example.com/api/updateFunction"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    //NSData *data = [SOMETHINGSYNCQUEUE dataUsingEncoding:NSUTF8StringEncoding];
+    //request.HTTPBody = data;
+    request.HTTPMethod = @"PUT";
+    
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSessionDataTask *postDataTask = [_currentUser.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+            if (!error){}
+            else {}
+
+    }];
+    
+    
+    
+}
+
+
+
+
 - (IBAction)sortBySegmentedControl:(UISegmentedControl *)sender
 {
     NSInteger segIndex = sender.selectedSegmentIndex;

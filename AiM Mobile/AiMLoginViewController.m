@@ -14,7 +14,7 @@
 #include <stdlib.h>
 
 
-#define AUTH_URL @"http://httpbin.org"
+#define AUTH_URL @"http://jsonplaceholder.typicode.com/posts"
 
 
 @interface AiMLoginViewController () <NSURLSessionDelegate, NSURLSessionDataDelegate, UITextFieldDelegate>
@@ -253,11 +253,11 @@
 
 
 
+
 - (void)authenticateUser:(NSString *)username withPassword:(NSString *)password
 {
-  
-    
-    NSString *userDataString = [NSString stringWithFormat:@"username=%@password=%@", username, password];
+
+    NSString *userDataString = [NSString stringWithFormat:@"username=%@&password=%@", username, password];
     
     NSURL *url = [NSURL URLWithString:AUTH_URL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -267,7 +267,11 @@
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     //[sessionConfiguration setHTTPAdditionalHeaders:@{@"Accept":@"application/json"}];
+    
+    
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
+    
+     _currentUser.session = session;
     //session.delegate = [NSOperationQueue mainQueue];
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //NSLog(@"Reponse recieved! Data: %@, Response: %@, Error: %@", data, response, error);
@@ -275,6 +279,15 @@
         
         if(!error)
         {
+            NSLog(@"Reponse recieved! Data: %@, Response: %@, Error: %@", data, response, error);
+            NSString *readableData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"Data is: %@", readableData);
+            
+            NSError *jsonParsingError = nil;
+           
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
+            NSLog(@"json array is: %@", json);
+            
             NSLog(@"User authenticated. Retrieving work orders... %@", data);
 
             //Assume credentials are valid, attempt to store in keychain for future use
@@ -331,6 +344,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    NSLog(@"Started running");
+    //[self testOnline];
+    
+    
+    
     [self getWorkOrdersJSON];
     
     self.currentState = @"username";
