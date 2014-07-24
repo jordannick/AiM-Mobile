@@ -26,16 +26,16 @@
 @property (strong, nonatomic)  NSURLProtectionSpace *loginProtectionSpace;
 @property (strong, nonatomic) NSString *currentUser;
 
+@property (strong, nonatomic) NSArray *priorities;
+
 @end
 
 @implementation AiMLoginViewController
 
 - (NSMutableArray *)receivedWorkOrders
 {
-    //NSLog(@"!!!!!!!Setting recievedWorkOrders... %@", _receivedWorkOrders);
     if(!_receivedWorkOrders)
     {
-        //NSLog(@"!!!!!!!Setting recievedWorkOrders...");
         _receivedWorkOrders = [[NSMutableArray alloc] init];
     }
     return _receivedWorkOrders;
@@ -50,10 +50,30 @@
     return self;
 }
 
+- (AiMWorkOrderPhasePriority*)createPriorityWithName:(NSString*)name andDescription:(NSString*)description andPriorityID:(NSNumber*)priorityID
+{
+    AiMWorkOrderPhasePriority *priority = [[AiMWorkOrderPhasePriority alloc] init];
+    priority.name = name;
+    priority.description = description;
+    priority.priorityID = priorityID;
+    
+    return priority;
+}
 
 - (void) getWorkOrdersJSON
 {
+    AiMWorkOrderPhasePriority *priority = [[AiMWorkOrderPhasePriority alloc] init];
+    priority.name = @"Urgent";
+    priority.description = @"Must be done quickly";
+    priority.priorityID = @0;
+    
+    self.priorities = [NSArray arrayWithObjects:[self createPriorityWithName:@"URGENT" andDescription:@"Do this quickly" andPriorityID:@0],
+    [self createPriorityWithName:@"GENERAL" andDescription:@"Do this regularly" andPriorityID:@1],
+     [self createPriorityWithName:@"DAILY" andDescription:@"Do this daily" andPriorityID:@2], nil];
+    
+    NSLog(@"This is the array... %@", self.priorities);
     //Get JSON from http
+    
     
     
     //Call segue, passing JSON to AiMOverviewTableController
@@ -227,6 +247,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self getWorkOrdersJSON];
     
     self.usernameTextField.delegate = self;
     self.passwordTextField.delegate = self;
@@ -327,7 +348,7 @@
     
     if ([[segue identifier] isEqualToString:@"LoginShowTable"])
     {
-        AiMWorkOrderTableViewController *vc = [segue destinationViewController];
+        //AiMWorkOrderTableViewController *vc = [segue destinationViewController];
     
     }
     

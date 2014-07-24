@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		45E24BCD198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */; };
+		45E24BD019806DBF00AEB2F5 /* AiMAddActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */; };
+		45E24BD3198077B400AEB2F5 /* AiMAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BD2198077B400AEB2F5 /* AiMAction.m */; };
 		7C3A2FF3197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C3A2FF2197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m */; };
 		7C97C469197EDD2000949B16 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C468197EDD2000949B16 /* Foundation.framework */; };
 		7C97C46B197EDD2000949B16 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C46A197EDD2000949B16 /* CoreGraphics.framework */; };
@@ -45,6 +47,10 @@
 /* Begin PBXFileReference section */
 		45E24BCB198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMWorkOrderDetailViewController.h; sourceTree = "<group>"; };
 		45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMWorkOrderDetailViewController.m; sourceTree = "<group>"; };
+		45E24BCE19806DBF00AEB2F5 /* AiMAddActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMAddActionViewController.h; sourceTree = "<group>"; };
+		45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMAddActionViewController.m; sourceTree = "<group>"; };
+		45E24BD1198077B400AEB2F5 /* AiMAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AiMAction.h; path = Model/AiMAction.h; sourceTree = "<group>"; };
+		45E24BD2198077B400AEB2F5 /* AiMAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AiMAction.m; path = Model/AiMAction.m; sourceTree = "<group>"; };
 		7C3A2FF1197F20AB00B7CC74 /* AiMWorkOrderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMWorkOrderTableViewController.h; sourceTree = "<group>"; };
 		7C3A2FF2197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMWorkOrderTableViewController.m; sourceTree = "<group>"; };
 		7C97C465197EDD2000949B16 /* AiM Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AiM Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,6 +201,8 @@
 				7C97C4A7197EDE7E00949B16 /* AiMWorkOrderPhasePriority.m */,
 				7C97C4AA197EDF4F00949B16 /* AiMUser.h */,
 				7C97C4AB197EDF4F00949B16 /* AiMUser.m */,
+				45E24BD1198077B400AEB2F5 /* AiMAction.h */,
+				45E24BD2198077B400AEB2F5 /* AiMAction.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -208,6 +216,8 @@
 				7C3A2FF2197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m */,
 				45E24BCB198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.h */,
 				45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */,
+				45E24BCE19806DBF00AEB2F5 /* AiMAddActionViewController.h */,
+				45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -312,11 +322,13 @@
 				7C97C479197EDD2000949B16 /* AiMAppDelegate.m in Sources */,
 				7C3A2FF3197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m in Sources */,
 				7C97C475197EDD2000949B16 /* main.m in Sources */,
+				45E24BD3198077B400AEB2F5 /* AiMAction.m in Sources */,
 				7C97C4AC197EDF4F00949B16 /* AiMUser.m in Sources */,
 				7C97C49B197EDD5000949B16 /* AiMLoginViewController.m in Sources */,
 				7C97C49F197EDDCD00949B16 /* AiMWorkOrder.m in Sources */,
 				7C97C4AF197EFE1700949B16 /* SSKeychain.m in Sources */,
 				7C97C4A2197EDDF200949B16 /* AiMOrganization.m in Sources */,
+				45E24BD019806DBF00AEB2F5 /* AiMAddActionViewController.m in Sources */,
 				7C97C4A5197EDE3500949B16 /* AiMWorkOrderPhase.m in Sources */,
 				45E24BCD198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m in Sources */,
 				7C97C4A8197EDE7E00949B16 /* AiMWorkOrderPhasePriority.m in Sources */,
