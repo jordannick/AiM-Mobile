@@ -73,7 +73,7 @@
             </objects>
             <point key="canvasLocation" x="-381" y="97"/>
         </scene>
-        <!--AiM Work Order Table View Controller-->
+        <!--AiM Work Order Table View Controller - Work Order List-->
         <scene sceneID="a9b-D1-5QC">
             <objects>
                 <tableViewController storyboardIdentifier="WorkOrderTableView" id="VEX-2C-XCs" customClass="AiMWorkOrderTableViewController" sceneMemberID="viewController">
@@ -93,6 +93,13 @@
                                 <action selector="sortBySegmentedControl:" destination="VEX-2C-XCs" eventType="valueChanged" id="1Bn-Ur-9Wx"/>
                             </connections>
                         </segmentedControl>
+                        <label key="tableFooterView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logged in as:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6fg-9M-bwo">
+                            <rect key="frame" x="0.0" y="160" width="320" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WorkOrderTableCell" id="qH4-6R-odt">
                                 <rect key="frame" x="0.0" y="116" width="320" height="44"/>
@@ -112,11 +119,12 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="J7V-Ry-voi"/>
+                    <navigationItem key="navigationItem" title="Work Order List" id="J7V-Ry-voi"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="loggedInLabel" destination="6fg-9M-bwo" id="xqX-9M-SSA"/>
                         <outlet property="navBar" destination="J7V-Ry-voi" id="8N9-vg-ckL"/>
                     </connections>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u3a-0U-WX9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -275,16 +283,18 @@
                     <navigationItem key="navigationItem" title="New Action" id="mKa-D6-B8C">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="IAG-q6-ctD">
                             <connections>
-                                <segue destination="Zn1-UC-VhN" kind="unwind" unwindAction="unwindToDetailView:" id="GP6-1n-inq"/>
+                                <segue destination="Zn1-UC-VhN" kind="unwind" identifier="cancelToDetail" unwindAction="unwindToDetailView:" id="GP6-1n-inq"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="fCm-u5-Q7R">
                             <connections>
                                 <action selector="saveActionButton:" destination="hIv-px-HbM" id="lja-iX-S6T"/>
+                                <segue destination="Zn1-UC-VhN" kind="unwind" identifier="saveToDetail" unwindAction="unwindToDetailView:" id="P5d-fZ-whS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="saveActionButton" destination="fCm-u5-Q7R" id="FDc-jn-LqW"/>
                         <outlet property="sliderLabel" destination="ebu-84-xaT" id="jTv-4U-7D2"/>
                     </connections>
                 </viewController>

@@ -24,14 +24,17 @@
 @property (weak, nonatomic) IBOutlet UILabel *errorTextLabel;
 
 @property (strong, nonatomic)  NSURLProtectionSpace *loginProtectionSpace;
-@property (strong, nonatomic) NSString *currentUser;
+//@property (strong, nonatomic) NSString *currentUser;
 
 @property (strong, nonatomic) NSArray *priorities;
+
+@property (strong, nonatomic) AiMUser *currentUser;
 
 @end
 
 @implementation AiMLoginViewController
 
+/*
 - (NSMutableArray *)receivedWorkOrders
 {
     if(!_receivedWorkOrders)
@@ -40,6 +43,7 @@
     }
     return _receivedWorkOrders;
 }
+ */
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -146,7 +150,7 @@
 }
 
 
-- (void) removeUserCredential: (NSString *)username
+- (void) removeUserCredential
 {
     NSURLCredential *credential;
     NSDictionary *credentials;
@@ -154,7 +158,7 @@
     credentials = [[NSURLCredentialStorage sharedCredentialStorage] credentialsForProtectionSpace:self.loginProtectionSpace];
     
     //Search if it exists before removing
-    credential = [credentials objectForKey:username];
+    credential = [credentials objectForKey:_currentUser.username];
     
     if (credential)
     {
@@ -192,7 +196,8 @@
             NSLog(@"User authenticated. Retrieving work orders... %@", data);
 
             //Assume credentials are valid, attempt to store in keychain for future use
-            self.currentUser = username;
+           // self.currentUser = username;
+            _currentUser.username = username;
             [self setUserCredential:username withPassword:password];
 
             
@@ -214,22 +219,19 @@
                 newWorkOrder.organization = [[AiMOrganization alloc] init];
                 newWorkOrder.phase = [[AiMWorkOrderPhase alloc] init];
                 
-                
-                
-                
-                //NSLog(@"Work order: %@ 1", newWorkOrder.taskID);
-                //NSLog(@"Idk what to do %@", self.receivedWorkOrders);
-                [self.receivedWorkOrders addObject:newWorkOrder];
-                //AiMWorkOrder *test = [self.receivedWorkOrders objectAtIndex:0];
-                //NSLog(@"2recievedWorkOrders : %@", test);
+      
+                //[[self.receivedWorkOrders addObject:newWorkOrder];
+                [_currentUser addWorkOrder:newWorkOrder];
+    
             }
             
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 AiMWorkOrderTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WorkOrderTableView"];
-                vc.workOrders = self.receivedWorkOrders;
+                //vc.workOrders = self.receivedWorkOrders;
+               // vc.currentUser = self.currentUser;
                 vc.currentUser = self.currentUser;
-                NSLog(@"Setting vc.workOrders = %@", _receivedWorkOrders);
+               // NSLog(@"Setting vc.workOrders = %@", _receivedWorkOrders);
                 [self.navigationController pushViewController:vc animated:NO];
             });
         }else
@@ -256,6 +258,7 @@
     
     self.passwordTextField.secureTextEntry = YES;
  
+    _currentUser = [[AiMUser alloc] init];
    
     
 
@@ -361,7 +364,7 @@
 - (IBAction)unwindToLoginView:(UIStoryboardSegue *)segue
 {
     NSLog(@"segue: %@", segue.identifier);
-    [self removeUserCredential:self.currentUser];
+    [self removeUserCredential];
     self.errorTextLabel.text = @"Please enter username and password";
     
 }

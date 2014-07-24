@@ -12,6 +12,7 @@
 
 @interface AiMWorkOrderTableViewController ()
 @property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
+@property (weak, nonatomic) IBOutlet UILabel *loggedInLabel;
 
 @end
 
@@ -27,7 +28,7 @@
     if(segIndex == 0)   //Sort by DATE
     {
         NSLog(@"Sorting by date...");
-        sortedArray = [self.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        sortedArray = [_currentUser.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             AiMWorkOrder *first = (AiMWorkOrder*) obj1;
             AiMWorkOrder *second = (AiMWorkOrder*) obj2;
             
@@ -56,8 +57,8 @@
         }];
     }else if(segIndex == 1) //Sort by PRIORITY
     {
-        sortedArray = [self.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            AiMWorkOrder *first = (AiMWorkOrder*) obj1;
+        sortedArray = [_currentUser.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+           AiMWorkOrder *first = (AiMWorkOrder*) obj1;
             AiMWorkOrder *second = (AiMWorkOrder*) obj2;
             
 //            if (<#condition#>) {
@@ -67,7 +68,7 @@
         }];
     }
     
-    self.workOrders = [NSMutableArray arrayWithArray:sortedArray];
+    _currentUser.workOrders = [NSMutableArray arrayWithArray:sortedArray];
     [self.tableView reloadData];
     
 }
@@ -89,8 +90,8 @@
     
     NSLog(@"This is my ID: %@", self);
 
-    self.navBar.title = self.currentUser;
-
+   // self.navBar.title = self.currentUser.username;
+    self.loggedInLabel.text = [NSString stringWithFormat:@"Logged in as: %@", _currentUser.username];
     [self.navigationItem setHidesBackButton:YES];
 
 
@@ -121,7 +122,7 @@
 {
 
     // Return the number of rows in the section.
-    return [self.workOrders count];
+    return [_currentUser.workOrders count];
 }
 
 
@@ -130,7 +131,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WorkOrderTableCell" forIndexPath:indexPath];
     
     //Get workOrder for cell
-    AiMWorkOrder *workOrder = [self.workOrders objectAtIndex:indexPath.row];
+    AiMWorkOrder *workOrder = [_currentUser.workOrders objectAtIndex:indexPath.row];
     
     //Set cell attributes
     cell.textLabel.text = [NSString stringWithFormat:@"%@", workOrder.taskID];
@@ -150,7 +151,9 @@
     {
         AiMWorkOrderDetailViewController *vc = [segue destinationViewController];
         NSIndexPath *index = [self.tableView indexPathForSelectedRow];
-        vc.workOrder = self.workOrders[[index row]];
+        
+        vc.workOrder = _currentUser.workOrders[[index row]];
+        vc.currentUser = _currentUser;
     }
 
     

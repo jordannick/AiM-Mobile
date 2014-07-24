@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AiMAction.h"
+#import "AiMWorkOrder.h"
 
 @interface AiMAddActionViewController : UIViewController
+
+@property AiMWorkOrder *workOrder;
+@property(strong, nonatomic) AiMAction *actionToAdd;
+
 
 @end
