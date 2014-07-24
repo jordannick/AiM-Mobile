@@ -16,6 +16,60 @@
 
 @implementation AiMWorkOrderTableViewController
 
+- (IBAction)sortBySegmentedControl:(UISegmentedControl *)sender
+{
+    NSInteger segIndex = sender.selectedSegmentIndex;
+    NSLog(@"This is segIndex : %d", segIndex);
+    NSArray *sortedArray;
+    
+    
+    if(segIndex == 0)   //Sort by DATE
+    {
+        NSLog(@"Sorting by date...");
+        sortedArray = [self.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            AiMWorkOrder *first = (AiMWorkOrder*) obj1;
+            AiMWorkOrder *second = (AiMWorkOrder*) obj2;
+            
+//            if (first.dateCreated < second.dateCreated) {
+//                return NSOrderedAscending;
+//            }else if(first.dateCreated > second.dateCreated)
+//            {
+//                return NSOrderedDescending;
+//            }else{
+//                return NSOrderedSame;
+//            }
+            NSLog(@"Sorting %@ with %@", first.taskID, second.taskID);
+            if ([first.taskID intValue] < [second.taskID intValue]) {
+                NSLog(@"Ascend");
+                return NSOrderedAscending;
+            }else if([first.taskID intValue] > [second.taskID intValue])
+            {
+                NSLog(@"Descend");
+                return NSOrderedDescending;
+            }else{
+                NSLog(@"Same");
+                return NSOrderedSame;
+            }
+            
+            
+        }];
+    }else if(segIndex == 1) //Sort by PRIORITY
+    {
+        sortedArray = [self.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            AiMWorkOrder *first = (AiMWorkOrder*) obj1;
+            AiMWorkOrder *second = (AiMWorkOrder*) obj2;
+            
+//            if (<#condition#>) {
+//                <#statements#>
+//            }
+            return NSOrderedSame;
+        }];
+    }
+    
+    self.workOrders = [NSMutableArray arrayWithArray:sortedArray];
+    [self.tableView reloadData];
+    
+}
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -33,26 +87,16 @@
     [super viewDidLoad];
     
     NSLog(@"This is my ID: %@", self);
-    //[self.navigationItem setHidesBackButton:YES];
-    
-
+    [self.navigationItem setHidesBackButton:YES];
 
     [self loadInitialData];
     
-    
-    NSLog(@"This is work orders... %@, and it's count... %lu", self.workOrders, (unsigned long)[self.workOrders count]);
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 -(void)loadInitialData
 {
-    
 }
+
 
 - (void)didReceiveMemoryWarning
 {

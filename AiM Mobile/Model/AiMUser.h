@@ -8,15 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import "AiMWorkOrder.h"
+#import "AiMAction.h"
 
 @interface AiMUser : NSObject
 
 @property(strong, nonatomic) NSString *username;
 @property(strong, nonatomic) NSMutableArray *workOrders;
 @property(strong, nonatomic) NSDate *lastLogin;
+@property(strong, nonatomic) NSMutableArray *syncQueue;
 
 - (BOOL) addWorkOrder: (AiMWorkOrder *) newWorkOrder;
 
 - (void) updateLastLogin;
+
+-(void) syncWorkOrders;
+
+
 
 @end

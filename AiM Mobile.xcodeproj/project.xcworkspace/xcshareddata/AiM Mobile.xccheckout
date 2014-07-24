@@ -5,31 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-<<<<<<< HEAD
-	<string>7101FF51-9986-4D55-BD5C-F9D7EA71ABA3</string>
-=======
-	<string>3CE8867D-B5EC-4DFB-A3E9-A8B4F494F11F</string>
->>>>>>> FETCH_HEAD
+	<string>437C8F59-2E67-4B56-814E-70AA6E3C1D73</string>
 	<key>IDESourceControlProjectName</key>
 	<string>AiM Mobile</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-<<<<<<< HEAD
 		<key>06EDDFA4-DDE7-467A-BC54-15D10C74BF87</key>
-=======
-		<key>994D7017-372F-45D2-978F-DE9273DDF8AF</key>
->>>>>>> FETCH_HEAD
 		<string>https://github.com/jordannick/AiM-Mobile.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>AiM Mobile.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-<<<<<<< HEAD
 		<key>06EDDFA4-DDE7-467A-BC54-15D10C74BF87</key>
-=======
-		<key>994D7017-372F-45D2-978F-DE9273DDF8AF</key>
->>>>>>> FETCH_HEAD
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -37,22 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-<<<<<<< HEAD
 	<string>06EDDFA4-DDE7-467A-BC54-15D10C74BF87</string>
-=======
-	<string>994D7017-372F-45D2-978F-DE9273DDF8AF</string>
->>>>>>> FETCH_HEAD
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-<<<<<<< HEAD
 			<string>06EDDFA4-DDE7-467A-BC54-15D10C74BF87</string>
-=======
-			<string>994D7017-372F-45D2-978F-DE9273DDF8AF</string>
->>>>>>> FETCH_HEAD
 			<key>IDESourceControlWCCName</key>
 			<string>AiM-Mobile</string>
 		</dict>
