@@ -17,7 +17,6 @@
 		7C97C473197EDD2000949B16 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C97C471197EDD2000949B16 /* InfoPlist.strings */; };
 		7C97C475197EDD2000949B16 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C97C474197EDD2000949B16 /* main.m */; };
 		7C97C479197EDD2000949B16 /* AiMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C97C478197EDD2000949B16 /* AiMAppDelegate.m */; };
-		7C97C47B197EDD2000949B16 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C97C47A197EDD2000949B16 /* Images.xcassets */; };
 		7C97C482197EDD2000949B16 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C481197EDD2000949B16 /* XCTest.framework */; };
 		7C97C483197EDD2000949B16 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C468197EDD2000949B16 /* Foundation.framework */; };
 		7C97C484197EDD2000949B16 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C46C197EDD2000949B16 /* UIKit.framework */; };
@@ -32,6 +31,7 @@
 		7C97C4AC197EDF4F00949B16 /* AiMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C97C4AB197EDF4F00949B16 /* AiMUser.m */; };
 		7C97C4AF197EFE1700949B16 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C97C4AE197EFE1700949B16 /* SSKeychain.m */; };
 		7C97C4B1197EFEDD00949B16 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C4B0197EFEDD00949B16 /* Security.framework */; };
+		7CD3674B19818BF500154D78 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD3674A19818BF500154D78 /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +63,6 @@
 		7C97C476197EDD2000949B16 /* AiM Mobile-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AiM Mobile-Prefix.pch"; sourceTree = "<group>"; };
 		7C97C477197EDD2000949B16 /* AiMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AiMAppDelegate.h; sourceTree = "<group>"; };
 		7C97C478197EDD2000949B16 /* AiMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AiMAppDelegate.m; sourceTree = "<group>"; };
-		7C97C47A197EDD2000949B16 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7C97C480197EDD2000949B16 /* AiM MobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AiM MobileTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C97C481197EDD2000949B16 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		7C97C489197EDD2000949B16 /* AiM MobileTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AiM MobileTests-Info.plist"; sourceTree = "<group>"; };
@@ -85,6 +84,7 @@
 		7C97C4AD197EFE1700949B16 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		7C97C4AE197EFE1700949B16 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		7C97C4B0197EFEDD00949B16 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		7CD3674A19818BF500154D78 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +157,6 @@
 		7C97C46F197EDD2000949B16 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7C97C47A197EDD2000949B16 /* Images.xcassets */,
 				7C97C477197EDD2000949B16 /* AiMAppDelegate.h */,
 				7C97C478197EDD2000949B16 /* AiMAppDelegate.m */,
 				7C97C4AD197EFE1700949B16 /* SSKeychain.h */,
@@ -166,6 +165,7 @@
 				7C97C471197EDD2000949B16 /* InfoPlist.strings */,
 				7C97C474197EDD2000949B16 /* main.m */,
 				7C97C476197EDD2000949B16 /* AiM Mobile-Prefix.pch */,
+				7CD3674A19818BF500154D78 /* Media.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -299,8 +299,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C97C473197EDD2000949B16 /* InfoPlist.strings in Resources */,
+				7CD3674B19818BF500154D78 /* Media.xcassets in Resources */,
 				7C97C498197EDD3C00949B16 /* iPhone_Main.storyboard in Resources */,
-				7C97C47B197EDD2000949B16 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

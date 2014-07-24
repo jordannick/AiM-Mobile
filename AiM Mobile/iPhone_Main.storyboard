@@ -337,6 +337,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="notesTextField" destination="y2G-Gx-mGe" id="CpW-sz-NMy"/>
                         <outlet property="saveActionButton" destination="fCm-u5-Q7R" id="FDc-jn-LqW"/>
                         <outlet property="sliderLabel" destination="ebu-84-xaT" id="jTv-4U-7D2"/>
                     </connections>

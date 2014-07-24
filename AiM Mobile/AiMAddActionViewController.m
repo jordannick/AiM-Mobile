@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *sliderLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveActionButton;
 @property (strong, nonatomic) NSString *actionTime;
+@property (weak, nonatomic) IBOutlet UITextView *notesTextField;
 
 @end
 
@@ -90,7 +91,7 @@
         self.actionToAdd.workOrderID = self.workOrder.taskID;
         self.actionToAdd.name = @"replace this name";
         self.actionToAdd.time = self.actionTime;
-        self.actionToAdd.note = @"replace this note";
+        self.actionToAdd.note = self.notesTextField.text;
         
     }
 
