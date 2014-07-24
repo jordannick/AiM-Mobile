@@ -13,5 +13,6 @@
 @interface AiMWorkOrderTableViewController : UITableViewController
 
 @property (strong, nonatomic) NSMutableArray *workOrders;
+@property (strong, nonatomic) NSString *currentUser;
 
 @end

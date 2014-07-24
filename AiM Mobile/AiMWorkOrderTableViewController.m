@@ -11,6 +11,7 @@
 #import "AiMWorkOrder.h"
 
 @interface AiMWorkOrderTableViewController ()
+@property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
 
 @end
 
@@ -36,7 +37,7 @@
     //[self.navigationItem setHidesBackButton:YES];
     
 
-
+    self.navBar.title = self.currentUser;
     [self loadInitialData];
     
     

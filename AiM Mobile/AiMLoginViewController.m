@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UILabel *errorTextLabel;
+
 @property (strong, nonatomic)  NSURLProtectionSpace *loginProtectionSpace;
 @property (strong, nonatomic) NSString *currentUser;
 
@@ -148,6 +149,7 @@
 
 - (void)authenticateUser:(NSString *)username withPassword:(NSString *)password
 {
+  
     
     NSString *userDataString = [NSString stringWithFormat:@"username=%@password=%@", username, password];
     
@@ -206,6 +208,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 AiMWorkOrderTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WorkOrderTableView"];
                 vc.workOrders = self.receivedWorkOrders;
+                vc.currentUser = self.currentUser;
                 NSLog(@"Setting vc.workOrders = %@", _receivedWorkOrders);
                 [self.navigationController pushViewController:vc animated:NO];
             });
@@ -217,9 +220,6 @@
     }];
     [postDataTask resume];
 
-    
-   
-    
 
 }
 
@@ -235,6 +235,7 @@
     
     self.passwordTextField.secureTextEntry = YES;
  
+   
     
 
     NSURLCredential *credential = [self getUserCredential];
