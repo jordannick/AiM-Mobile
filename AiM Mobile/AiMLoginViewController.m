@@ -309,6 +309,12 @@
                 newWorkOrder.description = @"Test Description";
                 newWorkOrder.createdBy = @"Kevin";
                 newWorkOrder.dateCreated = [NSDate date];
+                
+                NSDateComponents* components = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:newWorkOrder.dateCreated];
+               // newWorkOrder.dateComponents = @[[NSNumber numberWithInt:[components day]], [NSNumber numberWithInt:[components month]] ,[NSNumber numberWithInt:[components year]]];
+                
+                newWorkOrder.sortDate = [NSString stringWithFormat:@"%d/%d/%d", [components day],[components month],[components year]];
+                                                
                 newWorkOrder.customerRequest = @12;
                 newWorkOrder.type = @"1";
                 newWorkOrder.organization = [[AiMOrganization alloc] init];
@@ -319,6 +325,36 @@
                 [_currentUser addWorkOrder:newWorkOrder];
     
             }
+            
+            //adding extra test entries
+            for(int i = 0; i < 5; i++)
+            {
+                AiMWorkOrder *newWorkOrder = [[AiMWorkOrder alloc] init];
+                int r = rand() % 1000;
+                
+                newWorkOrder.taskID = [NSNumber numberWithInt:r];
+                newWorkOrder.category = @"TestCategory2";
+                newWorkOrder.description = @"Test Description2";
+                newWorkOrder.createdBy = @"Nick";
+                newWorkOrder.dateCreated = [NSDate date];
+                
+                NSDateComponents* components = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:newWorkOrder.dateCreated];
+                // newWorkOrder.dateComponents = @[[NSNumber numberWithInt:[components day]], [NSNumber numberWithInt:[components month]] ,[NSNumber numberWithInt:[components year]]];
+                
+               // newWorkOrder.sortDate = [NSString stringWithFormat:@"%d/%d/%d", [components day],[components month],[components year]];
+                newWorkOrder.sortDate = @"12/10/2009";
+                
+                newWorkOrder.customerRequest = @12;
+                newWorkOrder.type = @"1";
+                newWorkOrder.organization = [[AiMOrganization alloc] init];
+                newWorkOrder.phase = [[AiMWorkOrderPhase alloc] init];
+                
+                
+                //[[self.receivedWorkOrders addObject:newWorkOrder];
+                [_currentUser addWorkOrder:newWorkOrder];
+                
+            }
+
             
 
             dispatch_async(dispatch_get_main_queue(), ^{

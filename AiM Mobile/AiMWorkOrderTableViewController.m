@@ -13,6 +13,7 @@
 @interface AiMWorkOrderTableViewController ()
 @property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
 @property (weak, nonatomic) IBOutlet UILabel *loggedInLabel;
+@property (strong,nonatomic) NSArray *uniqueDates;
 
 @end
 
@@ -22,7 +23,7 @@
 - (IBAction)onSyncButtonPress:(UIBarButtonItem *)sender {
     
     //call [_currentUser syncWorkOrders] somewhere to remove items from sync queue
-    //call specific functions to push sync queue data
+    //call specific online API functions to push sync queue data
     
     
     NSURL *url = [NSURL URLWithString:@"www.example.com/api/updateFunction"];
@@ -52,6 +53,7 @@
     NSLog(@"This is segIndex : %d", segIndex);
     NSArray *sortedArray;
     
+   self.uniqueDates = 
     
     if(segIndex == 0)   //Sort by DATE
     {
