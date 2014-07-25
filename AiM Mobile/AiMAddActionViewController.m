@@ -11,10 +11,9 @@
 @interface AiMAddActionViewController () <UITextViewDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *sliderLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveActionButton;
-//@property (strong, nonatomic) NSString *actionTime;
+@property (strong, nonatomic) NSString *actionTime;
 @property (weak, nonatomic) IBOutlet UITextView *notesTextView;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-=======
 @property (weak, nonatomic) IBOutlet UITextView *notesTextField;
 
 @end

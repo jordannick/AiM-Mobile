@@ -160,12 +160,10 @@
 		7C97C46F197EDD2000949B16 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
+
 				45E24BD41981B61600AEB2F5 /* AiMBackground.h */,
 				45E24BD51981B61600AEB2F5 /* AiMBackground.m */,
 				7C97C47A197EDD2000949B16 /* Images.xcassets */,
-=======
->>>>>>> FETCH_HEAD
 				7C97C477197EDD2000949B16 /* AiMAppDelegate.h */,
 				7C97C478197EDD2000949B16 /* AiMAppDelegate.m */,
 				7C97C4AD197EFE1700949B16 /* SSKeychain.h */,
