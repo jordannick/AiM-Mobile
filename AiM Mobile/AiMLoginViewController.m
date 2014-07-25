@@ -11,6 +11,7 @@
 #import "AiMWorkOrder.h"
 #import "AiMUser.h"
 #import "SSKeychain.h"
+#import "AiMBackground.h"
 #include <stdlib.h>
 
 
@@ -80,11 +81,6 @@
 
 - (void) getWorkOrdersJSON
 {
-    AiMWorkOrderPhasePriority *priority = [[AiMWorkOrderPhasePriority alloc] init];
-    priority.name = @"Urgent";
-    priority.description = @"Must be done quickly";
-    priority.priorityID = @0;
-    
     self.priorities = [NSArray arrayWithObjects:[self createPriorityWithName:@"URGENT" andDescription:@"Do this quickly" andPriorityID:@0],
     [self createPriorityWithName:@"GENERAL" andDescription:@"Do this regularly" andPriorityID:@1],
      [self createPriorityWithName:@"DAILY" andDescription:@"Do this daily" andPriorityID:@2], nil];
@@ -100,93 +96,121 @@
 }
 - (IBAction)backButton:(UIButton *)sender {
     NSLog(@"Back Button Pressed! %@", self.currentState);
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        self.usernameTextField.layer.position = self.startingPosField;
-        self.passwordTextField.layer.position = self.hiddenLeftPosField;
-        
-        self.usernameTextLabel.layer.position = self.startingPosLabel;
-        self.passwordTextLabel.layer.position = self.hiddenLeftPosLabel;
-        
-    }];
+    [self transitionInputTo:@"right"];
     self.currentState = @"username";
     [self.loginButton setTitle:@"Next" forState:UIControlStateNormal];
     [self.usernameTextField becomeFirstResponder];
     self.backButton.hidden = YES;
 }
-- (IBAction)loginButton:(id)sender
+
+
+
+-(BOOL)validateInput
 {
-  
-    [self loginAnimationHandler];
-    
-}
--(void)loginAnimationHandler
-{
-    self.startingPosField = self.usernameTextField.layer.position;
-    self.endingPosField = CGPointMake(self.startingPosField.x + (self.view.frame.size.width), self.startingPosField.y);
-    self.startingPosLabel = self.usernameTextLabel.layer.position;
-    self.endingPosLabel = CGPointMake(self.startingPosLabel.x + (self.view.frame.size.width), self.startingPosLabel.y);
-    
-    
-    
+    //Initialize animation
     CAKeyframeAnimation * jiggleAnim = [ CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
     jiggleAnim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-5.0f, 0.0f, 0.0f) ], [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(5.0f, 0.0f, 0.0f) ] ] ;
     jiggleAnim.autoreverses = YES;  jiggleAnim.repeatCount = 2.0f;  jiggleAnim.duration = 0.07f;
     
-    NSLog(@"CurrentState = %@", self.currentState);
-    
-    if([self.currentState isEqualToString:@"username"])
-    {
-        if([self.usernameTextField.text length] > 0)
-        {
-            [self.usernameTextField resignFirstResponder];
-            [self.passwordTextField becomeFirstResponder];
-            [UIView animateWithDuration:0.5 animations:^{
-                self.usernameTextField.layer.position = self.endingPosField;
-                self.passwordTextField.layer.position = self.startingPosField;
-                
-                self.usernameTextLabel.layer.position = self.endingPosLabel;
-                self.passwordTextLabel.layer.position = self.startingPosLabel;
-                
-            }];
-            self.currentState = @"password";
-            [self.loginButton setTitle:@"Login" forState:UIControlStateNormal];
-            self.backButton.hidden = NO;
-        }else{
-            [self.usernameTextLabel.layer addAnimation:jiggleAnim forKey:nil];
+    if([self.currentState isEqualToString:@"username"]){        //If username field is showing
+        if([self.usernameTextField.text length] == 0){          //If the field is empty
             [self.usernameTextField.layer addAnimation:jiggleAnim forKey:nil];
+            [self.usernameTextLabel.layer addAnimation:jiggleAnim forKey:nil];      //jiggle and set to red
             self.usernameTextLabel.textColor = [UIColor redColor];
-            self.usernameTextField.layer.borderColor = (__bridge CGColorRef)([UIColor redColor]);
+            return NO;
         }
-    }else if([self.currentState isEqualToString:@"password"])
-    {
-        if([self.passwordTextField.text length] > 0)
-        {
-            [self.passwordTextField resignFirstResponder];
-            [self.usernameTextField becomeFirstResponder];
-            [self authenticateUser:self.usernameTextField.text withPassword:self.passwordTextField.text];
-            self.passwordTextLabel.hidden = YES;
-            //self.activityIndicator.hidden = NO;
-            //self.activityIndicatorLabel.hidden = NO;
-            
-            [UIView animateWithDuration:0.5 animations:^{
-                self.passwordTextField.layer.position = self.endingPosField;
-                self.passwordTextLabel.layer.position = self.endingPosLabel;
-                self.activityIndicatorLabel.layer.opacity = 1.0f;
-                self.activityIndicator.layer.opacity = 1.0f;
-            }];
-            
-            
-            
-        }else{
-            [self.passwordTextLabel.layer addAnimation:jiggleAnim forKey:nil];
+    }else if([self.currentState isEqualToString:@"password"]){      //If password field is showing
+        if([self.passwordTextField.text length] == 0){              //If the field is empty
             [self.passwordTextField.layer addAnimation:jiggleAnim forKey:nil];
+            [self.passwordTextLabel.layer addAnimation:jiggleAnim forKey:nil];      //jiggle and set to red
             self.passwordTextLabel.textColor = [UIColor redColor];
-            self.passwordTextField.layer.borderColor = (__bridge CGColorRef)([UIColor redColor]);
+            return NO;
         }
     }
+    return YES;
+    
 }
 
+-(void)transitionInputTo:(NSString*)position
+{
+    CGFloat yField = self.usernameTextField.layer.position.y;
+    CGFloat yLabel = self.usernameTextLabel.layer.position.y;
+    CGFloat frameWidth = self.view.frame.size.width;
+    if([position isEqualToString:@"right"]) frameWidth = frameWidth*-1;     //If RIGHT, reverse direction
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.usernameTextField.layer.position = CGPointMake(self.usernameTextField.layer.position.x - frameWidth, yField);
+        
+        self.passwordTextField.layer.position = CGPointMake(self.passwordTextField.layer.position.x - frameWidth, yField);
+        
+        self.usernameTextLabel.layer.position = CGPointMake(self.usernameTextLabel.layer.position.x - frameWidth, yLabel);
+        self.passwordTextLabel.layer.position = CGPointMake(self.passwordTextLabel.layer.position.x - frameWidth, yLabel);
+        
+        self.activityIndicatorLabel.layer.position = CGPointMake(self.activityIndicatorLabel.layer.position.x - frameWidth, yLabel);
+        self.activityIndicator.layer.position = CGPointMake(self.activityIndicator.layer.position.x - frameWidth, yLabel);
+    }];
+
+}
+- (BOOL) textFieldShouldReturn: (UITextField *) textField
+{
+    
+    if(textField == self.usernameTextField){
+        if([self validateInput]){
+            [self transitionInputTo:@"left"];
+            [textField resignFirstResponder];
+            [self.passwordTextField becomeFirstResponder];
+            self.currentState = @"password";
+            self.backButton.hidden = NO;
+            [self.loginButton setTitle:@"Login" forState:UIControlStateNormal];
+        }
+    }else if(textField == self.passwordTextField){
+        if([self validateInput]){
+            [self transitionInputTo:@"left"];
+            [textField resignFirstResponder];
+            [self authenticateUser:self.usernameTextField.text withPassword:self.passwordTextField.text];
+        }
+    }
+    return YES;
+
+}
+/*
+ 
+ 
+ -(void)transitionInputTo:(NSString*)position
+        checks state and moves inputs LEFT, RIGHT
+ 
+ 
+ 
+ -(BOOL)validateInput
+        checks for empty input
+        if (invalid)    make red and jiggle
+ 
+ 
+ return key starts as NEXT. TransitionTo function changes it to GO
+ onREturnKeyPress
+    validateInput
+    if valid
+ 
+ 
+ */
+- (IBAction)loginButton:(id)sender
+{
+    if([self.currentState isEqualToString:@"username"]){
+        if([self validateInput]){
+            [self transitionInputTo:@"left"];
+            [self.passwordTextField becomeFirstResponder];
+            self.currentState = @"password";
+            self.backButton.hidden = NO;
+            [self.loginButton setTitle:@"Login" forState:UIControlStateNormal];
+        }
+    }else if([self.currentState isEqualToString:@"password"]){
+        if([self validateInput]){
+            [self transitionInputTo:@"left"];
+            [self authenticateUser:self.usernameTextField.text withPassword:self.passwordTextField.text];
+        }
+    }
+    
+}
 - (void) initProtectionSpace
 {
     NSURL *url = [NSURL URLWithString:AUTH_URL];
@@ -307,6 +331,10 @@
     
             }
             
+            [self.activityIndicator startAnimating];
+            [self.activityIndicator setNeedsDisplay];
+            //TODO: remove this
+            sleep(1);
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 AiMWorkOrderTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WorkOrderTableView"];
@@ -333,12 +361,16 @@
     // Do any additional setup after loading the view.
     [self getWorkOrdersJSON];
     
+    CAGradientLayer *bgLayer = [AiMBackground blueGradient];
+    bgLayer.frame = self.view.bounds;
+    [self.view.layer insertSublayer:bgLayer atIndex:0];
+    
+    
     self.currentState = @"username";
-    self.activityIndicator.layer.opacity = 0.0f;
-    self.activityIndicatorLabel.layer.opacity = 0.0f;
     self.backButton.hidden = YES;
-    self.hiddenLeftPosField = self.passwordTextField.layer.position;
-    self.hiddenLeftPosLabel = self.passwordTextLabel.layer.position;
+    
+    //self.activityIndicator.layer.opacity = 0.0f;
+    //self.activityIndicatorLabel.layer.opacity = 0.0f;
     
     [self.usernameTextField setReturnKeyType:UIReturnKeyNext];
     [self.passwordTextField setReturnKeyType:UIReturnKeyGo];
@@ -396,28 +428,6 @@
     
 }
 
-- (BOOL) textFieldShouldReturn: (UITextField *) textField
-{
-    if(textField == self.usernameTextField)
-    {
-        if([self.usernameTextField.text length] > 0)
-        {
-            [textField resignFirstResponder];
-            [self.passwordTextField becomeFirstResponder];
-            [self loginAnimationHandler];
-        }
-    }else if(textField == self.passwordTextField)
-    {
-        if([self.passwordTextField.text length] > 0)
-        {
-            [textField resignFirstResponder];
-            [self loginAnimationHandler];
-        }
-    }
-
-    
-    return YES;
-}
 
 - (void)didReceiveMemoryWarning
 {
