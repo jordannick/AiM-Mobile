@@ -53,7 +53,7 @@
     NSLog(@"This is segIndex : %d", segIndex);
     NSArray *sortedArray;
     
-   self.uniqueDates = 
+  // self.uniqueDates =
     
     if(segIndex == 0)   //Sort by DATE
     {

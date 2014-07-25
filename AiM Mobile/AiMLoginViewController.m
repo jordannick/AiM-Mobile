@@ -349,8 +349,7 @@
                 [_currentUser addWorkOrder:newWorkOrder];
     
             }
-            
-<<<<<<< HEAD
+
             //adding extra test entries
             for(int i = 0; i < 5; i++)
             {
@@ -381,12 +380,11 @@
             }
 
             
-=======
+
             [self.activityIndicator startAnimating];
             [self.activityIndicator setNeedsDisplay];
             //TODO: remove this
             sleep(1);
->>>>>>> FETCH_HEAD
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 AiMWorkOrderTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WorkOrderTableView"];
