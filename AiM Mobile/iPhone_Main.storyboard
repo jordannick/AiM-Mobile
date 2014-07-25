@@ -157,7 +157,13 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Work Order List" id="J7V-Ry-voi"/>
+                    <navigationItem key="navigationItem" title="Work Order List" id="J7V-Ry-voi">
+                        <barButtonItem key="rightBarButtonItem" title="Sync" id="CYn-QR-LsQ">
+                            <connections>
+                                <action selector="onSyncButtonPress:" destination="VEX-2C-XCs" id="aoU-PK-4zj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="loggedInLabel" destination="6fg-9M-bwo" id="xqX-9M-SSA"/>
@@ -330,7 +336,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+<<<<<<< HEAD
                         <outlet property="notesTextView" destination="25N-31-uua" id="QrO-QE-YZs"/>
+=======
+                        <outlet property="notesTextField" destination="y2G-Gx-mGe" id="CpW-sz-NMy"/>
+>>>>>>> FETCH_HEAD
                         <outlet property="saveActionButton" destination="fCm-u5-Q7R" id="FDc-jn-LqW"/>
                         <outlet property="scrollView" destination="UiY-jk-b8f" id="Xer-hF-DGO"/>
                         <outlet property="sliderLabel" destination="tWU-4e-iTW" id="Ig1-h5-l6p"/>

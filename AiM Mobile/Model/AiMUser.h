@@ -17,6 +17,8 @@
 @property(strong, nonatomic) NSDate *lastLogin;
 @property(strong, nonatomic) NSMutableArray *syncQueue;
 
+@property(strong, nonatomic) NSURLSession *session;
+
 - (BOOL) addWorkOrder: (AiMWorkOrder *) newWorkOrder;
 
 - (void) updateLastLogin;
