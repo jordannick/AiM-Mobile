@@ -50,10 +50,10 @@
 - (IBAction)sortBySegmentedControl:(UISegmentedControl *)sender
 {
     NSInteger segIndex = sender.selectedSegmentIndex;
-    NSLog(@"This is segIndex : %d", segIndex);
+    NSLog(@"This is segIndex : %ld", (long)segIndex);
     NSArray *sortedArray;
     
-   self.uniqueDates = 
+   //self.uniqueDates =
     
     if(segIndex == 0)   //Sort by DATE
     {
@@ -125,6 +125,8 @@
     [self.navigationItem setHidesBackButton:YES];
 
 
+    NSLog(@"This is JSON: %@", self.currentUser.workOrders);
+    
     [self loadInitialData];
     
 }

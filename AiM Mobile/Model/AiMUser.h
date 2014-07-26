@@ -8,22 +8,24 @@
 
 #import <Foundation/Foundation.h>
 #import "AiMWorkOrder.h"
+#import "AiMLoginViewController.h"
 #import "AiMAction.h"
 
-@interface AiMUser : NSObject
+@interface AiMUser : NSObject <NSURLSessionDelegate, NSURLSessionTaskDelegate>
 
 @property(strong, nonatomic) NSString *username;
 @property(strong, nonatomic) NSMutableArray *workOrders;
 @property(strong, nonatomic) NSDate *lastLogin;
 @property(strong, nonatomic) NSMutableArray *syncQueue;
-
-@property(strong, nonatomic) NSURLSession *session;
+@property(strong, readonly) NSURLSession *session;
 
 - (BOOL) addWorkOrder: (AiMWorkOrder *) newWorkOrder;
 
 - (void) updateLastLogin;
 
 -(void) syncWorkOrders;
+
+-(void)sendRequestTo:(NSURL*)url withLoginBool:(BOOL)login andSender:(UIViewController*)sender;
 
 
 

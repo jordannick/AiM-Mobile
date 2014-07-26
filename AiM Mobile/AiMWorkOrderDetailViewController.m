@@ -10,9 +10,9 @@
 
 #import "AiMAddActionViewController.h"
 
-@interface AiMWorkOrderDetailViewController ()
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@interface AiMWorkOrderDetailViewController () <UIActionSheetDelegate, UIScrollViewDelegate>
 @property (strong, nonatomic) AiMAction *action;
+@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 
 @end
 
@@ -27,11 +27,16 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self loadInitialData];
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 - (void)loadInitialData
@@ -39,13 +44,36 @@
     //Set all labels to workOrder.value
     NSLog(@"This is workOrder : %@", self.workOrder);
     
+    self.descriptionTextView.text = @"Placeholder text"; //Replace with user.workOrder.description
+    
     
 }
 - (IBAction)contactInfoButton:(id)sender
 {
     //Create new modal view and display additional contact information.
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    
+    NSNumber *phoneNumber = @9712350512;
+
+    
+    //NSRange range = [phoneNumber rangeOfString:@"512"];
+
+    //NSLog(@"This is range: %lu", (unsigned long)range.location);
     
     
+    [actionSheet addButtonWithTitle:[self formatPhoneNumber:phoneNumber]];
+    [actionSheet addButtonWithTitle:@"brickmana@oregonstate.edu"];
+    [actionSheet addButtonWithTitle:@"Cancel"];
+    [actionSheet setCancelButtonIndex:2];
+    
+    [actionSheet showInView:self.view];
+    
+}
+
+-(NSString *)formatPhoneNumber:(NSNumber*)number
+{
+    NSString *stringValue = [number stringValue];
+    return [NSString stringWithFormat:@"(%@)-%@-%@",[stringValue substringWithRange:NSMakeRange(0, 3)],[stringValue substringWithRange:NSMakeRange(3, 3)],[stringValue substringWithRange:NSMakeRange(6, 4)]];
 }
 
 - (void)didReceiveMemoryWarning

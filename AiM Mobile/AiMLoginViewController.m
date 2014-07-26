@@ -18,7 +18,7 @@
 #define AUTH_URL @"http://jsonplaceholder.typicode.com/posts"
 
 
-@interface AiMLoginViewController () <NSURLSessionDelegate, NSURLSessionDataDelegate, UITextFieldDelegate>
+@interface AiMLoginViewController () <NSURLSessionDelegate, NSURLSessionDataDelegate, UITextFieldDelegate, NSURLSessionTaskDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
@@ -31,14 +31,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *activityIndicatorLabel;
 
 @property (strong, nonatomic)  NSURLProtectionSpace *loginProtectionSpace;
-//@property (strong, nonatomic) NSString *currentUser;
 
-@property CGPoint startingPosField;
-@property CGPoint endingPosField;
-@property CGPoint startingPosLabel;
-@property CGPoint endingPosLabel;
-@property CGPoint hiddenLeftPosLabel;
-@property CGPoint hiddenLeftPosField;
+@property (strong, nonatomic) NSURLSession *session;
 
 @property (strong, nonatomic) NSArray *priorities;
 @property (strong, nonatomic) NSString *currentState;
@@ -102,7 +96,6 @@
     [self.usernameTextField becomeFirstResponder];
     self.backButton.hidden = YES;
 }
-
 
 
 -(BOOL)validateInput
@@ -173,26 +166,7 @@
     return YES;
 
 }
-/*
- 
- 
- -(void)transitionInputTo:(NSString*)position
-        checks state and moves inputs LEFT, RIGHT
- 
- 
- 
- -(BOOL)validateInput
-        checks for empty input
-        if (invalid)    make red and jiggle
- 
- 
- return key starts as NEXT. TransitionTo function changes it to GO
- onREturnKeyPress
-    validateInput
-    if valid
- 
- 
- */
+
 - (IBAction)loginButton:(id)sender
 {
     if([self.currentState isEqualToString:@"username"]){
@@ -275,134 +249,149 @@
 }
 
 
-
+- (void)segueToOverviewTable
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        AiMWorkOrderTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WorkOrderTableView"];
+        vc.currentUser = self.currentUser;
+        NSLog(@"Segueing now to next VC");
+        [self.navigationController pushViewController:vc animated:NO];
+    });
+}
 
 
 - (void)authenticateUser:(NSString *)username withPassword:(NSString *)password
 {
-
-    NSString *userDataString = [NSString stringWithFormat:@"username=%@&password=%@", username, password];
-    
-    NSURL *url = [NSURL URLWithString:AUTH_URL];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    NSData *data = [userDataString dataUsingEncoding:NSUTF8StringEncoding];
-    request.HTTPBody = data;
-    request.HTTPMethod = @"POST";
-    
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    //[sessionConfiguration setHTTPAdditionalHeaders:@{@"Accept":@"application/json"}];
+    self.backButton.hidden = YES;
+    self.loginButton.hidden = YES;
     
     
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
+    [_currentUser sendRequestTo:[NSURL URLWithString:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrders/CLARKEM"] withLoginBool: YES andSender: self];
     
-     _currentUser.session = session;
-    //session.delegate = [NSOperationQueue mainQueue];
-    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NSLog(@"Reponse recieved! Data: %@, Response: %@, Error: %@", data, response, error);
-
-        
-        if(!error)
-        {
-            NSLog(@"Reponse recieved! Data: %@, Response: %@, Error: %@", data, response, error);
-            NSString *readableData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog(@"Data is: %@", readableData);
-            
-            NSError *jsonParsingError = nil;
-           
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
-            NSLog(@"json array is: %@", json);
-            
-            NSLog(@"User authenticated. Retrieving work orders... %@", data);
-
-            //Assume credentials are valid, attempt to store in keychain for future use
-           // self.currentUser = username;
-            _currentUser.username = username;
-            [self setUserCredential:username withPassword:password];
-
-            
-            // TODO: set recievedWorkOrders
-            //for loop adding each workOrder object to array
-            //self.receivedWorkOrders
-            for(int i = 0; i < 10; i++)
-            {
-                AiMWorkOrder *newWorkOrder = [[AiMWorkOrder alloc] init];
-                int r = rand() % 1000;
-                
-                newWorkOrder.taskID = [NSNumber numberWithInt:r];
-                newWorkOrder.category = @"TestCategory";
-                newWorkOrder.description = @"Test Description";
-                newWorkOrder.createdBy = @"Kevin";
-                newWorkOrder.dateCreated = [NSDate date];
-                
-                NSDateComponents* components = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:newWorkOrder.dateCreated];
-               // newWorkOrder.dateComponents = @[[NSNumber numberWithInt:[components day]], [NSNumber numberWithInt:[components month]] ,[NSNumber numberWithInt:[components year]]];
-                
-                newWorkOrder.sortDate = [NSString stringWithFormat:@"%d/%d/%d", [components day],[components month],[components year]];
-                                                
-                newWorkOrder.customerRequest = @12;
-                newWorkOrder.type = @"1";
-                newWorkOrder.organization = [[AiMOrganization alloc] init];
-                newWorkOrder.phase = [[AiMWorkOrderPhase alloc] init];
-                
-      
-                //[[self.receivedWorkOrders addObject:newWorkOrder];
-                [_currentUser addWorkOrder:newWorkOrder];
     
-            }
-            
-<<<<<<< HEAD
-            //adding extra test entries
-            for(int i = 0; i < 5; i++)
-            {
-                AiMWorkOrder *newWorkOrder = [[AiMWorkOrder alloc] init];
-                int r = rand() % 1000;
-                
-                newWorkOrder.taskID = [NSNumber numberWithInt:r];
-                newWorkOrder.category = @"TestCategory2";
-                newWorkOrder.description = @"Test Description2";
-                newWorkOrder.createdBy = @"Nick";
-                newWorkOrder.dateCreated = [NSDate date];
-                
-                NSDateComponents* components = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:newWorkOrder.dateCreated];
-                // newWorkOrder.dateComponents = @[[NSNumber numberWithInt:[components day]], [NSNumber numberWithInt:[components month]] ,[NSNumber numberWithInt:[components year]]];
-                
-               // newWorkOrder.sortDate = [NSString stringWithFormat:@"%d/%d/%d", [components day],[components month],[components year]];
-                newWorkOrder.sortDate = @"12/10/2009";
-                
-                newWorkOrder.customerRequest = @12;
-                newWorkOrder.type = @"1";
-                newWorkOrder.organization = [[AiMOrganization alloc] init];
-                newWorkOrder.phase = [[AiMWorkOrderPhase alloc] init];
-                
-                
-                //[[self.receivedWorkOrders addObject:newWorkOrder];
-                [_currentUser addWorkOrder:newWorkOrder];
-                
-            }
-
-            
-=======
-            [self.activityIndicator startAnimating];
-            [self.activityIndicator setNeedsDisplay];
-            //TODO: remove this
-            sleep(1);
->>>>>>> FETCH_HEAD
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                AiMWorkOrderTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WorkOrderTableView"];
-                //vc.workOrders = self.receivedWorkOrders;
-               // vc.currentUser = self.currentUser;
-                vc.currentUser = self.currentUser;
-               // NSLog(@"Setting vc.workOrders = %@", _receivedWorkOrders);
-                [self.navigationController pushViewController:vc animated:NO];
-            });
-        }else
-        {
-            //Alert user. Get new user credentials
-            NSLog(@"Failed to authenticate.");
-        }
-    }];
-    [postDataTask resume];
+    
+    
+    
+    
+    
+//    NSString *userDataString = [NSString stringWithFormat:@"username=%@&password=%@", username, password];
+//    
+//    NSURL *url = [NSURL URLWithString:AUTH_URL];
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+//    NSData *data = [userDataString dataUsingEncoding:NSUTF8StringEncoding];
+//    request.HTTPBody = data;
+//    request.HTTPMethod = @"POST";
+//    
+//    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    //[sessionConfiguration setHTTPAdditionalHeaders:@{@"Accept":@"application/json"}];
+//    
+//    
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
+//    
+//     _currentUser.session = session;
+//    //session.delegate = [NSOperationQueue mainQueue];
+//    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        //NSLog(@"Reponse recieved! Data: %@, Response: %@, Error: %@", data, response, error);
+//
+//        
+//        if(!error)
+//        {
+//            NSLog(@"Reponse recieved! Data: %@, Response: %@, Error: %@", data, response, error);
+//            NSString *readableData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//            NSLog(@"Data is: %@", readableData);
+//            
+//            NSError *jsonParsingError = nil;
+//           
+//            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
+//            NSLog(@"json array is: %@", json);
+//            
+//            NSLog(@"User authenticated. Retrieving work orders... %@", data);
+//
+//            //Assume credentials are valid, attempt to store in keychain for future use
+//           // self.currentUser = username;
+//            _currentUser.username = username;
+//            [self setUserCredential:username withPassword:password];
+//            
+//            
+//            // TODO: set recievedWorkOrders
+//            //for loop adding each workOrder object to array
+//            //self.receivedWorkOrders
+//            for(int i = 0; i < 10; i++)
+//            {
+//                AiMWorkOrder *newWorkOrder = [[AiMWorkOrder alloc] init];
+//                int r = rand() % 1000;
+//                
+//                newWorkOrder.taskID = [NSNumber numberWithInt:r];
+//                newWorkOrder.category = @"TestCategory";
+//                newWorkOrder.description = @"Test Description";
+//                newWorkOrder.createdBy = @"Kevin";
+//                newWorkOrder.dateCreated = [NSDate date];
+//                
+//                NSDateComponents* components = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:newWorkOrder.dateCreated];
+//               // newWorkOrder.dateComponents = @[[NSNumber numberWithInt:[components day]], [NSNumber numberWithInt:[components month]] ,[NSNumber numberWithInt:[components year]]];
+//                
+//                newWorkOrder.sortDate = [NSString stringWithFormat:@"%d/%d/%d", [components day],[components month],[components year]];
+//                                                
+//                newWorkOrder.customerRequest = @12;
+//                newWorkOrder.type = @"1";
+//                newWorkOrder.organization = [[AiMOrganization alloc] init];
+//                newWorkOrder.phase = [[AiMWorkOrderPhase alloc] init];
+//                
+//      
+//                //[[self.receivedWorkOrders addObject:newWorkOrder];
+//                [_currentUser addWorkOrder:newWorkOrder];
+//    
+//            }
+//            
+//            //adding extra test entries
+//            for(int i = 0; i < 5; i++)
+//            {
+//                AiMWorkOrder *newWorkOrder = [[AiMWorkOrder alloc] init];
+//                int r = rand() % 1000;
+//                
+//                newWorkOrder.taskID = [NSNumber numberWithInt:r];
+//                newWorkOrder.category = @"TestCategory2";
+//                newWorkOrder.description = @"Test Description2";
+//                newWorkOrder.createdBy = @"Nick";
+//                newWorkOrder.dateCreated = [NSDate date];
+//                
+//                NSDateComponents* components = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:newWorkOrder.dateCreated];
+//                // newWorkOrder.dateComponents = @[[NSNumber numberWithInt:[components day]], [NSNumber numberWithInt:[components month]] ,[NSNumber numberWithInt:[components year]]];
+//                
+//               // newWorkOrder.sortDate = [NSString stringWithFormat:@"%d/%d/%d", [components day],[components month],[components year]];
+//                newWorkOrder.sortDate = @"12/10/2009";
+//                
+//                newWorkOrder.customerRequest = @12;
+//                newWorkOrder.type = @"1";
+//                newWorkOrder.organization = [[AiMOrganization alloc] init];
+//                newWorkOrder.phase = [[AiMWorkOrderPhase alloc] init];
+//                
+//                
+//                //[[self.receivedWorkOrders addObject:newWorkOrder];
+//                [_currentUser addWorkOrder:newWorkOrder];
+//                
+//            }
+//
+//            [self.activityIndicator startAnimating];
+//            [self.activityIndicator setNeedsDisplay];
+//            //TODO: remove this
+//            sleep(1);
+//
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                AiMWorkOrderTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WorkOrderTableView"];
+//                //vc.workOrders = self.receivedWorkOrders;
+//               // vc.currentUser = self.currentUser;
+//                vc.currentUser = self.currentUser;
+//               // NSLog(@"Setting vc.workOrders = %@", _receivedWorkOrders);
+//                [self.navigationController pushViewController:vc animated:NO];
+//            });
+//        }else
+//        {
+//            //Alert user. Get new user credentials
+//            NSLog(@"Failed to authenticate.");
+//        }
+//    }];
+//    [postDataTask resume];
 
 
 }
@@ -512,7 +501,10 @@
 }
 
 
-
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    NSLog(@"This textField: %@, started editing...", textField);
+}
 
 
 - (IBAction)unwindToLoginView:(UIStoryboardSegue *)segue

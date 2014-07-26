@@ -12,4 +12,6 @@
 
 //@property (strong, nonatomic) NSMutableArray *receivedWorkOrders;
 
+- (void)segueToOverviewTable;
+
 @end
