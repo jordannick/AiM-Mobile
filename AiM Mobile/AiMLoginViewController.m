@@ -268,12 +268,6 @@
     
     [_currentUser sendRequestTo:[NSURL URLWithString:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrders/CLARKEM"] withLoginBool: YES andSender: self];
     
-    
-    
-    
-    
-    
-    
 //    NSString *userDataString = [NSString stringWithFormat:@"username=%@&password=%@", username, password];
 //    
 //    NSURL *url = [NSURL URLWithString:AUTH_URL];
@@ -392,6 +386,7 @@
 //        }
 //    }];
 //    [postDataTask resume];
+
 
 
 }

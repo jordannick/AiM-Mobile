@@ -52,9 +52,6 @@
     NSInteger segIndex = sender.selectedSegmentIndex;
     NSLog(@"This is segIndex : %ld", (long)segIndex);
     NSArray *sortedArray;
-    
-   //self.uniqueDates =
-    
     if(segIndex == 0)   //Sort by DATE
     {
         NSLog(@"Sorting by date...");
