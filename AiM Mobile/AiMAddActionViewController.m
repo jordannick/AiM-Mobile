@@ -7,6 +7,7 @@
 //
 
 #import "AiMAddActionViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface AiMAddActionViewController () <UITextViewDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *sliderLabel;
@@ -14,11 +15,34 @@
 @property (strong, nonatomic) NSString *actionTime;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *notesTextField;
+@property (weak, nonatomic) IBOutlet UILabel *selectedActionLabel;
+
 
 @end
 
 @implementation AiMAddActionViewController
     
+- (IBAction)viewActionSheet:(id)sender {
+    
+    UIActionSheet *actionSheet =  [[UIActionSheet alloc] initWithTitle:@"Select an Action" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Did this", @"Did that", @"Did things", @"General Maintainence", @"This is an action", nil];
+    
+    
+    [actionSheet showInView:self.view];
+    
+}
+
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (![[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]){
+        self.selectedActionLabel.text = [actionSheet buttonTitleAtIndex:buttonIndex];
+    }
+    //NSLog(@"the button %@", [actionSheet buttonTitleAtIndex:buttonIndex]);
+
+
+}
+
 
 
 - (IBAction)sliderTimeChanged:(UISlider *)sender
@@ -55,6 +79,13 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self.scrollView setDelegate:self];
+    
+    self.selectedActionLabel.text = @"No action selected";
+    self.selectedActionLabel.layer.borderColor = [UIColor blackColor].CGColor;
+    self.selectedActionLabel.layer.borderWidth = 1.0;
+    
+    self.notesTextField.layer.borderColor = [UIColor blackColor].CGColor;
+    self.notesTextField.layer.borderWidth = 1.0;
     
     _actionToAdd = [[AiMAction alloc] init];
 }
