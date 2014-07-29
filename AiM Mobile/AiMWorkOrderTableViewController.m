@@ -13,7 +13,9 @@
 @interface AiMWorkOrderTableViewController ()
 @property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
 @property (weak, nonatomic) IBOutlet UILabel *loggedInLabel;
-@property (strong,nonatomic) NSArray *uniqueDates;
+@property (strong, nonatomic) NSMutableArray *sectionTitles;
+@property (nonatomic) NSInteger numSections;
+@property (strong, nonatomic) NSMutableArray *numInEachSection;
 
 @end
 
@@ -57,7 +59,9 @@
     NSArray *sortedArray;
     if(segIndex == 0)   //Sort by DATE
     {
-        NSLog(@"Sorting by date...");
+        [self sortWorkOrdersByDate];
+        //NSLog(@"Post sort workorders: %@", _currentUser.workOrders);
+       /* NSLog(@"Sorting by date...");
         sortedArray = [_currentUser.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             AiMWorkOrder *first = (AiMWorkOrder*) obj1;
             AiMWorkOrder *second = (AiMWorkOrder*) obj2;
@@ -84,7 +88,7 @@
             }
             
             
-        }];
+        }];*/
     }else if(segIndex == 1) //Sort by PRIORITY
     {
         sortedArray = [_currentUser.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -98,18 +102,114 @@
         }];
     }
     
-    _currentUser.workOrders = [NSMutableArray arrayWithArray:sortedArray];
+    //_currentUser.workOrders = [NSMutableArray arrayWithArray:sortedArray];
     [self.tableView reloadData];
     
 }
 
+- (void) sortWorkOrdersByDate
+{
+  //  NSLog(@"Pre sort workorders: %@", _currentUser.workOrders);
+    
+    NSArray *sortedArray = [_currentUser.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        AiMWorkOrder *first = (AiMWorkOrder*) obj1;
+        AiMWorkOrder *second = (AiMWorkOrder*) obj2;
+        
+        if ([first.dateCreated compare:second.dateCreated] == NSOrderedDescending) {
+            return NSOrderedDescending;
+        } else if ([first.dateCreated compare:second.dateCreated] == NSOrderedAscending)
+        {
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedSame;
+        }
+            
+        
+    }];
+    
+    //Acquire formatting variables for table groupings
+  
+   // [self.sectionTitles removeAllObjects];
+   // [self.numInEachSection removeAllObjects];
+    self.sectionTitles = [[NSMutableArray alloc] init];
+    self.numInEachSection = [[NSMutableArray alloc] init];
+    
+    
+    
+    for (int i = 0; i < [sortedArray count]; i++)
+    {
+        NSString *tempDate = ((AiMWorkOrder*)sortedArray[i]).dateCreated;
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+        NSDate *date = [formatter dateFromString:tempDate];
+
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
+        
+        NSString *dateString = [NSString stringWithFormat:@"%d/%d/%d", [components month], [components day], [components year]];
+        
+        //NSLog(@"%@", dateString);
+        
+        BOOL foundMatch = NO;
+        NSInteger sectionIndex = 0;
+        
+        if (i == 0)
+        {
+         //   NSLog(@"Initial add");
+            [self.sectionTitles addObject:dateString];
+            [self.numInEachSection addObject:@1];
+         //   NSLog(@"num in section: %d", [self.numInEachSection[sectionIndex] intValue]);
+
+            continue;
+        
+        } else {
+            for (NSString *testString in self.sectionTitles)
+            {
+                NSLog(@"Got here 1 - begin for loop");
+                //If section title already exists, don't add it, but increment that section #
+               if ([testString isEqualToString:dateString])
+                {
+                     NSLog(@"Got here 2 - testing string");
+                    //NSLog(@"Found existing match, not adding object");
+                    foundMatch = YES;
+                    self.numInEachSection[sectionIndex] = @([self.numInEachSection[sectionIndex] intValue]+1);
+                    
+                    break;
+                }
+            }
+            
+            //No existing found, so add section string, and create new # for new section
+            if (!foundMatch)
+            {
+                 NSLog(@"Got here 3 - found match");
+                [self.sectionTitles addObject:dateString];
+                [self.numInEachSection addObject:@1];
+                sectionIndex++;
+              
+            }
+        
+        }
+        
+    }
+    
+    self.numSections = [self.sectionTitles count];
+    
+    //NSLog(@"Titles: %@", sectionTitles);
+    
+  //  NSLog(@"sorted count is %d", [sortedArray count]);
+    
+    
+    _currentUser.workOrders = [sortedArray mutableCopy];
+    
+  // NSLog(@"Post sort workorders: %@", _currentUser.workOrders);
+
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-    }
+        }
     return self;
 }
 
@@ -117,6 +217,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //test
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    //
+    
+    self.numSections = 1;
+    
+    self.sectionTitles = [[NSMutableArray alloc] init];
+    self.numInEachSection = [[NSMutableArray alloc] init];
+    
+    [self.sectionTitles addObject:@""];
+    [self.numInEachSection addObject:@([_currentUser.workOrders count])];
     
     NSLog(@"This is my ID: %@", self);
 
@@ -133,11 +247,6 @@
     
     
     }
-    
-    
-    
-    
-    
     
     [self loadInitialData];
     
@@ -159,14 +268,24 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    //return 1;
+    NSLog(@"Number of sections is %d", self.numSections);
+    return self.numSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
     // Return the number of rows in the section.
-    return [_currentUser.workOrders count];
+    //return [_currentUser.workOrders count];
+    NSLog(@"Number of sections in %d is %d", section, [[self.numInEachSection objectAtIndex:section] intValue]);
+    return [[self.numInEachSection objectAtIndex:section] intValue];
+    
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [self.sectionTitles objectAtIndex:section];
 }
 
 
@@ -175,6 +294,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WorkOrderTableCell" forIndexPath:indexPath];
     
     //Get workOrder for cell
+    
+    //NSLog(@"indexpath.row is %d", indexPath.row);
+    //NSLog(@"work orders are: %@", [_currentUser.workOrders objectAtIndex:0]);
+    
     AiMWorkOrder *workOrder = [_currentUser.workOrders objectAtIndex:indexPath.row];
     
     //Set cell attributes

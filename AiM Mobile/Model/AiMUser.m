@@ -65,6 +65,8 @@
 
 -(void)sendRequestTo:(NSURL*)url withLoginBool:(BOOL)login andSender:(id)sender
 {
+    //url = [[NSBundle mainBundle] URLForResource:@"CLARKEM" withExtension:@"txt"];//test local data
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"GET";
     NSURLSessionDataTask *getDataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -93,6 +95,11 @@
             
             
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrder/%@-%@", proposalNum, phaseNum]];
+            
+            
+          //  NSURL *url = [[NSBundle mainBundle] URLForResource:@"158270-001" withExtension:@"txt"];//test local data
+           
+            
             
             if (i == (count - 1)) {
                 [self getWorkOrderPhase:url withProposalNum:proposalNum withPhaseNum:phaseNum andSender:sender andLastBool:YES];
