@@ -16,7 +16,6 @@
 @property(strong, nonatomic) NSString *createdBy;
 @property(strong, nonatomic) NSString *funding;
 @property(strong, nonatomic) NSString *shop;
-//@property(strong, nonatomic) NSString *location;
 @property(strong, nonatomic) NSDate *dateCreated;
 @property(strong, nonatomic) NSDate *dateEdited;
 @property(strong, nonatomic) NSDate *estStart;

@@ -44,7 +44,7 @@
     //Set all labels to workOrder.value
     NSLog(@"This is workOrder : %@", self.workOrder);
     
-    self.descriptionTextView.text = @"Placeholder text"; //Replace with user.workOrder.description
+    self.descriptionTextView.text = self.workOrder.description; //Replace with user.workOrder.description
     
     
 }

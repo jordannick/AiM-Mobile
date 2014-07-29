@@ -9,6 +9,7 @@
 #import "AiMWorkOrderTableViewController.h"
 #import "AiMWorkOrderDetailViewController.h"
 #import "AiMWorkOrder.h"
+#import "AiMCustomTableCell.h"
 
 @interface AiMWorkOrderTableViewController ()
 @property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
@@ -16,6 +17,8 @@
 @property (strong, nonatomic) NSMutableArray *sectionTitles;
 @property (nonatomic) NSInteger numSections;
 @property (strong, nonatomic) NSMutableArray *numInEachSection;
+@property (strong,nonatomic) NSArray *uniqueDates;
+//@property (strong, nonatomic) AiMCustomTableCell *cellPrototype;
 
 @end
 
@@ -45,13 +48,6 @@
     
     
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 80;
-}
-
-
 - (IBAction)sortBySegmentedControl:(UISegmentedControl *)sender
 {
     NSInteger segIndex = sender.selectedSegmentIndex;
@@ -288,23 +284,80 @@
     return [self.sectionTitles objectAtIndex:section];
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"SelectionSegue" sender:self];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 66;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WorkOrderTableCell" forIndexPath:indexPath];
-    
+    static NSString *simpleTableIdentifier = @"CellIdentifier";
     //Get workOrder for cell
     
     //NSLog(@"indexpath.row is %d", indexPath.row);
     //NSLog(@"work orders are: %@", [_currentUser.workOrders objectAtIndex:0]);
     
-    AiMWorkOrder *workOrder = [_currentUser.workOrders objectAtIndex:indexPath.row];
-    
-    //Set cell attributes
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", workOrder.taskID];
 
+    AiMWorkOrder *workOrder = [self.currentUser.workOrders objectAtIndex:[indexPath row]];
+    
+    AiMCustomTableCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomTableCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
+    NSRange range = [workOrder.phase.workCode rangeOfString:@"_"];
+    NSString *workCodeWord = [workOrder.phase.workCode substringWithRange:NSMakeRange(range.location+1, workOrder.phase.workCode.length - (range.location+1))];
+    workCodeWord = [workCodeWord capitalizedString];
+    
+    cell.proposal.text = workOrder.taskID;
+    if(!workOrder.phase.roomNum)
+        cell.location.text = [workOrder.building capitalizedString];
+    else
+        cell.location.text = [[NSString stringWithFormat:@"%@ (%@)", workOrder.building, workOrder.phase.roomNum] capitalizedString];
+    cell.workCode.text = workCodeWord;
+    
+    NSLog(@"Priority: %@", workOrder.phase.priority);
+    
+    if([workOrder.phase.priority isEqualToString:@"URGENT"])
+        cell.backgroundColor = [UIColor colorWithRed:1 green:0.847 blue:0.847 alpha:1]; /*#ffd8d8*/
+    else if ([workOrder.phase.priority isEqualToString:@"ROUTINE"])
+        cell.backgroundColor = [UIColor colorWithRed:0.906 green:0.988 blue:0.906 alpha:1]; /*#e7fce7*/
+        //cell.backgroundColor = [UIColor colorWithRed:0.835 green:0.98 blue:0.835 alpha:1]; /*#d5fad5*/
+        //cell.backgroundColor = [UIColor colorWithRed:0.851 green:0.996 blue:0.557 alpha:1]; //#d9fe8e
     
     return cell;
+//    
+//    //Get workOrder for cell
+//    AiMWorkOrder *workOrder = [_currentUser.workOrders objectAtIndex:indexPath.row];
+//    NSArray *subViews = [cell.contentView subviews];
+//    for (UIView* subview in subViews) {
+//        [subview removeFromSuperview];
+//    }
+//    
+//    CGRect frame0 = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width/2, tableView.frame.size.height/2);
+//    UILabel *proposalLabel = [[UILabel alloc] initWithFrame:frame0];
+//    proposalLabel.text = @"HELLO!";
+//    proposalLabel.tag = 1;
+//    [cell.contentView addSubview:proposalLabel];
+//    
+//    CGRect frame1 = CGRectMake(tableView.frame.origin.x, tableView.frame.size.height/2, tableView.frame.size.width/2, tableView.frame.size.height/2);
+//    UILabel *workCode = [[UILabel alloc] initWithFrame:frame1];
+//    workCode.text = @"TEST";
+//    workCode.tag = 2;
+//    [cell.contentView addSubview:workCode];
+//    
+//    
+//    //Set cell attributes
+//    //cell.textLabel.text = [NSString stringWithFormat:@"%@", workOrder.taskID];
+//    
+//    
+//    return cell;
 }
 
 #pragma mark - Navigation
@@ -314,7 +367,7 @@
 {
     
     NSLog(@"Preparing for segue");
-    if([[segue identifier] isEqualToString:@"ToWorkOrderDetail"])
+    if([[segue identifier] isEqualToString:@"SelectionSegue"])
     {
         AiMWorkOrderDetailViewController *vc = [segue destinationViewController];
         NSIndexPath *index = [self.tableView indexPathForSelectedRow];
