@@ -12,16 +12,18 @@
 
 @interface AiMWorkOrder : NSObject
 
-@property(strong, nonatomic) NSNumber *taskID;
+@property(strong, nonatomic) NSString *taskID;
 @property(strong, nonatomic) NSString *category;
+@property(strong, nonatomic) NSString *building;
+@property(strong, nonatomic) NSString *roomNum;
 @property(strong, nonatomic) NSString *description;
 @property(strong, nonatomic) NSString *createdBy;
 @property(strong, nonatomic) NSDate *dateCreated;
-//@property(strong, nonatomic) NSArray *dateComponents;
-@property(strong,nonatomic) NSString *sortDate;
 @property(strong, nonatomic) NSNumber *customerRequest;
 @property(strong, nonatomic) NSString *type;
 @property(strong, nonatomic) AiMOrganization *organization;
+
+
 @property(strong, nonatomic) AiMWorkOrderPhase *phase;
 
 @end

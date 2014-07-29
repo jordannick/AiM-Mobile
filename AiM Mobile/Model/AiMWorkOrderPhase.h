@@ -7,20 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AiMWorkOrderPhasePriority.h"
 
 @interface AiMWorkOrderPhase : NSObject
 
 @property(strong, nonatomic) NSString *description;
+@property(strong, nonatomic) NSString *building;
+@property(strong, nonatomic) NSString *roomNum;
 @property(strong, nonatomic) NSString *createdBy;
 @property(strong, nonatomic) NSString *funding;
 @property(strong, nonatomic) NSString *shop;
-@property(strong, nonatomic) NSString *location;
+//@property(strong, nonatomic) NSString *location;
 @property(strong, nonatomic) NSDate *dateCreated;
+@property(strong, nonatomic) NSDate *dateEdited;
 @property(strong, nonatomic) NSDate *estStart;
 @property(strong, nonatomic) NSDate *estEnd;
-@property(strong, nonatomic) AiMWorkOrderPhasePriority *priority;
+@property(strong, nonatomic) NSString *priority;
 @property(strong, nonatomic) NSString *workCodeGroup;
 @property(strong, nonatomic) NSString *workCode;
+
+@property(strong, nonatomic) NSMutableArray *notesArray;
 
 @end

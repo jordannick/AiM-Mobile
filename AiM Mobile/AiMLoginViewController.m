@@ -63,22 +63,9 @@
     return self;
 }
 
-- (AiMWorkOrderPhasePriority*)createPriorityWithName:(NSString*)name andDescription:(NSString*)description andPriorityID:(NSNumber*)priorityID
-{
-    AiMWorkOrderPhasePriority *priority = [[AiMWorkOrderPhasePriority alloc] init];
-    priority.name = name;
-    priority.description = description;
-    priority.priorityID = priorityID;
-    
-    return priority;
-}
 
 - (void) getWorkOrdersJSON
 {
-    self.priorities = [NSArray arrayWithObjects:[self createPriorityWithName:@"URGENT" andDescription:@"Do this quickly" andPriorityID:@0],
-    [self createPriorityWithName:@"GENERAL" andDescription:@"Do this regularly" andPriorityID:@1],
-     [self createPriorityWithName:@"DAILY" andDescription:@"Do this daily" andPriorityID:@2], nil];
-    
     NSLog(@"This is the array... %@", self.priorities);
     //Get JSON from http
     

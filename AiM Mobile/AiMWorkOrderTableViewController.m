@@ -44,7 +44,10 @@
     
 }
 
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
+}
 
 
 - (IBAction)sortBySegmentedControl:(UISegmentedControl *)sender
@@ -122,7 +125,19 @@
     [self.navigationItem setHidesBackButton:YES];
 
 
-    NSLog(@"This is JSON: %@", self.currentUser.workOrders);
+    //NSLog(@"This is JSON: %@", self.currentUser.workOrders);
+    
+    for (int i = 0; i < [self.currentUser.workOrders count]; i++)
+    {
+        NSLog(@"%@", ((AiMWorkOrder *)self.currentUser.workOrders[i]).organization.contactName);
+    
+    
+    }
+    
+    
+    
+    
+    
     
     [self loadInitialData];
     

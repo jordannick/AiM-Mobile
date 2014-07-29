@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		458DBAE21987026100E7DBF3 /* AiMNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DBAE11987026100E7DBF3 /* AiMNote.m */; };
+		458DBAE4198715A300E7DBF3 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 458DBAE3198715A300E7DBF3 /* TODO */; };
 		45E24BCD198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */; };
 		45E24BD019806DBF00AEB2F5 /* AiMAddActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */; };
 		45E24BD3198077B400AEB2F5 /* AiMAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BD2198077B400AEB2F5 /* AiMAction.m */; };
@@ -28,7 +30,6 @@
 		7C97C49F197EDDCD00949B16 /* AiMWorkOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C97C49E197EDDCD00949B16 /* AiMWorkOrder.m */; };
 		7C97C4A2197EDDF200949B16 /* AiMOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C97C4A1197EDDF200949B16 /* AiMOrganization.m */; };
 		7C97C4A5197EDE3500949B16 /* AiMWorkOrderPhase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C97C4A4197EDE3500949B16 /* AiMWorkOrderPhase.m */; };
-		7C97C4A8197EDE7E00949B16 /* AiMWorkOrderPhasePriority.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C97C4A7197EDE7E00949B16 /* AiMWorkOrderPhasePriority.m */; };
 		7C97C4AC197EDF4F00949B16 /* AiMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C97C4AB197EDF4F00949B16 /* AiMUser.m */; };
 		7C97C4AF197EFE1700949B16 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C97C4AE197EFE1700949B16 /* SSKeychain.m */; };
 		7C97C4B1197EFEDD00949B16 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C4B0197EFEDD00949B16 /* Security.framework */; };
@@ -46,6 +47,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		458DBAE01987026100E7DBF3 /* AiMNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AiMNote.h; path = Model/AiMNote.h; sourceTree = "<group>"; };
+		458DBAE11987026100E7DBF3 /* AiMNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AiMNote.m; path = Model/AiMNote.m; sourceTree = "<group>"; };
+		458DBAE3198715A300E7DBF3 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		45E24BCB198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMWorkOrderDetailViewController.h; sourceTree = "<group>"; };
 		45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMWorkOrderDetailViewController.m; sourceTree = "<group>"; };
 		45E24BCE19806DBF00AEB2F5 /* AiMAddActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMAddActionViewController.h; sourceTree = "<group>"; };
@@ -80,8 +84,6 @@
 		7C97C4A1197EDDF200949B16 /* AiMOrganization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AiMOrganization.m; path = Model/AiMOrganization.m; sourceTree = "<group>"; };
 		7C97C4A3197EDE3500949B16 /* AiMWorkOrderPhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AiMWorkOrderPhase.h; path = Model/AiMWorkOrderPhase.h; sourceTree = "<group>"; };
 		7C97C4A4197EDE3500949B16 /* AiMWorkOrderPhase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AiMWorkOrderPhase.m; path = Model/AiMWorkOrderPhase.m; sourceTree = "<group>"; };
-		7C97C4A6197EDE7E00949B16 /* AiMWorkOrderPhasePriority.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AiMWorkOrderPhasePriority.h; path = Model/AiMWorkOrderPhasePriority.h; sourceTree = "<group>"; };
-		7C97C4A7197EDE7E00949B16 /* AiMWorkOrderPhasePriority.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AiMWorkOrderPhasePriority.m; path = Model/AiMWorkOrderPhasePriority.m; sourceTree = "<group>"; };
 		7C97C4AA197EDF4F00949B16 /* AiMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AiMUser.h; path = Model/AiMUser.h; sourceTree = "<group>"; };
 		7C97C4AB197EDF4F00949B16 /* AiMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AiMUser.m; path = Model/AiMUser.m; sourceTree = "<group>"; };
 		7C97C4AD197EFE1700949B16 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
@@ -160,10 +162,8 @@
 		7C97C46F197EDD2000949B16 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-
 				45E24BD41981B61600AEB2F5 /* AiMBackground.h */,
 				45E24BD51981B61600AEB2F5 /* AiMBackground.m */,
-				7C97C47A197EDD2000949B16 /* Images.xcassets */,
 				7C97C477197EDD2000949B16 /* AiMAppDelegate.h */,
 				7C97C478197EDD2000949B16 /* AiMAppDelegate.m */,
 				7C97C4AD197EFE1700949B16 /* SSKeychain.h */,
@@ -173,6 +173,7 @@
 				7C97C474197EDD2000949B16 /* main.m */,
 				7C97C476197EDD2000949B16 /* AiM Mobile-Prefix.pch */,
 				7CD3674A19818BF500154D78 /* Media.xcassets */,
+				458DBAE3198715A300E7DBF3 /* TODO */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -204,12 +205,12 @@
 				7C97C4A1197EDDF200949B16 /* AiMOrganization.m */,
 				7C97C4A3197EDE3500949B16 /* AiMWorkOrderPhase.h */,
 				7C97C4A4197EDE3500949B16 /* AiMWorkOrderPhase.m */,
-				7C97C4A6197EDE7E00949B16 /* AiMWorkOrderPhasePriority.h */,
-				7C97C4A7197EDE7E00949B16 /* AiMWorkOrderPhasePriority.m */,
 				7C97C4AA197EDF4F00949B16 /* AiMUser.h */,
 				7C97C4AB197EDF4F00949B16 /* AiMUser.m */,
 				45E24BD1198077B400AEB2F5 /* AiMAction.h */,
 				45E24BD2198077B400AEB2F5 /* AiMAction.m */,
+				458DBAE01987026100E7DBF3 /* AiMNote.h */,
+				458DBAE11987026100E7DBF3 /* AiMNote.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -307,6 +308,7 @@
 			files = (
 				7C97C473197EDD2000949B16 /* InfoPlist.strings in Resources */,
 				7CD3674B19818BF500154D78 /* Media.xcassets in Resources */,
+				458DBAE4198715A300E7DBF3 /* TODO in Resources */,
 				7C97C498197EDD3C00949B16 /* iPhone_Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,11 +337,11 @@
 				7C97C49F197EDDCD00949B16 /* AiMWorkOrder.m in Sources */,
 				7C97C4AF197EFE1700949B16 /* SSKeychain.m in Sources */,
 				7C97C4A2197EDDF200949B16 /* AiMOrganization.m in Sources */,
+				458DBAE21987026100E7DBF3 /* AiMNote.m in Sources */,
 				45E24BD019806DBF00AEB2F5 /* AiMAddActionViewController.m in Sources */,
 				7C97C4A5197EDE3500949B16 /* AiMWorkOrderPhase.m in Sources */,
 				45E24BD61981B61600AEB2F5 /* AiMBackground.m in Sources */,
 				45E24BCD198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m in Sources */,
-				7C97C4A8197EDE7E00949B16 /* AiMWorkOrderPhasePriority.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
