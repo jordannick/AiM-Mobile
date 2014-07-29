@@ -90,9 +90,9 @@
             
             
             if (i == (count - 1)) {
-                [self getWorkOrderPhase:url withProposalNum:proposalNum withPhaseNum:phaseNum andSender:sender andLastBool:YES];
+                [self getWorkOrderPhase:url withProposalNum:proposalNum andPhaseNum:phaseNum andSender:sender andLastBool:YES];
             } else {
-                [self getWorkOrderPhase:url withProposalNum:proposalNum withPhaseNum:phaseNum andSender:sender andLastBool:NO];
+                [self getWorkOrderPhase:url withProposalNum:proposalNum andPhaseNum:phaseNum andSender:sender andLastBool:NO];
             }
 
         }
