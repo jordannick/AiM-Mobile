@@ -11,13 +11,13 @@
 		458DBAE4198715A300E7DBF3 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 458DBAE3198715A300E7DBF3 /* TODO */; };
 		458DBAEB1987FD7500E7DBF3 /* CustomTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 458DBAEA1987FD7500E7DBF3 /* CustomTableCell.xib */; };
 		458DBAEC1987FE2F00E7DBF3 /* AiMCustomTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DBAE81987F9E000E7DBF3 /* AiMCustomTableCell.m */; };
+		458DBB3F19883DC100E7DBF3 /* 158270-001.txt in Resources */ = {isa = PBXBuildFile; fileRef = 458DBB3C19883DC100E7DBF3 /* 158270-001.txt */; };
+		458DBB4019883DC100E7DBF3 /* CLARKEM.txt in Resources */ = {isa = PBXBuildFile; fileRef = 458DBB3D19883DC100E7DBF3 /* CLARKEM.txt */; };
+		458DBB4119883DC100E7DBF3 /* DEBAUWB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 458DBB3E19883DC100E7DBF3 /* DEBAUWB.txt */; };
 		45E24BCD198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */; };
 		45E24BD019806DBF00AEB2F5 /* AiMAddActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */; };
 		45E24BD3198077B400AEB2F5 /* AiMAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BD2198077B400AEB2F5 /* AiMAction.m */; };
 		45E24BD61981B61600AEB2F5 /* AiMBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BD51981B61600AEB2F5 /* AiMBackground.m */; };
-		7C316DF21987F3DB005A47EC /* DEBAUWB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7C316DF11987F3DB005A47EC /* DEBAUWB.txt */; };
-		7C316DF41987F55D005A47EC /* 158270-001.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7C316DF31987F55D005A47EC /* 158270-001.txt */; };
-		7C316DF61987F73E005A47EC /* CLARKEM.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7C316DF51987F73E005A47EC /* CLARKEM.txt */; };
 		7C3A2FF3197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C3A2FF2197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m */; };
 		7C97C469197EDD2000949B16 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C468197EDD2000949B16 /* Foundation.framework */; };
 		7C97C46B197EDD2000949B16 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C46A197EDD2000949B16 /* CoreGraphics.framework */; };
@@ -58,6 +58,9 @@
 		458DBAE71987F9E000E7DBF3 /* AiMCustomTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AiMCustomTableCell.h; path = "AiM Mobile/AiMCustomTableCell.h"; sourceTree = SOURCE_ROOT; };
 		458DBAE81987F9E000E7DBF3 /* AiMCustomTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AiMCustomTableCell.m; path = "AiM Mobile/AiMCustomTableCell.m"; sourceTree = SOURCE_ROOT; };
 		458DBAEA1987FD7500E7DBF3 /* CustomTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableCell.xib; sourceTree = "<group>"; };
+		458DBB3C19883DC100E7DBF3 /* 158270-001.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "158270-001.txt"; path = "AiM Mobile/Resources/158270-001.txt"; sourceTree = "<group>"; };
+		458DBB3D19883DC100E7DBF3 /* CLARKEM.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CLARKEM.txt; path = "AiM Mobile/Resources/CLARKEM.txt"; sourceTree = "<group>"; };
+		458DBB3E19883DC100E7DBF3 /* DEBAUWB.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = DEBAUWB.txt; path = "AiM Mobile/Resources/DEBAUWB.txt"; sourceTree = "<group>"; };
 		45E24BCB198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMWorkOrderDetailViewController.h; sourceTree = "<group>"; };
 		45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMWorkOrderDetailViewController.m; sourceTree = "<group>"; };
 		45E24BCE19806DBF00AEB2F5 /* AiMAddActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMAddActionViewController.h; sourceTree = "<group>"; };
@@ -66,9 +69,6 @@
 		45E24BD2198077B400AEB2F5 /* AiMAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AiMAction.m; path = Model/AiMAction.m; sourceTree = "<group>"; };
 		45E24BD41981B61600AEB2F5 /* AiMBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMBackground.h; sourceTree = "<group>"; };
 		45E24BD51981B61600AEB2F5 /* AiMBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMBackground.m; sourceTree = "<group>"; };
-		7C316DF11987F3DB005A47EC /* DEBAUWB.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = DEBAUWB.txt; path = ../../Downloads/DEBAUWB.txt; sourceTree = "<group>"; };
-		7C316DF31987F55D005A47EC /* 158270-001.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "158270-001.txt"; path = "../../Downloads/158270-001.txt"; sourceTree = "<group>"; };
-		7C316DF51987F73E005A47EC /* CLARKEM.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CLARKEM.txt; path = ../../Downloads/CLARKEM.txt; sourceTree = "<group>"; };
 		7C3A2FF1197F20AB00B7CC74 /* AiMWorkOrderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMWorkOrderTableViewController.h; sourceTree = "<group>"; };
 		7C3A2FF2197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMWorkOrderTableViewController.m; sourceTree = "<group>"; };
 		7C97C465197EDD2000949B16 /* AiM Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AiM Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,20 +128,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7C316DF01987F3B3005A47EC /* Resources */ = {
+		458DBB4219883DC600E7DBF3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7C316DF51987F73E005A47EC /* CLARKEM.txt */,
-				7C316DF31987F55D005A47EC /* 158270-001.txt */,
-				7C316DF11987F3DB005A47EC /* DEBAUWB.txt */,
+				458DBB3C19883DC100E7DBF3 /* 158270-001.txt */,
+				458DBB3D19883DC100E7DBF3 /* CLARKEM.txt */,
+				458DBB3E19883DC100E7DBF3 /* DEBAUWB.txt */,
 			);
 			name = Resources;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		7C97C45C197EDD2000949B16 = {
 			isa = PBXGroup;
 			children = (
-				7C316DF01987F3B3005A47EC /* Resources */,
 				7C97C46E197EDD2000949B16 /* AiM Mobile */,
 				7C97C487197EDD2000949B16 /* AiM MobileTests */,
 				7C97C467197EDD2000949B16 /* Frameworks */,
@@ -215,6 +215,7 @@
 		7C97C488197EDD2000949B16 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				458DBB4219883DC600E7DBF3 /* Resources */,
 				7C97C489197EDD2000949B16 /* AiM MobileTests-Info.plist */,
 				7C97C48A197EDD2000949B16 /* InfoPlist.strings */,
 			);
@@ -332,13 +333,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C97C473197EDD2000949B16 /* InfoPlist.strings in Resources */,
-				7C316DF41987F55D005A47EC /* 158270-001.txt in Resources */,
+				458DBB3F19883DC100E7DBF3 /* 158270-001.txt in Resources */,
 				7CD3674B19818BF500154D78 /* Media.xcassets in Resources */,
-				7C316DF61987F73E005A47EC /* CLARKEM.txt in Resources */,
+				458DBB4119883DC100E7DBF3 /* DEBAUWB.txt in Resources */,
+				458DBB4019883DC100E7DBF3 /* CLARKEM.txt in Resources */,
 				458DBAEB1987FD7500E7DBF3 /* CustomTableCell.xib in Resources */,
 				458DBAE4198715A300E7DBF3 /* TODO in Resources */,
 				7C97C498197EDD3C00949B16 /* iPhone_Main.storyboard in Resources */,
-				7C316DF21987F3DB005A47EC /* DEBAUWB.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

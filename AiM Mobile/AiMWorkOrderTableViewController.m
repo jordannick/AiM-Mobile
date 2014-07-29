@@ -27,25 +27,7 @@
 
 - (IBAction)onSyncButtonPress:(UIBarButtonItem *)sender {
     
-    //call [_currentUser syncWorkOrders] somewhere to remove items from sync queue
-    //call specific online API functions to push sync queue data
-    
-    
-    NSURL *url = [NSURL URLWithString:@"www.example.com/api/updateFunction"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    //NSData *data = [SOMETHINGSYNCQUEUE dataUsingEncoding:NSUTF8StringEncoding];
-    //request.HTTPBody = data;
-    request.HTTPMethod = @"PUT";
-    
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSessionDataTask *postDataTask = [_currentUser.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-            if (!error){}
-            else {}
-
-    }];
-    
-    
+    [_currentUser syncWorkOrders];
     
 }
 - (IBAction)sortBySegmentedControl:(UISegmentedControl *)sender
@@ -56,7 +38,11 @@
     if(segIndex == 0)   //Sort by DATE
     {
         [self sortWorkOrdersByDate];
-        //NSLog(@"Post sort workorders: %@", _currentUser.workOrders);
+        
+        for (AiMWorkOrder *workOrder in _currentUser.workOrders) {
+            NSLog(@"12Post sort workorders: %@", workOrder.dateCreated);
+        }
+        
        /* NSLog(@"Sorting by date...");
         sortedArray = [_currentUser.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             AiMWorkOrder *first = (AiMWorkOrder*) obj1;
@@ -105,7 +91,7 @@
 
 - (void) sortWorkOrdersByDate
 {
-  //  NSLog(@"Pre sort workorders: %@", _currentUser.workOrders);
+    NSLog(@"Pre sort workorders: %@", _currentUser.workOrders);
     
     NSArray *sortedArray = [_currentUser.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         AiMWorkOrder *first = (AiMWorkOrder*) obj1;
@@ -122,13 +108,13 @@
             
         
     }];
-    
+    NSLog(@"Post sort workorders: %@", _currentUser.workOrders);
     //Acquire formatting variables for table groupings
   
-   // [self.sectionTitles removeAllObjects];
-   // [self.numInEachSection removeAllObjects];
-    self.sectionTitles = [[NSMutableArray alloc] init];
-    self.numInEachSection = [[NSMutableArray alloc] init];
+    [self.sectionTitles removeAllObjects];
+   [self.numInEachSection removeAllObjects];
+    //self.sectionTitles = [[NSMutableArray alloc] init];
+    //self.numInEachSection = [[NSMutableArray alloc] init];
     
     
     
@@ -136,27 +122,26 @@
     {
         NSString *tempDate = ((AiMWorkOrder*)sortedArray[i]).dateCreated;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
         NSDate *date = [formatter dateFromString:tempDate];
-
+        
+        NSCalendar *calender = [NSCalendar currentCalendar];
+        NSLog(@"Time zone: %@", [calender timeZone]);
         NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
         
         NSString *dateString = [NSString stringWithFormat:@"%d/%d/%d", [components month], [components day], [components year]];
         
-        //NSLog(@"%@", dateString);
+        NSLog(@"%@ = %@ = %@\n%u", tempDate, date, dateString,[formatter dateStyle]);
         
         BOOL foundMatch = NO;
         NSInteger sectionIndex = 0;
+        NSNumber *iNum = [NSNumber numberWithInt:i];
         
         if (i == 0)
         {
-         //   NSLog(@"Initial add");
             [self.sectionTitles addObject:dateString];
-            [self.numInEachSection addObject:@1];
-         //   NSLog(@"num in section: %d", [self.numInEachSection[sectionIndex] intValue]);
-
-            continue;
-        
+            [self.numInEachSection addObject:[NSMutableArray arrayWithObject:iNum]];
         } else {
             for (NSString *testString in self.sectionTitles)
             {
@@ -167,7 +152,10 @@
                      NSLog(@"Got here 2 - testing string");
                     //NSLog(@"Found existing match, not adding object");
                     foundMatch = YES;
-                    self.numInEachSection[sectionIndex] = @([self.numInEachSection[sectionIndex] intValue]+1);
+                    //self.numInEachSection[sectionIndex] = @([self.numInEachSection[sectionIndex] intValue]+1);
+                    
+                    [((NSMutableArray*)self.numInEachSection[sectionIndex]) addObject:iNum];
+                    
                     
                     break;
                 }
@@ -178,7 +166,8 @@
             {
                  NSLog(@"Got here 3 - found match");
                 [self.sectionTitles addObject:dateString];
-                [self.numInEachSection addObject:@1];
+                
+                [self.numInEachSection addObject:[NSMutableArray arrayWithObject:iNum]];
                 sectionIndex++;
               
             }
@@ -225,8 +214,8 @@
     self.sectionTitles = [[NSMutableArray alloc] init];
     self.numInEachSection = [[NSMutableArray alloc] init];
     
-    [self.sectionTitles addObject:@""];
-    [self.numInEachSection addObject:@([_currentUser.workOrders count])];
+    //[self.sectionTitles addObject:@""];
+    //[self.numInEachSection addObject:@([_currentUser.workOrders count])];
     
     NSLog(@"This is my ID: %@", self);
 
@@ -244,6 +233,7 @@
     
     }
     
+    [self sortWorkOrdersByDate];
     [self loadInitialData];
     
 }
@@ -265,8 +255,9 @@
 {
     // Return the number of sections.
     //return 1;
-    NSLog(@"Number of sections is %d", self.numSections);
-    return self.numSections;
+    NSLog(@"Number of sections is %d", [self.numInEachSection count]);
+    return [self.numInEachSection count];
+    //return self.numSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -274,8 +265,8 @@
 
     // Return the number of rows in the section.
     //return [_currentUser.workOrders count];
-    NSLog(@"Number of sections in %d is %d", section, [[self.numInEachSection objectAtIndex:section] intValue]);
-    return [[self.numInEachSection objectAtIndex:section] intValue];
+    NSLog(@"Number of sections in %d is %d", section, [[self.numInEachSection objectAtIndex:section] count]);
+    return [[self.numInEachSection objectAtIndex:section] count];
     
 }
 
@@ -294,16 +285,22 @@
     return 66;
 }
 
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"[IndexPath row] = %ld", (long)[indexPath row]);
     static NSString *simpleTableIdentifier = @"CellIdentifier";
     //Get workOrder for cell
     
+    
+    [indexPath section];
+    [indexPath row];
     //NSLog(@"indexpath.row is %d", indexPath.row);
     //NSLog(@"work orders are: %@", [_currentUser.workOrders objectAtIndex:0]);
     
-
-    AiMWorkOrder *workOrder = [self.currentUser.workOrders objectAtIndex:[indexPath row]];
+    NSNumber *index = [[self.numInEachSection objectAtIndex:[indexPath section]] objectAtIndex:[indexPath row]];
+    AiMWorkOrder *workOrder = [self.currentUser.workOrders objectAtIndex:[index intValue]];
     
     AiMCustomTableCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
@@ -328,36 +325,11 @@
         cell.backgroundColor = [UIColor colorWithRed:1 green:0.847 blue:0.847 alpha:1]; /*#ffd8d8*/
     else if ([workOrder.phase.priority isEqualToString:@"ROUTINE"])
         cell.backgroundColor = [UIColor colorWithRed:0.906 green:0.988 blue:0.906 alpha:1]; /*#e7fce7*/
-        //cell.backgroundColor = [UIColor colorWithRed:0.835 green:0.98 blue:0.835 alpha:1]; /*#d5fad5*/
-        //cell.backgroundColor = [UIColor colorWithRed:0.851 green:0.996 blue:0.557 alpha:1]; //#d9fe8e
+    else if([workOrder.phase.priority isEqualToString:@"SCHEDULED"])
+        cell.backgroundColor = [UIColor colorWithRed:0.918 green:0.992 blue:0.992 alpha:1]; /*#eafdfd*/
     
+    NSLog(@"Priority: %@", workOrder.phase.priority);
     return cell;
-//    
-//    //Get workOrder for cell
-//    AiMWorkOrder *workOrder = [_currentUser.workOrders objectAtIndex:indexPath.row];
-//    NSArray *subViews = [cell.contentView subviews];
-//    for (UIView* subview in subViews) {
-//        [subview removeFromSuperview];
-//    }
-//    
-//    CGRect frame0 = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width/2, tableView.frame.size.height/2);
-//    UILabel *proposalLabel = [[UILabel alloc] initWithFrame:frame0];
-//    proposalLabel.text = @"HELLO!";
-//    proposalLabel.tag = 1;
-//    [cell.contentView addSubview:proposalLabel];
-//    
-//    CGRect frame1 = CGRectMake(tableView.frame.origin.x, tableView.frame.size.height/2, tableView.frame.size.width/2, tableView.frame.size.height/2);
-//    UILabel *workCode = [[UILabel alloc] initWithFrame:frame1];
-//    workCode.text = @"TEST";
-//    workCode.tag = 2;
-//    [cell.contentView addSubview:workCode];
-//    
-//    
-//    //Set cell attributes
-//    //cell.textLabel.text = [NSString stringWithFormat:@"%@", workOrder.taskID];
-//    
-//    
-//    return cell;
 }
 
 #pragma mark - Navigation
@@ -370,9 +342,12 @@
     if([[segue identifier] isEqualToString:@"SelectionSegue"])
     {
         AiMWorkOrderDetailViewController *vc = [segue destinationViewController];
-        NSIndexPath *index = [self.tableView indexPathForSelectedRow];
         
-        vc.workOrder = _currentUser.workOrders[[index row]];
+        
+        NSIndexPath *path = [self.tableView indexPathForSelectedRow];
+        NSNumber *index = [[self.numInEachSection objectAtIndex:[path section]] objectAtIndex:[path row]];
+        
+        vc.workOrder = _currentUser.workOrders[[index intValue]];
         vc.currentUser = _currentUser;
     }
 

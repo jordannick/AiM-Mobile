@@ -10,7 +10,9 @@
 #import "AiMNote.h"
 
 
+
 @implementation AiMUser
+
 
 @synthesize session = _session;
 
@@ -57,7 +59,33 @@
     
     for (int i = 0; i < [self.syncQueue count]; i++) {
         AiMAction *action = self.syncQueue[i];
+        
+        NSString *param0 = [NSString stringWithFormat:@"%@",action.workOrderID];
+        NSString *param1 = action.note;
+        NSString *param2 = action.name;
+        NSString *param3 = action.time;
+        
         //Call push function to save actions to server.
+        //call specific online API functions to push sync queue data
+        
+        
+//        NSURL *url = [NSURL URLWithString:@"www.example.com/api/updateFunction"];
+//        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+//        //NSData *data = [SOMETHINGSYNCQUEUE dataUsingEncoding:NSUTF8StringEncoding];
+//        //request.HTTPBody = data;
+//        request.HTTPMethod = @"PUT";
+//        
+//        NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+//        NSURLSessionDataTask *postDataTask = [_currentUser.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//            
+//            if (!error){}
+//            else {}
+//            
+//        }];
+        
+
+        
+        
     }
     //Clear syncQueue
     [self.syncQueue removeAllObjects];
@@ -76,13 +104,17 @@
         NSArray *arrayWorkOrders = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
 
         NSUInteger count = [arrayWorkOrders count];
-        count = 5;
+        count = 3;
+        self.completionCount = 0;
         for(int i = 0; i < count; i++)
         {
             NSDictionary *workOrder = [arrayWorkOrders objectAtIndex:i];
             NSString *proposalNum = [workOrder objectForKey:@"proposal"];
             NSString *phaseNum = [workOrder objectForKey:@"sort_code"];
-        
+            
+            //NSLog(@"%d workDict: %@", i, workOrder);
+           // NSLog(@"%d proptest: %@", i, proposalNum);
+            
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrder/%@-%@", proposalNum, phaseNum]];
             
           //  NSURL *url = [[NSBundle mainBundle] URLForResource:@"158270-001" withExtension:@"txt"];//test local data
@@ -172,7 +204,13 @@
             }
         }
         [self.workOrders addObject:workOrder];
-        if (isLast)
+        
+        NSLog(@"work order list is: %@", self.workOrders);
+        self.completionCount++;
+        
+        
+       // if (isLast)
+        if (self.completionCount == 3)
             [sender segueToOverviewTable];
    
     }];

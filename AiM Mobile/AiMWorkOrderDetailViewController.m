@@ -46,6 +46,8 @@
     
     self.descriptionTextView.text = self.workOrder.description; //Replace with user.workOrder.description
     
+    NSLog(@"ID: %@ DESC: %@", self.workOrder.taskID, self.workOrder.description);
+    
     
 }
 - (IBAction)contactInfoButton:(id)sender

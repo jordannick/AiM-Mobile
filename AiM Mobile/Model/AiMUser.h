@@ -18,6 +18,7 @@
 @property(strong, nonatomic) NSDate *lastLogin;
 @property(strong, nonatomic) NSMutableArray *syncQueue;
 @property(strong, readonly) NSURLSession *session;
+@property(atomic) int completionCount;
 
 - (BOOL) addWorkOrder: (AiMWorkOrder *) newWorkOrder;
 
