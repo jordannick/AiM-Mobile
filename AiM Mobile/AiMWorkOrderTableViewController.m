@@ -11,6 +11,7 @@
 #import "AiMWorkOrder.h"
 #import "AiMCustomTableCell.h"
 #import "AiMTabMainViewController.h"
+#import "AiMTabBarViewController.h"
 
 @interface AiMWorkOrderTableViewController ()
 @property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
@@ -343,7 +344,7 @@
     NSLog(@"Preparing for segue");
     if([[segue identifier] isEqualToString:@"SelectionSegue"])
     {
-        UITabBarController *vc = [segue destinationViewController];
+        AiMTabBarViewController *vc = [segue destinationViewController];
         
         id whatIsThis = [[vc viewControllers] firstObject];
         
@@ -355,10 +356,11 @@
 //        vc.workOrder = _currentUser.workOrders[[index intValue]];
 //        vc.currentUser = _currentUser;
         
-
-        //vc.workOrder = _currentUser.workOrders[[index intValue]];
+        
+        vc.workOrder = _currentUser.workOrders[[index intValue]];
         //vc.workOrderIndex = [index intValue];
-        //vc.currentUser = _currentUser;
+        vc.currentUser = _currentUser;
+        
     }
 
     
