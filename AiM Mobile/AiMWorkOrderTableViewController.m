@@ -10,6 +10,7 @@
 #import "AiMWorkOrderDetailViewController.h"
 #import "AiMWorkOrder.h"
 #import "AiMCustomTableCell.h"
+#import "AiMTabMainViewController.h"
 
 @interface AiMWorkOrderTableViewController ()
 @property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
@@ -278,6 +279,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self performSegueWithIdentifier:@"SelectionSegue" sender:self];
+    //[self performSegueWithIdentifier:@"TabBarController" sender:self];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -341,14 +343,18 @@
     NSLog(@"Preparing for segue");
     if([[segue identifier] isEqualToString:@"SelectionSegue"])
     {
-        AiMWorkOrderDetailViewController *vc = [segue destinationViewController];
+        UITabBarController *vc = [segue destinationViewController];
         
+        id whatIsThis = [[vc viewControllers] firstObject];
+        
+        NSLog(@"This is workOrder: %@", [whatIsThis class]);
         
         NSIndexPath *path = [self.tableView indexPathForSelectedRow];
         NSNumber *index = [[self.numInEachSection objectAtIndex:[path section]] objectAtIndex:[path row]];
+//        
+//        vc.workOrder = _currentUser.workOrders[[index intValue]];
+//        vc.currentUser = _currentUser;
         
-        vc.workOrder = _currentUser.workOrders[[index intValue]];
-        vc.currentUser = _currentUser;
     }
 
     

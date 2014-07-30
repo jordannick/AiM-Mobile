@@ -14,6 +14,8 @@
 		458DBB3F19883DC100E7DBF3 /* 158270-001.txt in Resources */ = {isa = PBXBuildFile; fileRef = 458DBB3C19883DC100E7DBF3 /* 158270-001.txt */; };
 		458DBB4019883DC100E7DBF3 /* CLARKEM.txt in Resources */ = {isa = PBXBuildFile; fileRef = 458DBB3D19883DC100E7DBF3 /* CLARKEM.txt */; };
 		458DBB4119883DC100E7DBF3 /* DEBAUWB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 458DBB3E19883DC100E7DBF3 /* DEBAUWB.txt */; };
+		458DBB481989505000E7DBF3 /* AiMTabMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DBB471989505000E7DBF3 /* AiMTabMainViewController.m */; };
+		458DBB4B1989726C00E7DBF3 /* AiMTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DBB4A1989726C00E7DBF3 /* AiMTabBarViewController.m */; };
 		45E24BCD198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */; };
 		45E24BD019806DBF00AEB2F5 /* AiMAddActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */; };
 		45E24BD3198077B400AEB2F5 /* AiMAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BD2198077B400AEB2F5 /* AiMAction.m */; };
@@ -61,6 +63,10 @@
 		458DBB3C19883DC100E7DBF3 /* 158270-001.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "158270-001.txt"; path = "AiM Mobile/Resources/158270-001.txt"; sourceTree = "<group>"; };
 		458DBB3D19883DC100E7DBF3 /* CLARKEM.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CLARKEM.txt; path = "AiM Mobile/Resources/CLARKEM.txt"; sourceTree = "<group>"; };
 		458DBB3E19883DC100E7DBF3 /* DEBAUWB.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = DEBAUWB.txt; path = "AiM Mobile/Resources/DEBAUWB.txt"; sourceTree = "<group>"; };
+		458DBB461989505000E7DBF3 /* AiMTabMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMTabMainViewController.h; sourceTree = "<group>"; };
+		458DBB471989505000E7DBF3 /* AiMTabMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMTabMainViewController.m; sourceTree = "<group>"; };
+		458DBB491989726C00E7DBF3 /* AiMTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMTabBarViewController.h; sourceTree = "<group>"; };
+		458DBB4A1989726C00E7DBF3 /* AiMTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMTabBarViewController.m; sourceTree = "<group>"; };
 		45E24BCB198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMWorkOrderDetailViewController.h; sourceTree = "<group>"; };
 		45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMWorkOrderDetailViewController.m; sourceTree = "<group>"; };
 		45E24BCE19806DBF00AEB2F5 /* AiMAddActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMAddActionViewController.h; sourceTree = "<group>"; };
@@ -252,6 +258,10 @@
 				45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */,
 				45E24BCE19806DBF00AEB2F5 /* AiMAddActionViewController.h */,
 				45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */,
+				458DBB461989505000E7DBF3 /* AiMTabMainViewController.h */,
+				458DBB471989505000E7DBF3 /* AiMTabMainViewController.m */,
+				458DBB491989726C00E7DBF3 /* AiMTabBarViewController.h */,
+				458DBB4A1989726C00E7DBF3 /* AiMTabBarViewController.m */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -358,6 +368,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				458DBB4B1989726C00E7DBF3 /* AiMTabBarViewController.m in Sources */,
 				7C97C479197EDD2000949B16 /* AiMAppDelegate.m in Sources */,
 				7C3A2FF3197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m in Sources */,
 				7C97C475197EDD2000949B16 /* main.m in Sources */,
@@ -365,6 +376,7 @@
 				458DBAEC1987FE2F00E7DBF3 /* AiMCustomTableCell.m in Sources */,
 				7C97C4AC197EDF4F00949B16 /* AiMUser.m in Sources */,
 				7C97C49B197EDD5000949B16 /* AiMLoginViewController.m in Sources */,
+				458DBB481989505000E7DBF3 /* AiMTabMainViewController.m in Sources */,
 				7C97C49F197EDDCD00949B16 /* AiMWorkOrder.m in Sources */,
 				7C97C4AF197EFE1700949B16 /* SSKeychain.m in Sources */,
 				7C97C4A2197EDDF200949B16 /* AiMOrganization.m in Sources */,
