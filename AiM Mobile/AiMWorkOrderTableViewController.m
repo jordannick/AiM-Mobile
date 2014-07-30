@@ -355,6 +355,10 @@
 //        vc.workOrder = _currentUser.workOrders[[index intValue]];
 //        vc.currentUser = _currentUser;
         
+
+        //vc.workOrder = _currentUser.workOrders[[index intValue]];
+        //vc.workOrderIndex = [index intValue];
+        //vc.currentUser = _currentUser;
     }
 
     

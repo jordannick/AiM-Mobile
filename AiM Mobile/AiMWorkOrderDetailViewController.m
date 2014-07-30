@@ -95,6 +95,20 @@
         if (self.action != nil) {
             //add to sync queue
             [_currentUser.syncQueue addObject:self.action];
+            
+            //add to actions log
+            
+            //[self.workOrder.phase.actionsLog addObject:self.action];
+            //[((AiMWorkOrder*)_currentUser.workOrders[self.workOrderIndex]).phase.actionsLog addObject:self.action];
+            
+            /*
+            for (AiMWorkOrder *printWorkOrder in _currentUser.workOrders){
+                NSLog(@"Work Order %@ - Phase actions log is: %@", printWorkOrder.taskID, ((AiMAction*)printWorkOrder.phase.actionsLog).name);
+                NSLog(@"  ");
+            }
+             */
+            
+            
         }
         
         //Test

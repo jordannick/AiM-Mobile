@@ -7,18 +7,48 @@
 //
 
 #import "AiMAddActionViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface AiMAddActionViewController () <UITextViewDelegate, UIScrollViewDelegate>
-@property (weak, nonatomic) IBOutlet UILabel *sliderLabel;
+
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveActionButton;
 @property (strong, nonatomic) NSString *actionTime;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *notesTextField;
+@property (weak, nonatomic) IBOutlet UILabel *selectedActionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *selectedTimeLabel;
+@property (nonatomic) BOOL actionSelected;
+@property (nonatomic) BOOL timeSelected;
+
 
 @end
 
 @implementation AiMAddActionViewController
     
+- (IBAction)viewActionSheet:(id)sender {
+    
+    UIActionSheet *actionSheet =  [[UIActionSheet alloc] initWithTitle:@"Select an Action" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Did this", @"Did that", @"Did things", @"General Maintainence", @"This is an action", nil];
+    
+    
+    [actionSheet showInView:self.view];
+    
+}
+
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (![[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]){
+        self.selectedActionLabel.textColor = [UIColor blackColor];
+        self.selectedActionLabel.text = [actionSheet buttonTitleAtIndex:buttonIndex];
+        self.actionSelected = YES;
+    }
+    //NSLog(@"the button %@", [actionSheet buttonTitleAtIndex:buttonIndex]);
+
+
+}
+
 
 
 - (IBAction)sliderTimeChanged:(UISlider *)sender
@@ -30,14 +60,19 @@
     [formatter setMaximumFractionDigits:1];
     NSString *numberString = [formatter stringFromNumber:[NSNumber numberWithFloat:sender.value]];
     
+    self.selectedTimeLabel.textColor = [UIColor blackColor];
+    
+    self.timeSelected = YES;
+    
     if(sender.value < 1){
-        self.sliderLabel.text = self.actionTime = @"30 minutes";
+        self.selectedTimeLabel.text = self.actionTime = @"30 minutes";
+        
     }else if(sender.value < 1.5){
-        self.sliderLabel.text = self.actionTime = @"1 hour";
+        self.selectedTimeLabel.text = self.actionTime = @"1 hour";
     }else if(sender.value == 8){
-        self.sliderLabel.text = self.actionTime = @"8+ hours";
+        self.selectedTimeLabel.text = self.actionTime = @"8+ hours";
     }else{
-        self.sliderLabel.text = self.actionTime = [NSString stringWithFormat:@"%@ hours", numberString];
+        self.selectedTimeLabel.text = self.actionTime = [NSString stringWithFormat:@"%@ hours", numberString];
     }
     
 }
@@ -56,19 +91,42 @@
     
     [self.scrollView setDelegate:self];
     
+    self.actionSelected = NO;
+    self.actionSelected = NO;
+    
+    self.notesTextField.layer.borderColor = [UIColor blackColor].CGColor;
+    self.notesTextField.layer.borderWidth = 1.0;
+    
     _actionToAdd = [[AiMAction alloc] init];
 }
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     //CGRect screenSize = [[UIScreen mainScreen] bounds];
     //[self.scrollView setContentSize:CGSizeMake(screenSize.size.width, screenSize.size.height)];
 }
 
--(void)textViewDidBeginEditing:(UITextView *)textView
+- (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    NSLog(@"TESTT");
-    [self.scrollView setContentOffset:CGPointMake(0, 150) animated:YES];
+    textView.textColor = [UIColor blackColor];
+    if ([textView.text isEqualToString:@"Enter additional notes here"]) {
+        textView.text = @"";
+    }
+    [self.scrollView setContentOffset:CGPointMake(0, 235) animated:YES];
+    
+}
+
+- (void) textViewDidEndEditing:(UITextView *)textView
+{
+    if ([[textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""])
+    {
+        textView.text = @"Enter additional notes here";
+        textView.textColor = [UIColor grayColor];
+    }
+    else
+        textView.textColor = [UIColor blackColor];
+
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,6 +147,33 @@
 
 #pragma mark - Navigation
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if (sender != self.saveActionButton)
+        return YES;
+    else
+    {
+        CAKeyframeAnimation * jiggleAnim = [ CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
+        jiggleAnim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-5.0f, 0.0f, 0.0f) ], [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(5.0f, 0.0f, 0.0f) ] ] ;
+        jiggleAnim.autoreverses = YES;  jiggleAnim.repeatCount = 2.0f;  jiggleAnim.duration = 0.07f;
+
+        if (!self.actionSelected)
+        {
+            self.selectedActionLabel.textColor = [UIColor redColor];
+            [self.selectedActionLabel.layer addAnimation:jiggleAnim forKey:nil];
+        }
+        if (!self.timeSelected)
+        {
+            self.selectedTimeLabel.textColor = [UIColor redColor];
+            [self.selectedTimeLabel.layer addAnimation:jiggleAnim forKey:nil];
+        }
+        if (self.actionSelected && self.timeSelected)
+            return YES;
+        else
+            return NO;
+    }
+}
+
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -107,7 +192,7 @@
         //set the action
         
         self.actionToAdd.workOrderID = self.workOrder.taskID;
-        self.actionToAdd.name = @"replace this name";
+        self.actionToAdd.name = self.selectedActionLabel.text;
         self.actionToAdd.time = self.actionTime;
         self.actionToAdd.note = self.notesTextField.text;
         

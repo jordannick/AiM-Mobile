@@ -10,7 +10,7 @@
 
 @interface AiMAction : NSObject
 
-@property (strong, nonatomic) NSNumber *workOrderID;
+@property (strong, nonatomic) NSString *workOrderID;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *time;
 @property (strong, nonatomic) NSString *note;
