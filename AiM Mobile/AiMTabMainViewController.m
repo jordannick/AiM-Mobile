@@ -20,7 +20,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *shop;
 @property (weak, nonatomic) IBOutlet UILabel *workCode;
 @property (weak, nonatomic) IBOutlet UILabel *created;
-@property (weak, nonatomic) IBOutlet UINavigationItem *titleBar;
+@property (weak, nonatomic) IBOutlet UINavigationItem *title;
+
 
 @end
 
@@ -32,6 +33,8 @@
     if (self) {
         // Custom initialization
     }
+    
+    self.navigationItem.title = @"OMG...!";
     return self;
 }
 
@@ -40,61 +43,37 @@
     [super viewDidLoad];
     
     
-    NSArray *items = [self.navigationController.navigationBar items];
-    
     
     
     AiMTabBarViewController *parentVc = (AiMTabBarViewController*)self.tabBarController;
     self.currentUser = parentVc.currentUser;
     self.workOrder = parentVc.workOrder;
     
-    // Do any additional setup after loading the view.
     UIView *lastView = [[self.scrollView subviews] lastObject];
     lastView = self.bottomView;
     float sizeOfContent = lastView.frame.origin.y + lastView.frame.size.height;
-    
     NSLog(@"Size of content: %f\nFrame: %f", sizeOfContent, self.view.bounds.size.height-self.navigationController.navigationBar.frame.size.height);
    
     
     CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
-    
     CGFloat oldFrame = self.scrollView.bounds.origin.y;
-    
     NSLog(@"This is oldFrame origin Y: %f", oldFrame);
     CGRect newBounds = CGRectMake(0 , navBarHeight, self.view.frame.size.width, sizeOfContent);
-    
     self.scrollView.bounds = newBounds;
-    //self.scrollView.clipsToBounds = YES;
-    
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, sizeOfContent);
-    //self.scrollView.bounds = newBounds;
-    //self.scrollView.scrollEnabled = NO;
-    
-    //self.scrollView.frame = [[UIScreen mainScreen] applicationFrame];
 
-    
-    NSLog(@"Bounds are: %f AND %f", self.view.frame.size.height, self.scrollView.frame.size.height);
     
     [self loadInitialData];
     
-    UINavigationBar *navBar = self.navigationController.navigationBar;
+
+
     
-    
-    UINavigationItem *navItem = [[navBar items] objectAtIndex:1];
-    [navItem setTitle:@"TEST"];
-    
-    NSLog(@"This: %lu",(unsigned long)[[navBar items] count]);
-    
-    
+}
+- (IBAction)actionButtonClick:(id)sender {
+    [self performSegueWithIdentifier:@"New Action" sender:self ];
 }
 -(void)loadInitialData
 {
-    
-    //self.navigationController.navigationBar.topItem.title = @"TEST";
-    //self.titleBar
-    //self.navigationItem.title = @"TEST";
-    //self.titleBar.title = @"TEST";
-    //self.titleBar.title = self.workOrder.taskID;
     self.location.text = [NSString stringWithFormat:@"%@ - %@", self.workOrder.building, self.workOrder.roomNum];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -107,18 +86,6 @@
     //[self.workOrder.phase.estStart]
     
     //self.estDate.text = [NSString stringWithFormat:@"%@ - %@"];
-    
-//    
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-//    NSDate *date = [formatter dateFromString:tempDate];
-//    
-//    NSCalendar *calender = [NSCalendar currentCalendar];
-//    NSLog(@"Time zone: %@", [calender timeZone]);
-//    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
-//    
-//    NSString *dateString = [NSString stringWithFormat:@"%d/%d/%d", [components month], [components day], [components year]];
     
     /*
      @property (weak, nonatomic) IBOutlet UITextView *textView;
