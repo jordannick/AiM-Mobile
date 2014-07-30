@@ -26,4 +26,6 @@
 
 @property(strong, nonatomic) NSMutableArray *notesArray;
 
+@property(strong, nonatomic) NSMutableArray *actionsLog;
+
 @end

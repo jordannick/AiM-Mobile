@@ -14,6 +14,7 @@
 @interface AiMWorkOrderDetailViewController : UIViewController
 
 @property AiMWorkOrder *workOrder;
+//@property int workOrderIndex;
 @property (strong, nonatomic) AiMUser *currentUser;
 
 @end

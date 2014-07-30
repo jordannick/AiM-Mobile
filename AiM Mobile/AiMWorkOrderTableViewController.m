@@ -348,6 +348,7 @@
         NSNumber *index = [[self.numInEachSection objectAtIndex:[path section]] objectAtIndex:[path row]];
         
         vc.workOrder = _currentUser.workOrders[[index intValue]];
+        //vc.workOrderIndex = [index intValue];
         vc.currentUser = _currentUser;
     }
 
