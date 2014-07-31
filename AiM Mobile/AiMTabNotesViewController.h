@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 
-@interface AiMTabNotesViewController : UIViewController
+@interface AiMTabNotesViewController : UITableViewController
 
 @end
