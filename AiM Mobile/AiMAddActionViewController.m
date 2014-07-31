@@ -13,6 +13,13 @@
 
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveActionButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *availableActions;
+@property (weak, nonatomic) IBOutlet UIButton *customAction;
+
+
+
+
 @property (strong, nonatomic) NSString *actionTime;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *notesTextField;
@@ -35,6 +42,14 @@
     
 }
 
+- (IBAction)enterCustomAction:(id)sender {
+    
+    [self transitionInputTo:@"left"];
+    
+}
+
+
+
 
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -48,6 +63,26 @@
 
 
 }
+
+
+-(void)transitionInputTo:(NSString*)position
+{
+   /* CGFloat yField = self.availableActions.layer.position.y;
+ //   CGFloat yLabel = self.customAction.layer.position.y;
+    CGFloat frameWidth = self.view.frame.size.width;
+    if([position isEqualToString:@"right"]) frameWidth = frameWidth*-1;     //If RIGHT, reverse direction
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.availableActions.layer.position = CGPointMake(self.availableActions.layer.position.x - frameWidth, yField);
+        self.customAction.layer.position = CGPointMake(self.customAction.layer.position.x - frameWidth, yField);
+
+        //self.activityIndicatorLabel.layer.position = CGPointMake(self.activityIndicatorLabel.layer.position.x - frameWidth, yLabel);
+        //self.activityIndicator.layer.position = CGPointMake(self.activityIndicator.layer.position.x - frameWidth, yLabel);
+        
+    }];
+    */
+}
+
 
 
 
