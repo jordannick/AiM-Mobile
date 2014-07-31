@@ -17,7 +17,7 @@
 		458DBB481989505000E7DBF3 /* AiMTabMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DBB471989505000E7DBF3 /* AiMTabMainViewController.m */; };
 		458DBB4B1989726C00E7DBF3 /* AiMTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DBB4A1989726C00E7DBF3 /* AiMTabBarViewController.m */; };
 		458DBB4F1989A6FB00E7DBF3 /* AiMTabContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DBB4E1989A6FB00E7DBF3 /* AiMTabContactViewController.m */; };
-		45E24BCD198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */; };
+		458DBB52198A971600E7DBF3 /* AiMTabNotesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DBB51198A971600E7DBF3 /* AiMTabNotesViewController.m */; };
 		45E24BD019806DBF00AEB2F5 /* AiMAddActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */; };
 		45E24BD3198077B400AEB2F5 /* AiMAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BD2198077B400AEB2F5 /* AiMAction.m */; };
 		45E24BD61981B61600AEB2F5 /* AiMBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BD51981B61600AEB2F5 /* AiMBackground.m */; };
@@ -70,8 +70,8 @@
 		458DBB4A1989726C00E7DBF3 /* AiMTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMTabBarViewController.m; sourceTree = "<group>"; };
 		458DBB4D1989A6FB00E7DBF3 /* AiMTabContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMTabContactViewController.h; sourceTree = "<group>"; };
 		458DBB4E1989A6FB00E7DBF3 /* AiMTabContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMTabContactViewController.m; sourceTree = "<group>"; };
-		45E24BCB198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMWorkOrderDetailViewController.h; sourceTree = "<group>"; };
-		45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMWorkOrderDetailViewController.m; sourceTree = "<group>"; };
+		458DBB50198A971600E7DBF3 /* AiMTabNotesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMTabNotesViewController.h; sourceTree = "<group>"; };
+		458DBB51198A971600E7DBF3 /* AiMTabNotesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMTabNotesViewController.m; sourceTree = "<group>"; };
 		45E24BCE19806DBF00AEB2F5 /* AiMAddActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMAddActionViewController.h; sourceTree = "<group>"; };
 		45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMAddActionViewController.m; sourceTree = "<group>"; };
 		45E24BD1198077B400AEB2F5 /* AiMAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AiMAction.h; path = Model/AiMAction.h; sourceTree = "<group>"; };
@@ -157,6 +157,8 @@
 				458DBB4A1989726C00E7DBF3 /* AiMTabBarViewController.m */,
 				458DBB4D1989A6FB00E7DBF3 /* AiMTabContactViewController.h */,
 				458DBB4E1989A6FB00E7DBF3 /* AiMTabContactViewController.m */,
+				458DBB50198A971600E7DBF3 /* AiMTabNotesViewController.h */,
+				458DBB51198A971600E7DBF3 /* AiMTabNotesViewController.m */,
 			);
 			name = "Tab Bar";
 			sourceTree = "<group>";
@@ -395,6 +397,7 @@
 				458DBB4F1989A6FB00E7DBF3 /* AiMTabContactViewController.m in Sources */,
 				45E24BD019806DBF00AEB2F5 /* AiMAddActionViewController.m in Sources */,
 				7C97C4A5197EDE3500949B16 /* AiMWorkOrderPhase.m in Sources */,
+				458DBB52198A971600E7DBF3 /* AiMTabNotesViewController.m in Sources */,
 				45E24BD61981B61600AEB2F5 /* AiMBackground.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

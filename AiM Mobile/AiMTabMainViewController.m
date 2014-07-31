@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *workCode;
 @property (weak, nonatomic) IBOutlet UILabel *created;
 @property (weak, nonatomic) IBOutlet UINavigationItem *title;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 
 
@@ -60,44 +61,62 @@
     self.workOrder = parentVc.workOrder;
     parentVc.navigationItem.title = self.workOrder.taskID;
     
-    /*
-    UIBarButtonItem *actionButton = [[UIBarButtonItem alloc]initWithTitle:@"New Action" style:UIBarButtonItemStyleBordered target:self action:@selector(addAction)];
-    
-    parentVc.navigationItem.rightBarButtonItem = actionButton;*/
-    
-    
-    UIView *lastView = [[self.scrollView subviews] lastObject];
-    lastView = self.bottomView;
-    float sizeOfContent = lastView.frame.origin.y + lastView.frame.size.height;
-    NSLog(@"viewDidLoad -- frame origin: %f\nframe size: %f", lastView.frame.origin.y, lastView.frame.size.height);
-    NSLog(@"viewDidLoad -- Size of content: %f\nFrame: %f", sizeOfContent, self.view.bounds.size.height-self.navigationController.navigationBar.frame.size.height);
-   
-    
-    CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
-    CGFloat oldFrame = self.scrollView.bounds.origin.y;
-    NSLog(@"viewDidLoad -- This is oldFrame origin Y: %f", oldFrame);
-    CGRect newBounds = CGRectMake(0 , navBarHeight, self.view.frame.size.width, sizeOfContent);
-    self.scrollView.bounds = newBounds;
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, sizeOfContent);
-    
-    
+    [self setUpScrollView];
    
     
     [self loadInitialData];
     
 
-
+    [self printScrollViewStatus];
     
 }
 
-/*
--(void)addAction
+
+-(void)setUpScrollView
 {
-    [self performSegueWithIdentifier:@"New Action" sender:self];
+//    //UIView *lastView = [self.scrollView ]
+//    //lastView = self.bottomView;
+//    float sizeOfContent = lastView.frame.origin.y + lastView.frame.size.height;
+//    NSLog(@"Size of content: %f\nFrame: %f", sizeOfContent, self.view.bounds.size.height-self.navigationController.navigationBar.frame.size.height);
+//    
+//    
+//    
+//    CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
+//    CGFloat oldFrame = self.scrollView.bounds.origin.y;
+//    NSLog(@"This is oldFrame origin Y: %f", oldFrame);
+//    CGRect newBounds = CGRectMake(0 , navBarHeight, self.view.frame.size.width, sizeOfContent);
+//    self.scrollView.bounds = newBounds;
+//    //self.scrollView.frame = newBounds;
+//    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, sizeOfContent);
+    
+    UIView *lastOne = [self.scrollView.subviews lastObject];
+    NSLog(@"lastOne: %f", lastOne.frame.origin.y + lastOne.frame.size.height);
+    
+    
+    CGRect contentRect = CGRectZero;
+    for (UIView *view in self.scrollView.subviews) {
+        CGFloat old = contentRect.size.height;
+        contentRect = CGRectUnion(contentRect, view.frame);
+        CGFloat new = contentRect.size.height;
+        
+        NSLog(@"%f --> %f", old, new);
+    }
+    //contentRect.size.height = contentRect.size.height + 100;
+    contentRect.size.height = 600;
+    self.scrollView.contentSize = contentRect.size;
+    self.scrollView.contentOffset = CGPointZero;
+    
+    
 }
-*/
 
+-(void)printScrollViewStatus
+{
+    //Frame origins stay the same
+    //NSLog(@"XOrigin: %f, YOrigin: %f, Width: %f, Height: %f", self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, self.scrollView.frame.size.height);
+    
+    NSLog(@"scrollViewContentSize: %f",self.scrollView.contentSize.height);
 
+}
 -(void)loadInitialData
 {
     if(![self.workOrder.roomNum isEqual:[NSNull null]]){
@@ -147,27 +166,28 @@
 }
 
 
-- (void)viewWillAppear:(BOOL)animated
+
+-(void)viewDidLayoutSubviews
 {
-    
-    UIView *lastView = [[self.scrollView subviews] lastObject];
-    lastView = self.bottomView;
-    float sizeOfContent = lastView.frame.origin.y + lastView.frame.size.height;
-    NSLog(@"viewWillAppear -- frame origin: %f\nframe size: %f", lastView.frame.origin.y, lastView.frame.size.height);
-    NSLog(@"viewWillAppear -- Size of content coming back: %f\nFrame: %f", sizeOfContent, self.view.bounds.size.height-self.navigationController.navigationBar.frame.size.height);
-    
-    
-    
+    [super viewDidLayoutSubviews];
+    self.scrollView.contentSize = self.contentView.frame.size;
 }
 
-/*
+-(void)viewWillDisappear:(BOOL)animated
 
-- (void)viewWillDisappear:(BOOL)animated
 {
-    [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, 0)
-                             animated:NO];
+    //[self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, 0)
+                             //animated:NO];
 }
- */
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    //[self setUpScrollView];
+    //[self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, 0)
+                             //animated:NO];
+    //NSLog(@"Yo... %f  AND  %f", self.scrollView.frame.size.height, self.scrollView.contentSize.height);
+    //[self printScrollViewStatus];
+}
 
 - (void)didReceiveMemoryWarning
 {
