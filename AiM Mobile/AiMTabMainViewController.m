@@ -60,9 +60,10 @@
     self.workOrder = parentVc.workOrder;
     parentVc.navigationItem.title = self.workOrder.taskID;
     
+    /*
     UIBarButtonItem *actionButton = [[UIBarButtonItem alloc]initWithTitle:@"New Action" style:UIBarButtonItemStyleBordered target:self action:@selector(addAction)];
     
-    parentVc.navigationItem.rightBarButtonItem = actionButton;
+    parentVc.navigationItem.rightBarButtonItem = actionButton;*/
     
     
     UIView *lastView = [[self.scrollView subviews] lastObject];
@@ -87,11 +88,13 @@
 
     
 }
+
+/*
 -(void)addAction
 {
     [self performSegueWithIdentifier:@"New Action" sender:self];
 }
-
+*/
 
 
 -(void)loadInitialData

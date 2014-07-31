@@ -48,19 +48,46 @@
     
 }
 
-
+/*
 
 - (IBAction)cancelButtonClicked:(UIBarButtonItem *)sender {
     NSLog(@"Cancel button clicked! -");
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
 - (IBAction)saveButtonClicked:(UIBarButtonItem *)sender {
     NSLog(@"Save button clicked! -");
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    
+    CAKeyframeAnimation * jiggleAnim = [ CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
+    jiggleAnim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-5.0f, 0.0f, 0.0f) ], [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(5.0f, 0.0f, 0.0f) ] ] ;
+    jiggleAnim.autoreverses = YES;  jiggleAnim.repeatCount = 2.0f;  jiggleAnim.duration = 0.07f;
+    
+    if (!self.actionSelected)
+    {
+        self.selectedActionLabel.textColor = [UIColor redColor];
+        [self.selectedActionLabel.layer addAnimation:jiggleAnim forKey:nil];
+    }
+    if (!self.timeSelected)
+    {
+        self.selectedTimeLabel.textColor = [UIColor redColor];
+        [self.selectedTimeLabel.layer addAnimation:jiggleAnim forKey:nil];
+    }
+    if (self.actionSelected && self.timeSelected){
+        
+        self.actionToAdd.workOrderID = self.workOrder.taskID;
+        self.actionToAdd.name = self.selectedActionLabel.text;
+        self.actionToAdd.time = self.actionTime;
+        self.actionToAdd.note = self.notesTextField.text;
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    //[self.navigationController popViewControllerAnimated:YES];
 }
 
 
-
+*/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
