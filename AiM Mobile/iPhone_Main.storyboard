@@ -282,20 +282,12 @@
                     <navigationItem key="navigationItem" title="New Action" id="mKa-D6-B8C">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="U6f-4m-SvX">
                             <connections>
-<<<<<<< HEAD
                                 <action selector="cancelButtonClicked:" destination="hIv-px-HbM" id="E91-Z0-4tX"/>
-=======
-                                <segue destination="Zn1-UC-VhN" kind="unwind" identifier="cancelToDetail" unwindAction="unwindToTabView:" id="87h-ew-jBt"/>
->>>>>>> FETCH_HEAD
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="fCm-u5-Q7R">
                             <connections>
-<<<<<<< HEAD
                                 <action selector="saveButtonClicked:" destination="hIv-px-HbM" id="Vze-bg-a09"/>
-=======
-                                <segue destination="Zn1-UC-VhN" kind="unwind" identifier="saveToDetail" unwindAction="unwindToTabView:" id="F1H-IA-4hN"/>
->>>>>>> FETCH_HEAD
                             </connections>
                         </barButtonItem>
                     </navigationItem>
