@@ -179,14 +179,19 @@
             [workOrderNotes addObject:note];
         }
         
-        //Initialize phase obj
         AiMWorkOrderPhase *phase = [[AiMWorkOrderPhase alloc] init];
+        //Initialize phase obj
         NSArray *phases = [workOrderPhase objectForKey:@"phases"];
         for (int i = 0; i < [phases count]; i++)
         {
+            
             NSDictionary *phaseDict = phases[i];
             if ([[phaseDict objectForKey:@"sort_code"] isEqualToString:phaseNum])
             {
+                NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                [df setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+                phase.estStart = [df dateFromString:[phaseDict objectForKey:@"beg_dt"]];
+                phase.estEnd = [df dateFromString:[phaseDict objectForKey:@"end_dt"]];
                 phase.description = [phaseDict objectForKey:@"description"];
                 phase.building = [phaseDict objectForKey:@"building"];
                 phase.roomNum = [phaseDict objectForKey:@"loc_code"];
@@ -194,8 +199,6 @@
                 phase.shop = [phaseDict objectForKey:@"shop"];
                 phase.dateCreated = [phaseDict objectForKey:@"ent_date"];
                 phase.dateEdited = [phaseDict objectForKey:@"edit_date"];
-                phase.estStart = [phaseDict objectForKey:@"beg_dt"];
-                phase.estEnd = [phaseDict objectForKey:@"end_dt"];
                 phase.priority = [phaseDict objectForKey:@"pri_code"];
                 phase.workCode = [phaseDict objectForKey:@"craft_code"];
                 phase.notesArray = workOrderNotes;

@@ -58,6 +58,12 @@
     AiMTabBarViewController *parentVc = (AiMTabBarViewController*)self.tabBarController;
     self.currentUser = parentVc.currentUser;
     self.workOrder = parentVc.workOrder;
+    parentVc.navigationItem.title = self.workOrder.taskID;
+    
+    UIBarButtonItem *actionButton = [[UIBarButtonItem alloc]initWithTitle:@"New Action" style:UIBarButtonItemStyleBordered target:self action:@selector(addAction)];
+    
+    parentVc.navigationItem.rightBarButtonItem = actionButton;
+    
     
     UIView *lastView = [[self.scrollView subviews] lastObject];
     lastView = self.bottomView;
@@ -81,22 +87,42 @@
 
     
 }
-
-/*
-- (IBAction)actionButtonClick:(id)sender {
-    [self performSegueWithIdentifier:@"New Action" sender:self ];
+-(void)addAction
+{
+    [self performSegueWithIdentifier:@"New Action" sender:self];
 }
- */
+
 
 
 -(void)loadInitialData
 {
-    self.location.text = [NSString stringWithFormat:@"%@ - %@", self.workOrder.building, self.workOrder.roomNum];
+    if(![self.workOrder.roomNum isEqual:[NSNull null]]){
+        self.location.text = [NSString stringWithFormat:@"%@ (%@)", [self.workOrder.building capitalizedString], self.workOrder.roomNum];
+    }else{
+        self.location.text = [self.workOrder.building capitalizedString];
+    }
+    
+    
+    //self.textView.text = self.workOrder.phase.description ? self.workOrder.description : self.workOrder.phase.description;
+    self.textView.text = [self.workOrder.phase.description lowercaseString];
+    [self.textView setFont:[UIFont systemFontOfSize:16]];
+    
+    self.shop.text = self.workOrder.phase.shop;
+    self.workCode.text = self.workOrder.phase.workCode;
+    self.created.text = self.workOrder.dateCreated;
+    
+    
+    
+    
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MM-dd-yy"];
+    [formatter setDateFormat:@"MM/dd/yy"];
     NSDate *startDate = self.workOrder.phase.estStart;
     NSDate *endDate = self.workOrder.phase.estEnd;
+    
+    self.estDate.text = [NSString stringWithFormat:@"%@ - %@", [formatter stringFromDate:startDate], [formatter stringFromDate:endDate]];
+    
+
     //NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:startDate];
     
     //NSLog(@"%ld/%ld/%ld", (long)[components month], (long)[components day], (long)[components year]);

@@ -50,6 +50,16 @@
 
 
 
+- (IBAction)cancelButtonClicked:(UIBarButtonItem *)sender {
+    NSLog(@"Cancel button clicked! -");
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (IBAction)saveButtonClicked:(UIBarButtonItem *)sender {
+    NSLog(@"Save button clicked! -");
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -58,6 +68,7 @@
         self.selectedActionLabel.textColor = [UIColor blackColor];
         self.selectedActionLabel.text = [actionSheet buttonTitleAtIndex:buttonIndex];
         self.actionSelected = YES;
+
     }
     //NSLog(@"the button %@", [actionSheet buttonTitleAtIndex:buttonIndex]);
 
@@ -133,6 +144,11 @@
     self.notesTextField.layer.borderWidth = 1.0;
     
     _actionToAdd = [[AiMAction alloc] init];
+    
+    
+
+    NSLog(@"LeftBarButton action: %@",self.navigationItem.leftBarButtonItem.title);
+    
 }
 - (void)viewDidAppear:(BOOL)animated
 {

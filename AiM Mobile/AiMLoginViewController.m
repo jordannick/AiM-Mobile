@@ -252,7 +252,13 @@
     self.backButton.hidden = YES;
     self.loginButton.hidden = YES;
     
-    [_currentUser sendRequestTo:[NSURL URLWithString:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrders/CLARKEM"] withLoginBool: YES andSender: self];
+    NSString *aimUser = self.usernameTextField.text;
+    //if([aimUser isEqualToString:@"t"])
+        aimUser = @"CLARKEM";
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrders/", aimUser];
+    
+    [_currentUser sendRequestTo:[NSURL URLWithString:urlString] withLoginBool: YES andSender: self];
 }
 
 - (void)viewDidLoad
