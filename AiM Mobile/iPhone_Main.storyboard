@@ -431,6 +431,7 @@
                         <outlet property="shop" destination="JLj-wz-HX4" id="BIS-Tg-DPv"/>
                         <outlet property="textView" destination="SCK-gd-h2I" id="Vph-Xb-y5i"/>
                         <outlet property="workCode" destination="mkk-Pq-3cx" id="5V8-7e-1WK"/>
+                        <segue destination="hIv-px-HbM" kind="push" identifier="New Action" id="Rpa-bK-w91"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8oZ-y0-twj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -441,13 +442,7 @@
         <scene sceneID="eRv-IV-ti6">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="UW4-y7-JBj" customClass="AiMTabBarViewController" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="Test" id="5dw-Ir-mPZ">
-                        <barButtonItem key="rightBarButtonItem" title="Add Action" id="ciS-I3-E8G">
-                            <connections>
-                                <segue destination="hIv-px-HbM" kind="push" identifier="AddAction" id="Z9k-i0-e57"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Test" id="5dw-Ir-mPZ"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Hzv-fi-uZ2">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
