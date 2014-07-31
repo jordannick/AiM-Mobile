@@ -14,16 +14,18 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveActionButton;
 
-@property (weak, nonatomic) IBOutlet UIButton *availableActions;
-@property (weak, nonatomic) IBOutlet UIButton *customAction;
+@property (nonatomic) UIColor *defaultColor;
 
+@property (weak, nonatomic) IBOutlet UIButton *viewActionsButton;
+@property (weak, nonatomic) IBOutlet UIButton *doneCustomButton;
+@property (weak, nonatomic) IBOutlet UITextField *customActionTextField;
+@property (weak, nonatomic) IBOutlet UILabel *actionTakenLabel;
 
-
-
+@property (strong, nonatomic) NSString *actionTaken;
 @property (strong, nonatomic) NSString *actionTime;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *notesTextField;
-@property (weak, nonatomic) IBOutlet UILabel *selectedActionLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *selectedTimeLabel;
 @property (nonatomic) BOOL actionSelected;
 @property (nonatomic) BOOL timeSelected;
@@ -35,16 +37,38 @@
     
 - (IBAction)viewActionSheet:(id)sender {
     
-    UIActionSheet *actionSheet =  [[UIActionSheet alloc] initWithTitle:@"Select an Action" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Did this", @"Did that", @"Did things", @"General Maintainence", @"This is an action", nil];
+    UIActionSheet *actionSheet =  [[UIActionSheet alloc] initWithTitle:@"Select an Action" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Action 1", @"Action 2", @"Action 3", @"Action 4", @"Action 5", @"Custom Action >", nil];
     
     
     [actionSheet showInView:self.view];
     
 }
 
-- (IBAction)enterCustomAction:(id)sender {
+- (IBAction)doneCustomButtonPressed:(id)sender {
     
+   
+     [self transitionInputTo:@"right"];
+    [self.customActionTextField resignFirstResponder];
+    
+    
+    if ([[self.customActionTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""])
+    {
+        [self.viewActionsButton setTitle:@"Select an Action" forState:UIControlStateNormal];
+        self.actionSelected = NO;
+    
+    } else {
+        self.actionTaken = self.customActionTextField.text;
+        [self.viewActionsButton setTitle:self.actionTaken forState:UIControlStateNormal];
+        self.actionSelected = YES;
+    }
+    
+    
+}
+
+- (void)enterCustomAction
+{
     [self transitionInputTo:@"left"];
+    [self.customActionTextField becomeFirstResponder];
     
 }
 
@@ -92,10 +116,27 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (![[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]){
-        self.selectedActionLabel.textColor = [UIColor blackColor];
-        self.selectedActionLabel.text = [actionSheet buttonTitleAtIndex:buttonIndex];
-        self.actionSelected = YES;
+        //self.selectedActionLabel.textColor = [UIColor blackColor];
+        //self.selectedActionLabel.text = [actionSheet buttonTitleAtIndex:buttonIndex];
+        
+        
+        
+        if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Custom Action >"])
+        {
+            [self enterCustomAction];
+            
+        } else {
+            self.actionTaken = [actionSheet buttonTitleAtIndex:buttonIndex];
+            
+            [self.viewActionsButton setTitle:self.actionTaken forState:UIControlStateNormal];
 
+            [self.viewActionsButton setTitleColor:self.defaultColor forState:UIControlStateNormal];
+            
+            self.actionSelected = YES;
+        }
+        
+        
+        
     }
     //NSLog(@"the button %@", [actionSheet buttonTitleAtIndex:buttonIndex]);
 
@@ -105,20 +146,29 @@
 
 -(void)transitionInputTo:(NSString*)position
 {
-   /* CGFloat yField = self.availableActions.layer.position.y;
- //   CGFloat yLabel = self.customAction.layer.position.y;
+    NSLog(@"got to transition input");
+    /*
+    
+    @property (weak, nonatomic) IBOutlet UIButton *viewActionsButton;
+    @property (weak, nonatomic) IBOutlet UIButton *doneCustomButton;
+    @property (weak, nonatomic) IBOutlet UITextField *customActionTextField;
+    @property (weak, nonatomic) IBOutlet UILabel *actionTakenLabel;
+    */
+    
+    CGFloat y = self.viewActionsButton.layer.position.y;
+    
     CGFloat frameWidth = self.view.frame.size.width;
     if([position isEqualToString:@"right"]) frameWidth = frameWidth*-1;     //If RIGHT, reverse direction
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.availableActions.layer.position = CGPointMake(self.availableActions.layer.position.x - frameWidth, yField);
-        self.customAction.layer.position = CGPointMake(self.customAction.layer.position.x - frameWidth, yField);
-
-        //self.activityIndicatorLabel.layer.position = CGPointMake(self.activityIndicatorLabel.layer.position.x - frameWidth, yLabel);
-        //self.activityIndicator.layer.position = CGPointMake(self.activityIndicator.layer.position.x - frameWidth, yLabel);
+        
+        self.viewActionsButton.layer.position = CGPointMake(self.viewActionsButton.layer.position.x - frameWidth, y);
+        self.doneCustomButton.layer.position = CGPointMake(self.doneCustomButton.layer.position.x - frameWidth, y);
+        self.customActionTextField.layer.position = CGPointMake(self.customActionTextField.layer.position.x - frameWidth, y);
+        self.actionTakenLabel.layer.position = CGPointMake(self.actionTakenLabel.layer.position.x - frameWidth, y);
         
     }];
-    */
+    
 }
 
 
@@ -169,6 +219,9 @@
     
     self.notesTextField.layer.borderColor = [UIColor blackColor].CGColor;
     self.notesTextField.layer.borderWidth = 1.0;
+    
+    
+    self.defaultColor = [self.viewActionsButton titleColorForState:UIControlStateNormal];
     
     _actionToAdd = [[AiMAction alloc] init];
     
@@ -239,8 +292,10 @@
 
         if (!self.actionSelected)
         {
-            self.selectedActionLabel.textColor = [UIColor redColor];
-            [self.selectedActionLabel.layer addAnimation:jiggleAnim forKey:nil];
+            //self.selectedActionLabel.textColor = [UIColor redColor];
+            //[self.selectedActionLabel.layer addAnimation:jiggleAnim forKey:nil];
+            [self.viewActionsButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            [self.viewActionsButton.layer addAnimation:jiggleAnim forKey:nil];
         }
         if (!self.timeSelected)
         {
@@ -276,7 +331,7 @@
         //set the action
         
         self.actionToAdd.workOrderID = self.workOrder.taskID;
-        self.actionToAdd.name = self.selectedActionLabel.text;
+        self.actionToAdd.name = self.actionTaken;//self.selectedActionLabel.text;
         self.actionToAdd.time = self.actionTime;
         self.actionToAdd.note = self.notesTextField.text;
         
