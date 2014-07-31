@@ -9,9 +9,11 @@
 #import "AiMTabBarViewController.h"
 #import "AiMAddActionViewController.h"
 
+
 @interface AiMTabBarViewController ()
 
 @property (strong, nonatomic) AiMAction *action;
+@property (strong, nonatomic) UIAlertView *actionAddedAlert;
 
 @end
 
@@ -30,6 +32,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.actionAddedAlert = [[UIAlertView alloc] initWithTitle:@"Work Order" message:[NSString stringWithFormat:@"New action added to work order %@", self.action.workOrderID] delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    
+
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,11 +46,17 @@
 }
 
 
+- (void)dismissAlert
+{
+    [self.actionAddedAlert dismissWithClickedButtonIndex:0 animated:YES];
+    
+
+}
 
 
 - (IBAction)unwindToTabView:(UIStoryboardSegue *)segue
 {
-   // NSLog(@"Got to the unwind");
+   NSLog(@"Got to the unwind");
     
     if ([segue.identifier isEqualToString:@"saveToDetail"]){
         AiMAddActionViewController *source = [segue sourceViewController];
@@ -66,6 +79,18 @@
             
             
         }
+        
+        NSLog(@"Show alert here");
+        
+        NSTimeInterval interval = 2;
+        
+        
+        [self.actionAddedAlert show];
+        
+        [self performSelector:@selector(dismissAlert) withObject:self.actionAddedAlert afterDelay:interval];
+        
+        
+        
         
         //Test
         for (int i = 0; i < [_currentUser.syncQueue count]; i++)

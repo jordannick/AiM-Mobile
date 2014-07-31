@@ -244,13 +244,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter new action" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="A8m-Du-mOi">
-                                <rect key="frame" x="340" y="83" width="223" height="30"/>
+                                <rect key="frame" x="340" y="75" width="223" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoY-Ai-RMt">
-                                <rect key="frame" x="574" y="80" width="46" height="36"/>
+                                <rect key="frame" x="574" y="71" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -282,12 +282,12 @@
                     <navigationItem key="navigationItem" title="New Action" id="mKa-D6-B8C">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="U6f-4m-SvX">
                             <connections>
-                                <segue destination="Gut-4m-DQT" kind="unwind" unwindAction="unwindToTabView:" id="hVn-Gu-I30"/>
+                                <segue destination="Gut-4m-DQT" kind="unwind" identifier="cancelToDetail" unwindAction="unwindToTabView:" id="hVn-Gu-I30"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="fCm-u5-Q7R">
                             <connections>
-                                <segue destination="Gut-4m-DQT" kind="unwind" unwindAction="unwindToTabView:" id="fQ9-Va-B4l"/>
+                                <segue destination="Gut-4m-DQT" kind="unwind" identifier="saveToDetail" unwindAction="unwindToTabView:" id="fQ9-Va-B4l"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -316,7 +316,7 @@
                         <viewControllerLayoutGuide type="bottom" id="rgC-nU-BHG"/>
                     </layoutGuides>
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="UTk-3N-bh5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCK-gd-h2I">
@@ -417,6 +417,7 @@
                             <outlet property="delegate" destination="6Fa-DG-Jgn" id="l9v-sN-FFF"/>
                         </connections>
                     </scrollView>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="Overview" id="LET-lt-L5j"/>
                     <size key="freeformSize" width="320" height="480"/>
                     <connections>
