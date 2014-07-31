@@ -16,6 +16,7 @@
 		458DBB4119883DC100E7DBF3 /* DEBAUWB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 458DBB3E19883DC100E7DBF3 /* DEBAUWB.txt */; };
 		458DBB481989505000E7DBF3 /* AiMTabMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DBB471989505000E7DBF3 /* AiMTabMainViewController.m */; };
 		458DBB4B1989726C00E7DBF3 /* AiMTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DBB4A1989726C00E7DBF3 /* AiMTabBarViewController.m */; };
+		458DBB4F1989A6FB00E7DBF3 /* AiMTabContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DBB4E1989A6FB00E7DBF3 /* AiMTabContactViewController.m */; };
 		45E24BCD198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */; };
 		45E24BD019806DBF00AEB2F5 /* AiMAddActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */; };
 		45E24BD3198077B400AEB2F5 /* AiMAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BD2198077B400AEB2F5 /* AiMAction.m */; };
@@ -67,6 +68,8 @@
 		458DBB471989505000E7DBF3 /* AiMTabMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMTabMainViewController.m; sourceTree = "<group>"; };
 		458DBB491989726C00E7DBF3 /* AiMTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMTabBarViewController.h; sourceTree = "<group>"; };
 		458DBB4A1989726C00E7DBF3 /* AiMTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMTabBarViewController.m; sourceTree = "<group>"; };
+		458DBB4D1989A6FB00E7DBF3 /* AiMTabContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMTabContactViewController.h; sourceTree = "<group>"; };
+		458DBB4E1989A6FB00E7DBF3 /* AiMTabContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMTabContactViewController.m; sourceTree = "<group>"; };
 		45E24BCB198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMWorkOrderDetailViewController.h; sourceTree = "<group>"; };
 		45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMWorkOrderDetailViewController.m; sourceTree = "<group>"; };
 		45E24BCE19806DBF00AEB2F5 /* AiMAddActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMAddActionViewController.h; sourceTree = "<group>"; };
@@ -143,6 +146,19 @@
 			);
 			name = Resources;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		458DBB4C1989A69B00E7DBF3 /* Tab Bar */ = {
+			isa = PBXGroup;
+			children = (
+				458DBB461989505000E7DBF3 /* AiMTabMainViewController.h */,
+				458DBB471989505000E7DBF3 /* AiMTabMainViewController.m */,
+				458DBB491989726C00E7DBF3 /* AiMTabBarViewController.h */,
+				458DBB4A1989726C00E7DBF3 /* AiMTabBarViewController.m */,
+				458DBB4D1989A6FB00E7DBF3 /* AiMTabContactViewController.h */,
+				458DBB4E1989A6FB00E7DBF3 /* AiMTabContactViewController.m */,
+			);
+			name = "Tab Bar";
 			sourceTree = "<group>";
 		};
 		7C97C45C197EDD2000949B16 = {
@@ -258,10 +274,7 @@
 				45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */,
 				45E24BCE19806DBF00AEB2F5 /* AiMAddActionViewController.h */,
 				45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */,
-				458DBB461989505000E7DBF3 /* AiMTabMainViewController.h */,
-				458DBB471989505000E7DBF3 /* AiMTabMainViewController.m */,
-				458DBB491989726C00E7DBF3 /* AiMTabBarViewController.h */,
-				458DBB4A1989726C00E7DBF3 /* AiMTabBarViewController.m */,
+				458DBB4C1989A69B00E7DBF3 /* Tab Bar */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -381,6 +394,7 @@
 				7C97C4AF197EFE1700949B16 /* SSKeychain.m in Sources */,
 				7C97C4A2197EDDF200949B16 /* AiMOrganization.m in Sources */,
 				458DBAE21987026100E7DBF3 /* AiMNote.m in Sources */,
+				458DBB4F1989A6FB00E7DBF3 /* AiMTabContactViewController.m in Sources */,
 				45E24BD019806DBF00AEB2F5 /* AiMAddActionViewController.m in Sources */,
 				7C97C4A5197EDE3500949B16 /* AiMWorkOrderPhase.m in Sources */,
 				45E24BD61981B61600AEB2F5 /* AiMBackground.m in Sources */,
