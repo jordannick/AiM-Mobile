@@ -7,8 +7,11 @@
 //
 
 #import "AiMTabBarViewController.h"
+#import "AiMAddActionViewController.h"
 
 @interface AiMTabBarViewController ()
+
+@property (strong, nonatomic) AiMAction *action;
 
 @end
 
@@ -34,6 +37,52 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
+
+- (IBAction)unwindToTabView:(UIStoryboardSegue *)segue
+{
+   // NSLog(@"Got to the unwind");
+    
+    if ([segue.identifier isEqualToString:@"saveToDetail"]){
+        AiMAddActionViewController *source = [segue sourceViewController];
+        self.action = source.actionToAdd;
+        if (self.action != nil) {
+            //add to sync queue
+            [_currentUser.syncQueue addObject:self.action];
+            
+            //add to actions log
+            
+            //[self.workOrder.phase.actionsLog addObject:self.action];
+            //[((AiMWorkOrder*)_currentUser.workOrders[self.workOrderIndex]).phase.actionsLog addObject:self.action];
+            
+            /*
+             for (AiMWorkOrder *printWorkOrder in _currentUser.workOrders){
+             NSLog(@"Work Order %@ - Phase actions log is: %@", printWorkOrder.taskID, ((AiMAction*)printWorkOrder.phase.actionsLog).name);
+             NSLog(@"  ");
+             }
+             */
+            
+            
+        }
+        
+        //Test
+        for (int i = 0; i < [_currentUser.syncQueue count]; i++)
+        {
+            
+            NSLog(@"syncQueue time: %@", [(AiMAction *)[_currentUser.syncQueue objectAtIndex:i] time]);
+        }
+        NSLog(@"-----");
+        
+    }
+    
+    
+}
+
+
+
+
 
 /*
 #pragma mark - Navigation

@@ -9,6 +9,8 @@
 #import "AiMTabMainViewController.h"
 #import "AiMTabBarViewController.h"
 #import "AiMUser.h"
+#import "AiMAddActionViewController.h"
+
 
 @interface AiMTabMainViewController () <UIScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -23,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UINavigationItem *title;
 
 
+
+
 @end
 
 @implementation AiMTabMainViewController
@@ -35,6 +39,12 @@
     }
     
     self.navigationItem.title = @"OMG...!";
+    
+   // self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] init];
+   // self.navigationItem.rightBarButtonItem.title = @"Add Action";
+    
+    
+    
     return self;
 }
 
@@ -67,7 +77,9 @@
     CGRect newBounds = CGRectMake(0 , navBarHeight, self.view.frame.size.width, sizeOfContent);
     self.scrollView.bounds = newBounds;
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, sizeOfContent);
-
+    
+    
+   
     
     [self loadInitialData];
     
@@ -79,9 +91,9 @@
 {
     [self performSegueWithIdentifier:@"New Action" sender:self];
 }
-- (IBAction)actionButtonClick:(id)sender {
-    [self performSegueWithIdentifier:@"New Action" sender:self ];
-}
+
+
+
 -(void)loadInitialData
 {
     if(![self.workOrder.roomNum isEqual:[NSNull null]]){

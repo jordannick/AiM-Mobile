@@ -270,8 +270,6 @@
 				7C97C49A197EDD5000949B16 /* AiMLoginViewController.m */,
 				7C3A2FF1197F20AB00B7CC74 /* AiMWorkOrderTableViewController.h */,
 				7C3A2FF2197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m */,
-				45E24BCB198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.h */,
-				45E24BCC198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m */,
 				45E24BCE19806DBF00AEB2F5 /* AiMAddActionViewController.h */,
 				45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */,
 				458DBB4C1989A69B00E7DBF3 /* Tab Bar */,
@@ -398,7 +396,6 @@
 				45E24BD019806DBF00AEB2F5 /* AiMAddActionViewController.m in Sources */,
 				7C97C4A5197EDE3500949B16 /* AiMWorkOrderPhase.m in Sources */,
 				45E24BD61981B61600AEB2F5 /* AiMBackground.m in Sources */,
-				45E24BCD198017CF00AEB2F5 /* AiMWorkOrderDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
