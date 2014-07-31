@@ -9,8 +9,8 @@
             <objects>
                 <viewController id="UNG-JE-i06" customClass="AiMLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="nMY-lP-Fnd"/>
-                        <viewControllerLayoutGuide type="bottom" id="HbV-Gx-goS"/>
+                        <viewControllerLayoutGuide type="top" id="XBb-Vh-PjZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="zxx-Zi-Cxx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="i7i-U4-4xf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
@@ -183,8 +183,8 @@
             <objects>
                 <viewController id="hIv-px-HbM" customClass="AiMAddActionViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="F6r-DC-DqT"/>
-                        <viewControllerLayoutGuide type="bottom" id="yAc-po-9vc"/>
+                        <viewControllerLayoutGuide type="top" id="kOV-Fr-gRN"/>
+                        <viewControllerLayoutGuide type="bottom" id="ks8-VA-7pw"/>
                     </layoutGuides>
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="UiY-jk-b8f">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
@@ -305,38 +305,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AlE-My-4yH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Gut-4m-DQT" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1894" y="-553"/>
+            <point key="canvasLocation" x="2702" y="-133"/>
         </scene>
         <!--AiM Tab Main View Controller - Overview-->
         <scene sceneID="DKG-u9-EyX">
             <objects>
                 <viewController id="6Fa-DG-Jgn" customClass="AiMTabMainViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jz7-ky-B2G"/>
-                        <viewControllerLayoutGuide type="bottom" id="rgC-nU-BHG"/>
+                        <viewControllerLayoutGuide type="top" id="X71-fq-uaM"/>
+                        <viewControllerLayoutGuide type="bottom" id="gnS-hV-zss"/>
                     </layoutGuides>
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="UTk-3N-bh5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCK-gd-h2I">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCK-gd-h2I">
                                 <rect key="frame" x="20" y="101" width="280" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="pvg-8I-tN2"/>
+                                    <constraint firstAttribute="height" constant="128" id="9jb-Rc-SHp"/>
                                 </constraints>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Gleeson Hall - 0003" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTf-qm-RGD">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gleeson Hall - 0003" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTf-qm-RGD">
                                 <rect key="frame" x="20" y="72" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="zW4-7F-YeR"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gzz-mY-onI">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gzz-mY-onI">
                                 <rect key="frame" x="0.0" y="269" width="320" height="138"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -395,23 +398,23 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.79735093724587625" green="0.86909610225036449" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="138" id="cSv-PV-Vo6"/>
+                                    <constraint firstAttribute="height" constant="138" id="txZ-et-AYB"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="pTf-qm-RGD" secondAttribute="trailing" constant="20" symbolic="YES" id="4vQ-d2-sGx"/>
-                            <constraint firstItem="gzz-mY-onI" firstAttribute="centerX" secondItem="SCK-gd-h2I" secondAttribute="centerX" id="IrQ-LY-oyB"/>
-                            <constraint firstItem="SCK-gd-h2I" firstAttribute="centerX" secondItem="UTk-3N-bh5" secondAttribute="centerX" id="JSg-aP-Ehj"/>
-                            <constraint firstItem="pTf-qm-RGD" firstAttribute="leading" secondItem="UTk-3N-bh5" secondAttribute="leading" constant="20" symbolic="YES" id="Jiy-e9-rXO"/>
-                            <constraint firstItem="gzz-mY-onI" firstAttribute="leading" secondItem="UTk-3N-bh5" secondAttribute="leading" id="Mp4-zo-jRn"/>
-                            <constraint firstItem="pTf-qm-RGD" firstAttribute="top" secondItem="jz7-ky-B2G" secondAttribute="bottom" constant="20" symbolic="YES" id="QOX-Iz-pIh"/>
-                            <constraint firstItem="pTf-qm-RGD" firstAttribute="trailing" secondItem="SCK-gd-h2I" secondAttribute="trailing" id="SI1-u5-v7T"/>
-                            <constraint firstItem="SCK-gd-h2I" firstAttribute="top" secondItem="pTf-qm-RGD" secondAttribute="bottom" constant="8" symbolic="YES" id="Sgc-sw-KcY"/>
-                            <constraint firstItem="rgC-nU-BHG" firstAttribute="top" secondItem="gzz-mY-onI" secondAttribute="bottom" id="iu5-3K-hC5"/>
-                            <constraint firstItem="gzz-mY-onI" firstAttribute="top" secondItem="SCK-gd-h2I" secondAttribute="bottom" constant="40" id="qjO-MR-Luq"/>
-                            <constraint firstItem="SCK-gd-h2I" firstAttribute="leading" secondItem="pTf-qm-RGD" secondAttribute="leading" id="z3Z-fh-6c4"/>
+                            <constraint firstItem="SCK-gd-h2I" firstAttribute="top" secondItem="pTf-qm-RGD" secondAttribute="bottom" constant="8" symbolic="YES" id="3re-q8-Fn2"/>
+                            <constraint firstItem="gnS-hV-zss" firstAttribute="top" secondItem="gzz-mY-onI" secondAttribute="bottom" constant="20" symbolic="YES" id="CVq-5S-eCw"/>
+                            <constraint firstItem="gzz-mY-onI" firstAttribute="centerX" secondItem="UTk-3N-bh5" secondAttribute="centerX" id="Jtb-og-GwG"/>
+                            <constraint firstAttribute="trailing" secondItem="pTf-qm-RGD" secondAttribute="trailing" constant="20" symbolic="YES" id="OMb-J3-3fL"/>
+                            <constraint firstItem="SCK-gd-h2I" firstAttribute="leading" secondItem="pTf-qm-RGD" secondAttribute="leading" id="Rii-Hy-OBc"/>
+                            <constraint firstItem="gzz-mY-onI" firstAttribute="top" secondItem="SCK-gd-h2I" secondAttribute="bottom" constant="40" id="dJk-Gk-pKA"/>
+                            <constraint firstItem="pTf-qm-RGD" firstAttribute="top" secondItem="X71-fq-uaM" secondAttribute="bottom" constant="8" id="iHq-r1-XCj"/>
+                            <constraint firstItem="pTf-qm-RGD" firstAttribute="leading" secondItem="UTk-3N-bh5" secondAttribute="leading" constant="20" symbolic="YES" id="lrp-Hi-dbY"/>
+                            <constraint firstItem="SCK-gd-h2I" firstAttribute="trailing" secondItem="pTf-qm-RGD" secondAttribute="trailing" id="w7O-rN-a65"/>
+                            <constraint firstItem="gzz-mY-onI" firstAttribute="centerX" secondItem="SCK-gd-h2I" secondAttribute="centerX" id="wrG-tK-1t7"/>
+                            <constraint firstItem="gzz-mY-onI" firstAttribute="leading" secondItem="UTk-3N-bh5" secondAttribute="leading" id="wtV-lo-cHU"/>
                         </constraints>
                         <connections>
                             <outlet property="delegate" destination="6Fa-DG-Jgn" id="l9v-sN-FFF"/>
@@ -456,19 +459,30 @@
                     <connections>
                         <segue destination="6Fa-DG-Jgn" kind="relationship" relationship="viewControllers" id="msc-hc-PBG"/>
                         <segue destination="xIK-mb-CBP" kind="relationship" relationship="viewControllers" id="yjy-Mm-w4T"/>
+                        <segue destination="5AK-ms-BQ0" kind="relationship" relationship="viewControllers" id="zXC-8d-YaZ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Htd-eh-h8h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1168" y="97"/>
         </scene>
+        <!--AiM Tab Notes View Controller - Notes-->
+        <scene sceneID="jk6-wq-Ngj">
+            <objects>
+                <viewController id="5AK-ms-BQ0" customClass="AiMTabNotesViewController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Notes" id="Tcj-8k-a3c"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sLa-MH-JbZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1894" y="-501"/>
+        </scene>
         <!--AiM Tab Contact View Controller - Contact-->
         <scene sceneID="qqH-de-lN8">
             <objects>
                 <viewController id="xIK-mb-CBP" customClass="AiMTabContactViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="L4K-iI-j6R"/>
-                        <viewControllerLayoutGuide type="bottom" id="9t6-he-H9o"/>
+                        <viewControllerLayoutGuide type="top" id="uzM-4F-mDF"/>
+                        <viewControllerLayoutGuide type="bottom" id="336-Xx-gV7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rgl-Es-QmD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
