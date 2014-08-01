@@ -115,9 +115,9 @@
             //NSLog(@"%d workDict: %@", i, workOrder);
            // NSLog(@"%d proptest: %@", i, proposalNum);
             
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrder/%@-%@", proposalNum, phaseNum]];
+           NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrder/%@-%@", proposalNum, phaseNum]];
             
-            //NSURL *url = [[NSBundle mainBundle] URLForResource:@"158270-001" withExtension:@"txt"];//test local data
+           // NSURL *url = [[NSBundle mainBundle] URLForResource:@"158270-001" withExtension:@"txt"];//test local data
            
             
             
@@ -191,8 +191,8 @@
                 NSDateFormatter *df = [[NSDateFormatter alloc] init];
                 [df setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
                 //eststart, estend doesnt work with local data
-                phase.estStart = [df dateFromString:[phaseDict objectForKey:@"beg_dt"]];
-                phase.estEnd = [df dateFromString:[phaseDict objectForKey:@"end_dt"]];
+               // phase.estStart = [df dateFromString:[phaseDict objectForKey:@"beg_dt"]];
+                //phase.estEnd = [df dateFromString:[phaseDict objectForKey:@"end_dt"]];
                 phase.description = [phaseDict objectForKey:@"description"];
                 phase.building = [phaseDict objectForKey:@"building"];
                 phase.roomNum = [phaseDict objectForKey:@"loc_code"];

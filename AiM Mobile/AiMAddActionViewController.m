@@ -39,7 +39,7 @@
     
 - (IBAction)viewActionSheet:(id)sender {
     
-    UIActionSheet *actionSheet =  [[UIActionSheet alloc] initWithTitle:@"Select an Action" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"General maintenance", @"Fixed the toilet", @"Replaced the locks", @"Installed door access panel", @"Fixed water leak", @"Custom Action >", nil];
+    UIActionSheet *actionSheet =  [[UIActionSheet alloc] initWithTitle:@"Select an Action" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"General maintenance", @"Fixed the toilet", @"Replaced the locks", @"Installed door access panel", @"Fixed water leak", @"Custom Action  \u270E", nil];
     
     
     [actionSheet showInView:self.view];
@@ -124,7 +124,7 @@
         
         
         
-        if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Custom Action >"])
+        if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Custom Action  \u270E"])
         {
             [self enterCustomAction];
             
@@ -158,17 +158,18 @@
     @property (weak, nonatomic) IBOutlet UILabel *actionTakenLabel;
     */
     
-    CGFloat y = self.viewActionsButton.layer.position.y;
+    CGFloat y1 = self.actionTakenLabel.layer.position.y;
+    CGFloat y2 = self.viewActionsButton.layer.position.y;
     
     CGFloat frameWidth = self.view.frame.size.width;
     if([position isEqualToString:@"right"]) frameWidth = frameWidth*-1;     //If RIGHT, reverse direction
     
     [UIView animateWithDuration:0.5 animations:^{
         
-        self.viewActionsButton.layer.position = CGPointMake(self.viewActionsButton.layer.position.x - frameWidth, y);
-        self.doneCustomButton.layer.position = CGPointMake(self.doneCustomButton.layer.position.x - frameWidth, y);
-        self.customActionTextField.layer.position = CGPointMake(self.customActionTextField.layer.position.x - frameWidth, y);
-        self.actionTakenLabel.layer.position = CGPointMake(self.actionTakenLabel.layer.position.x - frameWidth, y);
+        self.viewActionsButton.layer.position = CGPointMake(self.viewActionsButton.layer.position.x - frameWidth, y2);
+        self.doneCustomButton.layer.position = CGPointMake(self.doneCustomButton.layer.position.x - frameWidth, y1);
+        self.customActionTextField.layer.position = CGPointMake(self.customActionTextField.layer.position.x - frameWidth, y1);
+        self.actionTakenLabel.layer.position = CGPointMake(self.actionTakenLabel.layer.position.x - frameWidth, y1);
         
     }];
     
@@ -242,7 +243,15 @@
     
     self.actionConfirmAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     
+    
+    //Custom cancel button but with "back" effects
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"Cancel";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
  
+  
+    self.viewActionsButton.titleLabel.numberOfLines = 2;
+    
 
     NSLog(@"LeftBarButton action: %@",self.navigationItem.leftBarButtonItem.title);
     
