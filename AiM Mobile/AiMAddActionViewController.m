@@ -30,6 +30,8 @@
 @property (nonatomic) BOOL actionSelected;
 @property (nonatomic) BOOL timeSelected;
 
+@property (strong, nonatomic) UIAlertView *actionConfirmAlert;
+
 
 @end
 
@@ -205,6 +207,15 @@
     [self.scrollView setContentOffset:CGPointZero animated:YES];
 }
 
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)index
+{
+    if (index == 1) //The "Yes" option
+        [self performSegueWithIdentifier:@"saveToDetail" sender:self.saveActionButton];
+
+
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -225,7 +236,12 @@
     
     _actionToAdd = [[AiMAction alloc] init];
     
+   // self.actionConfirmAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Work Order %@", self.workOrder.taskID] message:[NSString stringWithFormat:@"Are you sure you want to add this action?:\n%@, %@", self.actionTaken, self.actionTime] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     
+    
+    self.actionConfirmAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    
+ 
 
     NSLog(@"LeftBarButton action: %@",self.navigationItem.leftBarButtonItem.title);
     
@@ -233,8 +249,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    //CGRect screenSize = [[UIScreen mainScreen] bounds];
-    //[self.scrollView setContentSize:CGSizeMake(screenSize.size.width, screenSize.size.height)];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -280,11 +294,10 @@
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-   // NSLog(@"Got to shouldPerformSegue");
     
-    if (sender != self.saveActionButton)
+    if (sender != self.saveActionButton) //The "Cancel" button
         return YES;
-    else
+    else //The "Save" button
     {
         CAKeyframeAnimation * jiggleAnim = [ CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
         jiggleAnim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-5.0f, 0.0f, 0.0f) ], [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(5.0f, 0.0f, 0.0f) ] ] ;
@@ -292,51 +305,44 @@
 
         if (!self.actionSelected)
         {
-            //self.selectedActionLabel.textColor = [UIColor redColor];
-            //[self.selectedActionLabel.layer addAnimation:jiggleAnim forKey:nil];
             [self.viewActionsButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
             [self.viewActionsButton.layer addAnimation:jiggleAnim forKey:nil];
         }
+        
         if (!self.timeSelected)
         {
             self.selectedTimeLabel.textColor = [UIColor redColor];
             [self.selectedTimeLabel.layer addAnimation:jiggleAnim forKey:nil];
         }
+        
         if (self.actionSelected && self.timeSelected)
-            return YES;
-        else
-            return NO;
+        {
+            [self.actionConfirmAlert setTitle:[NSString stringWithFormat:@"Work Order %@", self.workOrder.taskID]];
+            [self.actionConfirmAlert setMessage:[NSString stringWithFormat:@"Are you sure you want to add this action?:\n%@, %@", self.actionTaken, self.actionTime]];
+ 
+            [self.actionConfirmAlert show];
+            
+        }
+       
+        return NO;
     }
 }
-
 
 
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
-   // NSLog(@"Got to prepareForSegue");
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    
-    
-    //Check to make sure action is valid
-    //If so, unwind to detail view.
-    //If not, alert user.
-    
     if (sender != self.saveActionButton) return;
     else
     {
-        //set the action
-        
+        //Set the action - this will be grabbed by the Tab Controller unwind
         self.actionToAdd.workOrderID = self.workOrder.taskID;
         self.actionToAdd.name = self.actionTaken;//self.selectedActionLabel.text;
         self.actionToAdd.time = self.actionTime;
         self.actionToAdd.note = self.notesTextField.text;
         
     }
-
     
 }
 

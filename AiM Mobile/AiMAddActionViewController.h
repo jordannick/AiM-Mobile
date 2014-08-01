@@ -10,7 +10,7 @@
 #import "AiMAction.h"
 #import "AiMWorkOrder.h"
 
-@interface AiMAddActionViewController : UIViewController <UIActionSheetDelegate>
+@interface AiMAddActionViewController : UIViewController <UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property AiMWorkOrder *workOrder;
 @property(strong, nonatomic) AiMAction *actionToAdd;
