@@ -102,7 +102,7 @@
         //NSLog(@"Data: %@\nResponse: %@\nError: %@", readableData, response.URL, error);
         NSError *jsonParsingError = nil;
         NSArray *arrayWorkOrders = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
-
+        
         NSUInteger count = [arrayWorkOrders count];
         count = 3;
         self.completionCount = 0;
@@ -115,9 +115,9 @@
             //NSLog(@"%d workDict: %@", i, workOrder);
            // NSLog(@"%d proptest: %@", i, proposalNum);
             
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrder/%@-%@", proposalNum, phaseNum]];
+           NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrder/%@-%@", proposalNum, phaseNum]];
             
-          //  NSURL *url = [[NSBundle mainBundle] URLForResource:@"158270-001" withExtension:@"txt"];//test local data
+           // NSURL *url = [[NSBundle mainBundle] URLForResource:@"158270-001" withExtension:@"txt"];//test local data
            
             
             
@@ -188,9 +188,9 @@
         AiMWorkOrderPhase *phase = [[AiMWorkOrderPhase alloc] init];
         //Initialize phase obj
         NSArray *phases = [workOrderPhase objectForKey:@"phases"];
+        
         for (int i = 0; i < [phases count]; i++)
         {
-            
             NSDictionary *phaseDict = phases[i];
             if ([[phaseDict objectForKey:@"sort_code"] isEqualToString:phaseNum])
             {
@@ -214,6 +214,7 @@
         
         NSLog(@"work order list is: %@", self.workOrders);
         self.completionCount++;
+        
         
         
        // if (isLast)

@@ -13,7 +13,7 @@
 @interface AiMTabBarViewController ()
 
 @property (strong, nonatomic) AiMAction *action;
-@property (strong, nonatomic) UIAlertView *actionAddedAlert;
+
 
 @end
 
@@ -33,8 +33,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.actionAddedAlert = [[UIAlertView alloc] initWithTitle:@"Work Order" message:[NSString stringWithFormat:@"New action added to work order %@", self.action.workOrderID] delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
-    
 
     
 }
@@ -46,12 +44,7 @@
 }
 
 
-- (void)dismissAlert
-{
-    [self.actionAddedAlert dismissWithClickedButtonIndex:0 animated:YES];
-    
 
-}
 
 
 - (IBAction)unwindToTabView:(UIStoryboardSegue *)segue
@@ -80,17 +73,7 @@
             
         }
         
-        NSLog(@"Show alert here");
-        
-        NSTimeInterval interval = 2;
-        
-        
-        [self.actionAddedAlert show];
-        
-        [self performSelector:@selector(dismissAlert) withObject:self.actionAddedAlert afterDelay:interval];
-        
-        
-        
+                
         
         //Test
         for (int i = 0; i < [_currentUser.syncQueue count]; i++)
@@ -106,10 +89,6 @@
 }
 
 
-
-
-
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -117,7 +96,12 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    AiMAddActionViewController *vc = [segue destinationViewController];
+    vc.workOrder = self.workOrder;
+    
+    
 }
-*/
+
 
 @end
