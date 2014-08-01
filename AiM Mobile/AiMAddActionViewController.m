@@ -39,7 +39,7 @@
     
 - (IBAction)viewActionSheet:(id)sender {
     
-    UIActionSheet *actionSheet =  [[UIActionSheet alloc] initWithTitle:@"Select an Action" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Action 1", @"Action 2", @"Action 3", @"Action 4", @"Action 5", @"Custom Action >", nil];
+    UIActionSheet *actionSheet =  [[UIActionSheet alloc] initWithTitle:@"Select an Action" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"General maintenance", @"Fixed the toilet", @"Replaced the locks", @"Installed door access panel", @"Fixed water leak", @"Custom Action >", nil];
     
     
     [actionSheet showInView:self.view];
@@ -52,6 +52,7 @@
      [self transitionInputTo:@"right"];
     [self.customActionTextField resignFirstResponder];
     
+    [self.viewActionsButton setTitleColor:self.defaultColor forState:UIControlStateNormal];
     
     if ([[self.customActionTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""])
     {
