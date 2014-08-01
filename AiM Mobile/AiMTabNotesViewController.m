@@ -36,7 +36,7 @@
 {
     CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
     CGFloat tabBarHeight = self.tabBarController.tabBar.frame.size.height;
-    CGFloat screenHeight = self.view.frame.size.height - navBarHeight - tabBarHeight;
+    CGFloat screenHeight = self.view.frame.size.height;
     CGFloat padding = 30;
     
     

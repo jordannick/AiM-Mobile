@@ -69,7 +69,7 @@
         self.location.text = [self.workOrder.building capitalizedString];
     }
     
-    self.textView.text = [self.workOrder.phase.description lowercaseString];
+    self.textView.text = self.workOrder.phase.description;
     [self.textView setFont:[UIFont systemFontOfSize:16]];
     self.shop.text = self.workOrder.phase.shop;
     self.workCode.text = self.workOrder.phase.workCode;
