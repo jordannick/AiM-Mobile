@@ -16,12 +16,13 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *priority;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UIView *bottomInnerView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UILabel *location;
-@property (weak, nonatomic) IBOutlet UILabel *estDate;
 @property (weak, nonatomic) IBOutlet UILabel *shop;
 @property (weak, nonatomic) IBOutlet UILabel *workCode;
 @property (weak, nonatomic) IBOutlet UILabel *created;
+@property (weak, nonatomic) IBOutlet UILabel *estDate;
 
 
 
@@ -55,10 +56,7 @@
                              animated:NO];
     
     [self loadInitialData];
-    
-    NSLog(@"L Scroll Origin:   W:   %f     H:   %f", self.scrollView.frame.size.width, self.scrollView.frame.size.height);
-    NSLog(@"L Scroll contentSize:   W:  %f     H:    %f", self.scrollView.contentSize.width, self.scrollView.contentSize.height);
-    NSLog(@"Scroll bounds:  W: %f    H: %f", self.scrollView.bounds.size.width,self.scrollView.bounds.size.height);}
+}
 
 
 -(void)loadInitialData
@@ -73,10 +71,11 @@
     [self.textView setFont:[UIFont systemFontOfSize:16]];
     self.shop.text = self.workOrder.phase.shop;
     self.workCode.text = self.workOrder.phase.workCode;
-    self.created.text = self.workOrder.dateCreated;
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MM/dd/yy"];
+    
+    self.created.text = [formatter stringFromDate:self.workOrder.dateCreated];
     NSDate *startDate = self.workOrder.phase.estStart;
     NSDate *endDate = self.workOrder.phase.estEnd;
     self.estDate.text = [NSString stringWithFormat:@"%@ - %@", [formatter stringFromDate:startDate], [formatter stringFromDate:endDate]];
@@ -87,28 +86,11 @@
 
 {
     [super viewWillDisappear:animated];
-    //[self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, 0)
-                             //animated:NO];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    
-    //self.scrollView.contentSize = CGSizeMake(1000, 1000);
-    CGPoint newOffset = CGPointMake(0, 10);
-    [self.scrollView setContentOffset:newOffset animated:NO];
     [super viewWillAppear:animated];
-    NSLog(@"Scroll Origin:   W:   %f     H:   %f", self.scrollView.frame.size.width, self.scrollView.frame.size.height);
-    NSLog(@"Scroll contentSize:   W:  %f     H:    %f", self.scrollView.contentSize.width, self.scrollView.contentSize.height);
-    NSLog(@"Scroll bounds:  W: %f    H: %f", self.scrollView.bounds.size.width,self.scrollView.bounds.size.height);
-    //self.scrollView.contentSize = CGSizeMake(1000, 1000);
-    //self.scrollView.frame = CGRectMake(0, 0, 100, 100);
-    
-    //[self setUpScrollView];
-    //[self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, 0)
-                             //animated:NO];
-    //NSLog(@"Yo... %f  AND  %f", self.scrollView.frame.size.height, self.scrollView.contentSize.height);
-    //[self printScrollViewStatus];
 }
 
 - (void)didReceiveMemoryWarning

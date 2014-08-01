@@ -122,24 +122,18 @@
     
     for (int i = 0; i < [sortedArray count]; i++)
     {
-        NSString *tempDate = ((AiMWorkOrder*)sortedArray[i]).dateCreated;
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-        NSDate *date = [formatter dateFromString:tempDate];
-        
-        NSCalendar *calender = [NSCalendar currentCalendar];
-        NSLog(@"Time zone: %@", [calender timeZone]);
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
-        
-        NSString *dateString = [NSString stringWithFormat:@"%d/%d/%d", [components month], [components day], [components year]];
-        
-        NSLog(@"%@ = %@ = %@\n%u", tempDate, date, dateString,[formatter dateStyle]);
+        NSDate *date = ((AiMWorkOrder*)sortedArray[i]).dateCreated;
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"MM/dd/yy"];
+        NSString *dateString = [df stringFromDate:date];
         
         BOOL foundMatch = NO;
         NSInteger sectionIndex = 0;
         NSNumber *iNum = [NSNumber numberWithInt:i];
-        
+        if(dateString == nil)
+        {
+            NSLog(@"Why is this nil...");
+        }
         if (i == 0)
         {
             [self.sectionTitles addObject:dateString];
@@ -147,48 +141,25 @@
         } else {
             for (NSString *testString in self.sectionTitles)
             {
-                NSLog(@"Got here 1 - begin for loop");
                 //If section title already exists, don't add it, but increment that section #
                if ([testString isEqualToString:dateString])
                 {
-                     NSLog(@"Got here 2 - testing string");
-                    //NSLog(@"Found existing match, not adding object");
                     foundMatch = YES;
-                    //self.numInEachSection[sectionIndex] = @([self.numInEachSection[sectionIndex] intValue]+1);
-                    
                     [((NSMutableArray*)self.numInEachSection[sectionIndex]) addObject:iNum];
-                    
-                    
                     break;
                 }
             }
-            
             //No existing found, so add section string, and create new # for new section
             if (!foundMatch)
             {
-                 NSLog(@"Got here 3 - found match");
                 [self.sectionTitles addObject:dateString];
-                
                 [self.numInEachSection addObject:[NSMutableArray arrayWithObject:iNum]];
                 sectionIndex++;
-              
             }
-        
         }
-        
     }
-    
     self.numSections = [self.sectionTitles count];
-    
-    //NSLog(@"Titles: %@", sectionTitles);
-    
-  //  NSLog(@"sorted count is %d", [sortedArray count]);
-    
-    
     _currentUser.workOrders = [sortedArray mutableCopy];
-    
-  // NSLog(@"Post sort workorders: %@", _currentUser.workOrders);
-
 }
 
 - (id)initWithStyle:(UITableViewStyle)style

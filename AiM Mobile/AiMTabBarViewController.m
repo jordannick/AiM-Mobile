@@ -71,7 +71,7 @@
             //[((AiMWorkOrder*)_currentUser.workOrders[self.workOrderIndex]).phase.actionsLog addObject:self.action];
             
             /*
-             for (AiMWorkOrder *printWorkOrder in _currentUser.workOrders){
+             for (AiMWorkOrder *printWorkOrder in currentUser.workOrders){
              NSLog(@"Work Order %@ - Phase actions log is: %@", printWorkOrder.taskID, ((AiMAction*)printWorkOrder.phase.actionsLog).name);
              NSLog(@"  ");
              }

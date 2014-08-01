@@ -56,4 +56,25 @@
     
 }
 
++ (CAGradientLayer*) lightBlueGradient {
+    
+    UIColor *colorOne = [UIColor colorWithRed:(228/255.0) green:(252/255.0) blue:(255/255.0) alpha:1.0];
+    //    UIColor *colorTwo = [UIColor colorWithRed:(100/255.0)  green:(79/255.0)  blue:(96/255.0)  alpha:1.0];
+    UIColor *colorTwo = [UIColor colorWithRed:(228/255.0) green:(242/255.0) blue:(245/255.0) alpha:1.0];
+    
+    
+    NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
+    NSNumber *stopOne = [NSNumber numberWithFloat:0.0];
+    NSNumber *stopTwo = [NSNumber numberWithFloat:1.0];
+    
+    NSArray *locations = [NSArray arrayWithObjects:stopOne, stopTwo, nil];
+    
+    CAGradientLayer *headerLayer = [CAGradientLayer layer];
+    headerLayer.colors = colors;
+    headerLayer.locations = locations;
+    
+    return headerLayer;
+    
+}
+
 @end

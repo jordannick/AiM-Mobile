@@ -141,6 +141,10 @@
     NSURLSessionDataTask *getDataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
     {
         NSDictionary *workOrderPhase = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+        NSDateFormatter *dfAlt = [[NSDateFormatter alloc] init];
+        [dfAlt setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         
         //Initialize workOrder obj
         AiMWorkOrder *workOrder = [[AiMWorkOrder alloc] init];
@@ -150,7 +154,9 @@
         workOrder.roomNum = [workOrderPhase objectForKey:@"Room"];
         workOrder.description = [workOrderPhase objectForKey:@"description"];
         workOrder.createdBy = [workOrderPhase objectForKey:@"ent_clerk"];
-        workOrder.dateCreated = [workOrderPhase objectForKey:@"Created Date"];
+        NSLog(@"dateCreated : %@", [workOrderPhase objectForKey:@"Created Date"]);
+        workOrder.dateCreated = [dfAlt dateFromString:[workOrderPhase objectForKey:@"Created Date"]];
+        NSLog(@"workOrder.dateCreated : %@", workOrder.dateCreated);
         workOrder.customerRequest = [workOrderPhase objectForKey:@"WO_doc_no"];
         workOrder.type = [workOrderPhase objectForKey:@"order_type"];
         
@@ -174,7 +180,7 @@
             note.noteID = [noteDict objectForKey:@"id"];
             note.note = [noteDict objectForKey:@"notes"];
             note.author = [noteDict objectForKey:@"edit_clerk"];
-            note.date = [noteDict objectForKey:@"edit_date"];
+            note.date = [df dateFromString:[noteDict objectForKey:@"edit_date"]];
         
             [workOrderNotes addObject:note];
         }
@@ -188,8 +194,6 @@
             NSDictionary *phaseDict = phases[i];
             if ([[phaseDict objectForKey:@"sort_code"] isEqualToString:phaseNum])
             {
-                NSDateFormatter *df = [[NSDateFormatter alloc] init];
-                [df setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
                 phase.estStart = [df dateFromString:[phaseDict objectForKey:@"beg_dt"]];
                 phase.estEnd = [df dateFromString:[phaseDict objectForKey:@"end_dt"]];
                 phase.description = [phaseDict objectForKey:@"description"];
@@ -197,8 +201,8 @@
                 phase.roomNum = [phaseDict objectForKey:@"loc_code"];
                 phase.createdBy = [phaseDict objectForKey:@"ent_clerk"];
                 phase.shop = [phaseDict objectForKey:@"shop"];
-                phase.dateCreated = [phaseDict objectForKey:@"ent_date"];
-                phase.dateEdited = [phaseDict objectForKey:@"edit_date"];
+                phase.dateCreated = [df dateFromString:[phaseDict objectForKey:@"ent_date"]];
+                phase.dateEdited = [df dateFromString:[phaseDict objectForKey:@"edit_date"]];
                 phase.priority = [phaseDict objectForKey:@"pri_code"];
                 phase.workCode = [phaseDict objectForKey:@"craft_code"];
                 phase.notesArray = workOrderNotes;
