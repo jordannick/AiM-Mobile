@@ -15,6 +15,7 @@
 		458DBB4B1989726C00E7DBF3 /* AiMTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DBB4A1989726C00E7DBF3 /* AiMTabBarViewController.m */; };
 		458DBB4F1989A6FB00E7DBF3 /* AiMTabContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DBB4E1989A6FB00E7DBF3 /* AiMTabContactViewController.m */; };
 		458DBB52198A971600E7DBF3 /* AiMTabNotesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DBB51198A971600E7DBF3 /* AiMTabNotesViewController.m */; };
+		45AF647A198C4CA9005D1D6C /* osubackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 45AF6479198C4CA9005D1D6C /* osubackground.png */; };
 		45E24BD019806DBF00AEB2F5 /* AiMAddActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */; };
 		45E24BD3198077B400AEB2F5 /* AiMAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BD2198077B400AEB2F5 /* AiMAction.m */; };
 		45E24BD61981B61600AEB2F5 /* AiMBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E24BD51981B61600AEB2F5 /* AiMBackground.m */; };
@@ -72,6 +73,7 @@
 		458DBB4E1989A6FB00E7DBF3 /* AiMTabContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMTabContactViewController.m; sourceTree = "<group>"; };
 		458DBB50198A971600E7DBF3 /* AiMTabNotesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMTabNotesViewController.h; sourceTree = "<group>"; };
 		458DBB51198A971600E7DBF3 /* AiMTabNotesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMTabNotesViewController.m; sourceTree = "<group>"; };
+		45AF6479198C4CA9005D1D6C /* osubackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = osubackground.png; path = Images.xcassets/osubackground.png; sourceTree = "<group>"; };
 		45E24BCE19806DBF00AEB2F5 /* AiMAddActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMAddActionViewController.h; sourceTree = "<group>"; };
 		45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMAddActionViewController.m; sourceTree = "<group>"; };
 		45E24BD1198077B400AEB2F5 /* AiMAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AiMAction.h; path = Model/AiMAction.h; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				7C97C474197EDD2000949B16 /* main.m */,
 				7C97C476197EDD2000949B16 /* AiM Mobile-Prefix.pch */,
 				7CD3674A19818BF500154D78 /* Media.xcassets */,
+				45AF6479198C4CA9005D1D6C /* osubackground.png */,
 				458DBAE3198715A300E7DBF3 /* TODO */,
 			);
 			name = "Supporting Files";
@@ -361,6 +364,7 @@
 				7C97C473197EDD2000949B16 /* InfoPlist.strings in Resources */,
 				7CD3674B19818BF500154D78 /* Media.xcassets in Resources */,
 				458DBAEB1987FD7500E7DBF3 /* CustomTableCell.xib in Resources */,
+				45AF647A198C4CA9005D1D6C /* osubackground.png in Resources */,
 				458DBAE4198715A300E7DBF3 /* TODO in Resources */,
 				7C97C498197EDD3C00949B16 /* iPhone_Main.storyboard in Resources */,
 			);

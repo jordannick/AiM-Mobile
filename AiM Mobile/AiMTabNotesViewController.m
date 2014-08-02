@@ -119,7 +119,7 @@
         
         lastYPosition += padding/2;
     }
-    
+
     if([phaseNotes count] == 0uL){
         NSLog(@"Success!");
         UILabel *noNotesLabel = [[UILabel alloc] initWithFrame:noNotesRect];
@@ -151,6 +151,7 @@
     self.view.frame = CGRectMake(0, 0, screenWidth, screenHeight);
     [self initScrollView];
 }
+
 
 - (void)didReceiveMemoryWarning
 {

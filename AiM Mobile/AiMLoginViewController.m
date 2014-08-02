@@ -23,12 +23,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
-@property (weak, nonatomic) IBOutlet UILabel *usernameTextLabel;
-@property (weak, nonatomic) IBOutlet UILabel *passwordTextLabel;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
-@property (weak, nonatomic) IBOutlet UIButton *backButton;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (weak, nonatomic) IBOutlet UILabel *activityIndicatorLabel;
+
 
 @property (strong, nonatomic)  NSURLProtectionSpace *loginProtectionSpace;
 
@@ -36,7 +32,6 @@
 
 @property (strong, nonatomic) NSArray *priorities;
 @property (strong, nonatomic) NSString *currentState;
-
 @property (strong, nonatomic) AiMUser *currentUser;
 
 @end
@@ -75,47 +70,86 @@
     
 
 }
-- (IBAction)backButton:(UIButton *)sender {
-    NSLog(@"Back Button Pressed! %@", self.currentState);
-    [self transitionInputTo:@"right"];
-    self.currentState = @"username";
-    [self.loginButton setTitle:@"Next" forState:UIControlStateNormal];
-    [self.usernameTextField becomeFirstResponder];
-    self.backButton.hidden = YES;
-}
 
 
--(BOOL)validateInput
+-(BOOL)validateInput:(UITextField*)textField
 {
     //Initialize animation
     CAKeyframeAnimation * jiggleAnim = [ CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
     jiggleAnim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-5.0f, 0.0f, 0.0f) ], [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(5.0f, 0.0f, 0.0f) ] ] ;
     jiggleAnim.autoreverses = YES;  jiggleAnim.repeatCount = 2.0f;  jiggleAnim.duration = 0.07f;
     
-    if([self.currentState isEqualToString:@"username"]){        //If username field is showing
-        if([self.usernameTextField.text length] == 0){          //If the field is empty
-            [self.usernameTextField.layer addAnimation:jiggleAnim forKey:nil];
-            [self.usernameTextLabel.layer addAnimation:jiggleAnim forKey:nil];      //jiggle and set to red
-            self.usernameTextLabel.textColor = [UIColor redColor];
-            return NO;
-        }
-    }else if([self.currentState isEqualToString:@"password"]){      //If password field is showing
-        if([self.passwordTextField.text length] == 0){              //If the field is empty
-            [self.passwordTextField.layer addAnimation:jiggleAnim forKey:nil];
-            [self.passwordTextLabel.layer addAnimation:jiggleAnim forKey:nil];      //jiggle and set to red
-            self.passwordTextLabel.textColor = [UIColor redColor];
-            return NO;
-        }
+    if([textField.text length] == 0){
+        UIColor *color = [UIColor colorWithRed:1 green:0.165 blue:0.165 alpha:.5];
+        [textField.layer addAnimation:jiggleAnim forKey:nil];
+        textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:textField.placeholder attributes:@{NSForegroundColorAttributeName: color}];
+        return NO;
+    }else{
+        return YES;
     }
-    return YES;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
     
+    NSLog(@"View Will Appear");
+}
+-(void)viewDidLayoutSubviews
+{
+    //NSLog(@"Old frame = %@"
+    
+    CGFloat labelHeight = self.usernameTextField.frame.size.height;
+    CGRect oldFrame = CGRectMake(90, 106, 140, 30);
+    NSLog(@"viewDidLayoutSubviews");
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    if(orientation == 3 || orientation == 4){
+        NSLog(@"Landscape!");
+        
+        CGPoint loginButtonOrigin = self.loginButton.frame.origin;
+        NSLog(@"origin: X:%f Y:%f", loginButtonOrigin.x, loginButtonOrigin.y);
+        
+        NSLog(@"LANDSCAPE Width: %f and Height: %f", self.view.frame.size.width, self.view.frame.size.height);
+        
+        CGFloat loginButtonWidth = self.view.frame.size.width - self.usernameTextField.frame.origin.x*3 - self.usernameTextField.frame.size.width;
+        
+        CGFloat diff = (self.passwordTextField.frame.origin.y + labelHeight) - self.usernameTextField.frame.origin.y;
+        CGFloat loginYPosition = self.usernameTextField.frame.origin.y + (diff/2) - labelHeight/2;
+        CGFloat loginXPosition = self.usernameTextField.frame.origin.x*2 + self.usernameTextField.frame.size.width;
+        [self.loginButton setFrame:CGRectMake(loginXPosition, loginYPosition, loginButtonWidth, labelHeight)];
+        NSLog(@"X: %f  Y: %f  %f", loginXPosition, loginYPosition, labelHeight);
+        
+    }else{
+        self.loginButton.frame = oldFrame;
+        NSLog(@"PORTRAIT Width: %f and Height: %f", self.view.frame.size.width, self.view.frame.size.height);
+    }
+    NSLog(@"Orientation: %d", orientation);
+    
+    self.loginButton.layer.cornerRadius = 20;
+    //self.loginButton.layer.borderWidth = 1;
+    //self.loginButton.layer.borderColor = [[UIColor blackColor] CGColor];
+    
+    CAGradientLayer *loginButtonGradient = [AiMBackground lightBlueGradient];
+    [loginButtonGradient setFrame:self.loginButton.bounds];
+    [loginButtonGradient setBounds:self.loginButton.bounds];
+    [self.loginButton.layer insertSublayer:loginButtonGradient atIndex:0];
+    //[self.loginButton setNeedsDisplay];
+    
+    NSLog(@"gradientFrame:  X: %f Y:  %f  loginFrame:  X:  %f  Y:  %f", loginButtonGradient.frame.origin.x, loginButtonGradient.frame.origin.y, self.loginButton.frame.origin.x, self.loginButton.frame.origin.y);
+    
+    
+    [self.loginButton setNeedsDisplay];
+    [self.loginButton setNeedsLayout];
 }
 
 -(void)transitionInputTo:(NSString*)position
 {
     CGFloat yField = self.usernameTextField.layer.position.y;
-    CGFloat yLabel = self.usernameTextLabel.layer.position.y;
     CGFloat frameWidth = self.view.frame.size.width;
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    if(orientation == 3 || orientation == 4)
+    {
+        frameWidth = self.view.frame.size.height;
+    }
     if([position isEqualToString:@"right"]) frameWidth = frameWidth*-1;     //If RIGHT, reverse direction
     
     [UIView animateWithDuration:0.5 animations:^{
@@ -123,11 +157,6 @@
         
         self.passwordTextField.layer.position = CGPointMake(self.passwordTextField.layer.position.x - frameWidth, yField);
         
-        self.usernameTextLabel.layer.position = CGPointMake(self.usernameTextLabel.layer.position.x - frameWidth, yLabel);
-        self.passwordTextLabel.layer.position = CGPointMake(self.passwordTextLabel.layer.position.x - frameWidth, yLabel);
-        
-        self.activityIndicatorLabel.layer.position = CGPointMake(self.activityIndicatorLabel.layer.position.x - frameWidth, yLabel);
-        self.activityIndicator.layer.position = CGPointMake(self.activityIndicator.layer.position.x - frameWidth, yLabel);
     }];
 
 }
@@ -135,17 +164,12 @@
 {
     
     if(textField == self.usernameTextField){
-        if([self validateInput]){
-            [self transitionInputTo:@"left"];
+        if([self validateInput:textField]){
             [textField resignFirstResponder];
             [self.passwordTextField becomeFirstResponder];
-            self.currentState = @"password";
-            self.backButton.hidden = NO;
-            [self.loginButton setTitle:@"Login" forState:UIControlStateNormal];
         }
     }else if(textField == self.passwordTextField){
-        if([self validateInput]){
-            [self transitionInputTo:@"left"];
+        if([self validateInput:textField]){
             [textField resignFirstResponder];
             [self authenticateUser:self.usernameTextField.text withPassword:self.passwordTextField.text];
         }
@@ -154,24 +178,6 @@
 
 }
 
-- (IBAction)loginButton:(id)sender
-{
-    if([self.currentState isEqualToString:@"username"]){
-        if([self validateInput]){
-            [self transitionInputTo:@"left"];
-            [self.passwordTextField becomeFirstResponder];
-            self.currentState = @"password";
-            self.backButton.hidden = NO;
-            [self.loginButton setTitle:@"Login" forState:UIControlStateNormal];
-        }
-    }else if([self.currentState isEqualToString:@"password"]){
-        if([self validateInput]){
-            [self transitionInputTo:@"left"];
-            [self authenticateUser:self.usernameTextField.text withPassword:self.passwordTextField.text];
-        }
-    }
-    
-}
 - (void) initProtectionSpace
 {
     NSURL *url = [NSURL URLWithString:AUTH_URL];
@@ -249,13 +255,16 @@
 
 - (void)authenticateUser:(NSString *)username withPassword:(NSString *)password
 {
-    self.backButton.hidden = YES;
-    self.loginButton.hidden = YES;
+    //self.loginButton.hidden = YES;
+    [self.loginButton setEnabled:NO];
     
     NSString *aimUser = self.usernameTextField.text;
     //if([aimUser isEqualToString:@"t"])
-        aimUser = @"CLARKEM";
-    
+    //aimUser = @"CLARKEM";
+    //aimUser = @"BROOKESR";
+    //aimUser = @"BROWNN";
+    aimUser = @"CROSST";
+    //aimUser = @"DEBAUWB";
     NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrders/", aimUser];
     
     [_currentUser sendRequestTo:[NSURL URLWithString:urlString] withLoginBool: YES andSender: self];
@@ -271,15 +280,44 @@
     
     
     
+    UIImage *myImage = [UIImage imageNamed:@"osubackground.png"];
+    
+    CIFilter *gaussianBlurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
+    [gaussianBlurFilter setDefaults];
+    [gaussianBlurFilter setValue:[CIImage imageWithCGImage:[myImage CGImage]] forKey:kCIInputImageKey];
+    [gaussianBlurFilter setValue:@5 forKey:kCIInputRadiusKey];
+    
+    CIImage *outputImage = [gaussianBlurFilter outputImage];
+    CIContext *context   = [CIContext contextWithOptions:nil];
+    CGRect rect          = [outputImage extent];
+    
+    // these three lines ensure that the final image is the same size
+    
+    rect.origin.x        += (rect.size.width  - myImage.size.width ) / 2;
+    rect.origin.y        += (rect.size.height - myImage.size.height) / 2;
+    rect.size            = myImage.size;
+    
+    CGImageRef cgimg     = [context createCGImage:outputImage fromRect:rect];
+    UIImage *blurredImage       = [UIImage imageWithCGImage:cgimg];
+    CGImageRelease(cgimg);
+    
+    
+    
+    
+    
+    UIImageView *loginBackground = [[UIImageView alloc] initWithImage:blurredImage];
+    [self.view insertSubview:loginBackground atIndex:0];
+    
     [self getWorkOrdersJSON];
     
     CAGradientLayer *bgLayer = [AiMBackground blueGradient];
     bgLayer.frame = self.view.bounds;
+    CGFloat max = MAX(bgLayer.frame.size.height, bgLayer.frame.size.width);
+    bgLayer.frame = CGRectMake(bgLayer.frame.origin.x, bgLayer.frame.origin.y, max, max);
     [self.view.layer insertSublayer:bgLayer atIndex:0];
     
     
     self.currentState = @"username";
-    self.backButton.hidden = YES;
     
     //self.activityIndicator.layer.opacity = 0.0f;
     //self.activityIndicatorLabel.layer.opacity = 0.0f;
