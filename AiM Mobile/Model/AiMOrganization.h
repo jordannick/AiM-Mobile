@@ -14,6 +14,6 @@
 @property(strong, nonatomic) NSString *requestor;
 @property(strong, nonatomic) NSString *contactName;
 @property(strong, nonatomic) NSString *contactEmail;
-@property(strong, nonatomic) NSNumber *contactPhone;
+@property(strong, nonatomic) NSString *contactPhone;
 
 @end

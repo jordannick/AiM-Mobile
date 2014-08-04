@@ -16,6 +16,7 @@
 
 @property BOOL reversed;
 @property (strong, nonatomic) UIScrollView *scrollView;
+@property UIDeviceOrientation lastKnownOrientation;
 
 @end
 
@@ -45,25 +46,7 @@
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:screenRect];
     self.view = scrollView; self.scrollView = scrollView;
     
-    //Get workOrder from parent view controller
-    AiMTabBarViewController *parentVc = (AiMTabBarViewController*)self.tabBarController;
-    NSArray *phaseNotes = parentVc.workOrder.phase.notesArray;
-    if([phaseNotes count] > 0)
-        NSLog(@"Woo there is an element! %d", [phaseNotes count]);
-    
-    
-    AiMNote *newNote = [[AiMNote alloc] init];
     //Create fake notes for testing
-    NSMutableArray *fakeNotes = [[NSMutableArray alloc] init];
-    [fakeNotes addObject:newNote];
-    for (int i = 0; i < 5; i++) {
-        newNote.note = @"This morning I went to the Co-op for breakfast. I had some oatmeal, black Columbian coffee, and a breakfast wrap.";
-        newNote.author = @"Maddy Berry";
-        newNote.date = [NSDate date];
-        [fakeNotes addObject:newNote];
-    }
-    NSLog(@"This is fakeNotes: %@", fakeNotes);
-    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MM/dd/yy  hh:mm a"];
     
@@ -84,6 +67,14 @@
         leftPadding = 0;
     }
     
+    //Get workOrder from parent view controller
+    AiMTabBarViewController *parentVc = (AiMTabBarViewController*)self.tabBarController;
+    NSArray *phaseNotes = parentVc.workOrder.phase.notesArray;
+    
+    //Reverse array elements to sort by descending date;
+    NSEnumerator *enumerator = [phaseNotes reverseObjectEnumerator];
+    phaseNotes = [enumerator allObjects];
+    
     //Create view elements for each note
     for (AiMNote *note in phaseNotes) {
         UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(leftPadding+20, lastYPosition, halfScreen, labelHeight)];
@@ -98,7 +89,6 @@
         date.textColor = [UIColor darkGrayColor];
         date.text = [formatter stringFromDate:note.date];
         date.font = [UIFont fontWithName:[date.font fontName] size:[date.font pointSize]-4];
-        NSLog(@"Date from note: %@ --> %@", note.date, [formatter stringFromDate:note.date]);
         [self.view addSubview:date];
         lastYPosition += padding/2 + labelHeight;
         
@@ -121,7 +111,6 @@
     }
 
     if([phaseNotes count] == 0uL){
-        NSLog(@"Success!");
         UILabel *noNotesLabel = [[UILabel alloc] initWithFrame:noNotesRect];
         noNotesLabel.textAlignment = NSTextAlignmentCenter;
         noNotesLabel.textColor = [UIColor lightGrayColor];
@@ -140,8 +129,24 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    if(self.lastKnownOrientation){
+        UIDeviceOrientation newOrientation = [[UIDevice currentDevice] orientation];
+        if(newOrientation != self.lastKnownOrientation){
+            NSLog(@"Orientation changed while this view was not active!");
+            CGFloat screenHeight =[UIScreen mainScreen].bounds.size.height;
+            CGFloat screenWidth =[UIScreen mainScreen].bounds.size.width;
+            self.view.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+            [self initScrollView];
+        }
+    }
+    
     [super viewWillAppear:animated];
     [self setBackgroundColor];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    self.lastKnownOrientation = [[UIDevice currentDevice] orientation];
+    
 }
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration

@@ -281,6 +281,7 @@
     
     
     UIImage *myImage = [UIImage imageNamed:@"osubackground.png"];
+    //UIImage *myImage = [UIImage imageNamed:@"valleyBg.png"];
     
     CIFilter *gaussianBlurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
     [gaussianBlurFilter setDefaults];
@@ -306,6 +307,14 @@
     
     
     UIImageView *loginBackground = [[UIImageView alloc] initWithImage:blurredImage];
+    
+    
+    CGFloat bgWidth = loginBackground.frame.size.width;
+    CGFloat bgHeight = loginBackground.frame.size.height;
+    CGFloat xOffset = (bgWidth - self.view.frame.size.width)/2;
+    
+    
+    [loginBackground setFrame:CGRectMake(-xOffset, 0, bgWidth, bgHeight)];
     [self.view insertSubview:loginBackground atIndex:0];
     
     [self getWorkOrdersJSON];

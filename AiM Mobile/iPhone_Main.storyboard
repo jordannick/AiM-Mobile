@@ -349,7 +349,7 @@
                                         <rect key="frame" x="0.0" y="229" width="320" height="138"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rbi-PL-WD4">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rbi-PL-WD4">
                                                 <rect key="frame" x="21" y="0.0" width="279" height="138"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
@@ -408,14 +408,17 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.79735093720000005" green="0.86909610230000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="height" constant="138" id="1Xs-FL-5tl"/>
                                                     <constraint firstAttribute="width" constant="279" id="Cvd-ur-Em2"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.79735093720000005" green="0.86909610230000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="Rbi-PL-WD4" secondAttribute="bottom" id="6fu-eR-lYF"/>
-                                            <constraint firstAttribute="centerX" secondItem="Rbi-PL-WD4" secondAttribute="centerX" id="UMl-VW-vdP"/>
+                                            <constraint firstAttribute="centerX" secondItem="Rbi-PL-WD4" secondAttribute="centerX" id="Nsm-bx-XNu"/>
+                                            <constraint firstAttribute="bottom" secondItem="Rbi-PL-WD4" secondAttribute="bottom" id="RZ9-Hz-ZoB"/>
+                                            <constraint firstAttribute="height" constant="138" id="eNI-8B-Gvc"/>
+                                            <constraint firstItem="Rbi-PL-WD4" firstAttribute="top" secondItem="RaF-0f-lKk" secondAttribute="top" id="nJb-Ah-TOX"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -430,6 +433,7 @@
                                     <constraint firstItem="g1J-V1-b5T" firstAttribute="top" secondItem="Zum-Au-FGd" secondAttribute="top" constant="20" id="TVZ-BI-Wh4"/>
                                     <constraint firstAttribute="bottom" secondItem="RaF-0f-lKk" secondAttribute="bottom" id="c4F-Yt-bhI"/>
                                     <constraint firstItem="LsM-KF-sJM" firstAttribute="leading" secondItem="Zum-Au-FGd" secondAttribute="leading" constant="20" id="tFp-oV-lin"/>
+                                    <constraint firstAttribute="bottom" secondItem="RaF-0f-lKk" secondAttribute="bottom" id="xAd-TM-aS2"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="6Fa-DG-Jgn" id="quK-P2-WjH"/>
@@ -445,7 +449,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Overview" id="LET-lt-L5j"/>
+                    <tabBarItem key="tabBarItem" title="Overview" image="home" id="LET-lt-L5j"/>
                     <size key="freeformSize" width="320" height="480"/>
                     <connections>
                         <outlet property="bottomInnerView" destination="Rbi-PL-WD4" id="jhh-6m-2z8"/>
@@ -496,16 +500,16 @@
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="5AK-ms-BQ0" customClass="AiMTabNotesViewController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Notes" id="Tcj-8k-a3c"/>
+                    <tabBarItem key="tabBarItem" title="Notes" image="notes" id="Tcj-8k-a3c"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sLa-MH-JbZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1894" y="-501"/>
         </scene>
-        <!--Table View Controller - Item-->
+        <!--AiM Contact Table View Controller - Contact-->
         <scene sceneID="IOo-XB-J9c">
             <objects>
-                <tableViewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="tzl-Dt-ayS" sceneMemberID="viewController">
+                <tableViewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="tzl-Dt-ayS" customClass="AiMContactTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="FPq-yJ-6Wk">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -530,6 +534,9 @@
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="ECB - SCH CHEM/BIOL/ENVIRO ENGR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DJg-oO-Bfr">
                                                     <rect key="frame" x="15" y="19" width="290" height="20"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" none="YES"/>
+                                                    </accessibility>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -554,6 +561,9 @@
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="right" text="John Appleseed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fNi-l4-Ky6">
                                                     <rect key="frame" x="15" y="19" width="118" height="20"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" none="YES"/>
+                                                    </accessibility>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -578,6 +588,9 @@
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="(503) 657-9633" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZgA-2u-2DG">
                                                     <rect key="frame" x="15" y="19" width="110" height="20"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" none="YES"/>
+                                                    </accessibility>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -602,6 +615,9 @@
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="appleseedjohn@engr.oregonstate.edu" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tPW-Cs-69z">
                                                     <rect key="frame" x="15" y="19" width="274" height="20"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" none="YES"/>
+                                                    </accessibility>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -618,13 +634,24 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Item" id="m5t-kA-ahX"/>
+                    <tabBarItem key="tabBarItem" title="Contact" image="contact" id="m5t-kA-ahX"/>
+                    <connections>
+                        <outlet property="department" destination="DJg-oO-Bfr" id="hml-Tx-N4u"/>
+                        <outlet property="email" destination="tPW-Cs-69z" id="2a2-8R-zab"/>
+                        <outlet property="name" destination="fNi-l4-Ky6" id="Nln-lh-rYc"/>
+                        <outlet property="phone" destination="ZgA-2u-2DG" id="uxw-1W-1RH"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lJr-cJ-f7o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1894" y="720"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="contact" width="30" height="30"/>
+        <image name="home" width="30" height="30"/>
+        <image name="notes" width="30" height="30"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -13,27 +13,38 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="WorkCode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hwf-s4-75a">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="WorkCode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hwf-s4-75a">
                         <rect key="frame" x="20" y="5" width="143" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pi6-hD-ttx">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pi6-hD-ttx">
                         <rect key="frame" x="20" y="34" width="294" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Proposal" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WQ3-Um-bna">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Proposal" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WQ3-Um-bna">
                         <rect key="frame" x="161" y="5" width="139" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="Hwf-s4-75a" firstAttribute="leading" secondItem="eCL-ST-4ih" secondAttribute="leading" constant="20" id="0se-J0-pbE"/>
+                    <constraint firstItem="Hwf-s4-75a" firstAttribute="top" secondItem="eCL-ST-4ih" secondAttribute="top" constant="5" id="3oA-y3-cqg"/>
+                    <constraint firstItem="pi6-hD-ttx" firstAttribute="leading" secondItem="eCL-ST-4ih" secondAttribute="leading" constant="20" id="5f9-7t-0ec"/>
+                    <constraint firstAttribute="bottom" secondItem="pi6-hD-ttx" secondAttribute="bottom" constant="10" id="6so-4j-PXe"/>
+                    <constraint firstAttribute="trailing" secondItem="WQ3-Um-bna" secondAttribute="trailing" constant="20" id="HrA-aR-zA2"/>
+                    <constraint firstItem="WQ3-Um-bna" firstAttribute="top" relation="greaterThanOrEqual" secondItem="eCL-ST-4ih" secondAttribute="top" constant="5" id="SPM-Df-1Z2"/>
+                    <constraint firstItem="pi6-hD-ttx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="eCL-ST-4ih" secondAttribute="leading" constant="20" symbolic="YES" id="cGq-v1-OnS"/>
+                    <constraint firstItem="WQ3-Um-bna" firstAttribute="top" secondItem="eCL-ST-4ih" secondAttribute="top" constant="5" id="ezI-nd-VAA"/>
+                    <constraint firstAttribute="trailing" secondItem="pi6-hD-ttx" secondAttribute="trailing" constant="20" symbolic="YES" id="gbJ-Da-G82"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="location" destination="pi6-hD-ttx" id="83g-FD-3tP"/>
