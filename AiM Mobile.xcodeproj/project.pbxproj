@@ -22,6 +22,8 @@
 		7C2D40BC198BF35200CDA365 /* 158270-001.txt in Resources */ = {isa = PBXBuildFile; fileRef = 458DBB3C19883DC100E7DBF3 /* 158270-001.txt */; };
 		7C2D40BD198BF35200CDA365 /* CLARKEM.txt in Resources */ = {isa = PBXBuildFile; fileRef = 458DBB3D19883DC100E7DBF3 /* CLARKEM.txt */; };
 		7C2D40BE198BF35200CDA365 /* DEBAUWB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 458DBB3E19883DC100E7DBF3 /* DEBAUWB.txt */; };
+		7C2D40C1198FF1E300CDA365 /* 148773-002.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D40BF198FF1E300CDA365 /* 148773-002.txt */; };
+		7C2D40C2198FF1E300CDA365 /* 157283-002.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D40C0198FF1E300CDA365 /* 157283-002.txt */; };
 		7C3A2FF3197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C3A2FF2197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m */; };
 		7C97C469197EDD2000949B16 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C468197EDD2000949B16 /* Foundation.framework */; };
 		7C97C46B197EDD2000949B16 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C46A197EDD2000949B16 /* CoreGraphics.framework */; };
@@ -80,6 +82,8 @@
 		45E24BD2198077B400AEB2F5 /* AiMAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AiMAction.m; path = Model/AiMAction.m; sourceTree = "<group>"; };
 		45E24BD41981B61600AEB2F5 /* AiMBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMBackground.h; sourceTree = "<group>"; };
 		45E24BD51981B61600AEB2F5 /* AiMBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMBackground.m; sourceTree = "<group>"; };
+		7C2D40BF198FF1E300CDA365 /* 148773-002.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "148773-002.txt"; path = "AiM Mobile/Resources/148773-002.txt"; sourceTree = "<group>"; };
+		7C2D40C0198FF1E300CDA365 /* 157283-002.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "157283-002.txt"; path = "AiM Mobile/Resources/157283-002.txt"; sourceTree = "<group>"; };
 		7C3A2FF1197F20AB00B7CC74 /* AiMWorkOrderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMWorkOrderTableViewController.h; sourceTree = "<group>"; };
 		7C3A2FF2197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMWorkOrderTableViewController.m; sourceTree = "<group>"; };
 		7C97C465197EDD2000949B16 /* AiM Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AiM Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +146,8 @@
 		458DBB4219883DC600E7DBF3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7C2D40BF198FF1E300CDA365 /* 148773-002.txt */,
+				7C2D40C0198FF1E300CDA365 /* 157283-002.txt */,
 				458DBB3C19883DC100E7DBF3 /* 158270-001.txt */,
 				458DBB3D19883DC100E7DBF3 /* CLARKEM.txt */,
 				458DBB3E19883DC100E7DBF3 /* DEBAUWB.txt */,
@@ -359,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C2D40BC198BF35200CDA365 /* 158270-001.txt in Resources */,
+				7C2D40C2198FF1E300CDA365 /* 157283-002.txt in Resources */,
 				7C2D40BD198BF35200CDA365 /* CLARKEM.txt in Resources */,
 				7C2D40BE198BF35200CDA365 /* DEBAUWB.txt in Resources */,
 				7C97C473197EDD2000949B16 /* InfoPlist.strings in Resources */,
@@ -367,6 +374,7 @@
 				45AF647A198C4CA9005D1D6C /* osubackground.png in Resources */,
 				458DBAE4198715A300E7DBF3 /* TODO in Resources */,
 				7C97C498197EDD3C00949B16 /* iPhone_Main.storyboard in Resources */,
+				7C2D40C1198FF1E300CDA365 /* 148773-002.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

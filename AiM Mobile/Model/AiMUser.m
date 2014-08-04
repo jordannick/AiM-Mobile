@@ -93,7 +93,7 @@
 
 -(void)sendRequestTo:(NSURL*)url withLoginBool:(BOOL)login andSender:(id)sender
 {
-    url = [[NSBundle mainBundle] URLForResource:@"CLARKEM" withExtension:@"txt"];//test local data
+    //url = [[NSBundle mainBundle] URLForResource:@"CLARKEM" withExtension:@"txt"];//test local data
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"GET";
@@ -115,10 +115,26 @@
             //NSLog(@"%d workDict: %@", i, workOrder);
            // NSLog(@"%d proptest: %@", i, proposalNum);
             
-           //NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrder/%@-%@", proposalNum, phaseNum]];
+           NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrder/%@-%@", proposalNum, phaseNum]];
             
-            NSURL *url = [[NSBundle mainBundle] URLForResource:@"158270-001" withExtension:@"txt"];//test local data
-           
+            /*
+            //test local data
+            NSURL *url;
+            switch (i) {
+                case 0:
+                    url = [[NSBundle mainBundle] URLForResource:@"158270-001" withExtension:@"txt"];
+                    break;
+                case 1:
+                    url = [[NSBundle mainBundle] URLForResource:@"157283-002" withExtension:@"txt"];
+                    break;
+                case 2:
+                    url = [[NSBundle mainBundle] URLForResource:@"148773-002" withExtension:@"txt"];
+                    break;
+                default:
+                    break;
+            }
+            //end test
+           */
             
             
             if (i == (count - 1)) {
@@ -194,8 +210,8 @@
             NSDictionary *phaseDict = phases[i];
             if ([[phaseDict objectForKey:@"sort_code"] isEqualToString:phaseNum])
             {
-                //phase.estStart = [df dateFromString:[phaseDict objectForKey:@"beg_dt"]];
-                //phase.estEnd = [df dateFromString:[phaseDict objectForKey:@"end_dt"]];
+                phase.estStart = [df dateFromString:[phaseDict objectForKey:@"beg_dt"]];
+                phase.estEnd = [df dateFromString:[phaseDict objectForKey:@"end_dt"]];
                 phase.description = [phaseDict objectForKey:@"description"];
                 phase.building = [phaseDict objectForKey:@"building"];
                 phase.roomNum = [phaseDict objectForKey:@"loc_code"];
@@ -229,16 +245,18 @@
 -(NSNumber *)assignPriorityID:(NSString *)priority
 {
    // int priorityID;
-    if ([priority isEqualToString:@"TIME SENSITIVE"])
+    if ([priority isEqualToString:@"EMERGENCY"])
         return @0;
-    else if ([priority isEqualToString:@"URGENT"])
+    else if ([priority isEqualToString:@"TIME SENSITIVE"])
         return @1;
-    else if ([priority isEqualToString:@"ROUTINE"])
+    else if ([priority isEqualToString:@"URGENT"])
         return @2;
-    else if ([priority isEqualToString:@"SCHEDULED"])
+    else if ([priority isEqualToString:@"ROUTINE"])
         return @3;
-    else
+    else if ([priority isEqualToString:@"SCHEDULED"])
         return @4;
+    else
+        return @5;
     
 
    // return priorityID;

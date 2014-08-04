@@ -186,6 +186,7 @@
         if(dateString == nil)
         {
             NSLog(@"Why is this nil...");
+            break;
         }
         if (i == 0)
         {
