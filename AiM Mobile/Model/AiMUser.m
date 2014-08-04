@@ -93,7 +93,7 @@
 
 -(void)sendRequestTo:(NSURL*)url withLoginBool:(BOOL)login andSender:(id)sender
 {
-    //url = [[NSBundle mainBundle] URLForResource:@"CLARKEM" withExtension:@"txt"];//test local data
+    url = [[NSBundle mainBundle] URLForResource:@"CLARKEM" withExtension:@"txt"];//test local data
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"GET";
@@ -115,9 +115,9 @@
             //NSLog(@"%d workDict: %@", i, workOrder);
            // NSLog(@"%d proptest: %@", i, proposalNum);
             
-           NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrder/%@-%@", proposalNum, phaseNum]];
+           //NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrder/%@-%@", proposalNum, phaseNum]];
             
-           // NSURL *url = [[NSBundle mainBundle] URLForResource:@"158270-001" withExtension:@"txt"];//test local data
+            NSURL *url = [[NSBundle mainBundle] URLForResource:@"158270-001" withExtension:@"txt"];//test local data
            
             
             
@@ -194,8 +194,8 @@
             NSDictionary *phaseDict = phases[i];
             if ([[phaseDict objectForKey:@"sort_code"] isEqualToString:phaseNum])
             {
-                phase.estStart = [df dateFromString:[phaseDict objectForKey:@"beg_dt"]];
-                phase.estEnd = [df dateFromString:[phaseDict objectForKey:@"end_dt"]];
+                //phase.estStart = [df dateFromString:[phaseDict objectForKey:@"beg_dt"]];
+                //phase.estEnd = [df dateFromString:[phaseDict objectForKey:@"end_dt"]];
                 phase.description = [phaseDict objectForKey:@"description"];
                 phase.building = [phaseDict objectForKey:@"building"];
                 phase.roomNum = [phaseDict objectForKey:@"loc_code"];
@@ -204,6 +204,7 @@
                 phase.dateCreated = [df dateFromString:[phaseDict objectForKey:@"ent_date"]];
                 phase.dateEdited = [df dateFromString:[phaseDict objectForKey:@"edit_date"]];
                 phase.priority = [phaseDict objectForKey:@"pri_code"];
+                phase.priorityID = [self assignPriorityID:phase.priority];
                 phase.workCode = [phaseDict objectForKey:@"craft_code"];
                 phase.notesArray = workOrderNotes;
                 workOrder.phase = phase;
@@ -223,6 +224,24 @@
    
     }];
     [getDataTask resume];
+}
+
+-(NSNumber *)assignPriorityID:(NSString *)priority
+{
+   // int priorityID;
+    if ([priority isEqualToString:@"TIME SENSITIVE"])
+        return @0;
+    else if ([priority isEqualToString:@"URGENT"])
+        return @1;
+    else if ([priority isEqualToString:@"ROUTINE"])
+        return @2;
+    else if ([priority isEqualToString:@"SCHEDULED"])
+        return @3;
+    else
+        return @4;
+    
+
+   // return priorityID;
 }
 
 

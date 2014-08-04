@@ -36,54 +36,31 @@
 {
     NSInteger segIndex = sender.selectedSegmentIndex;
     NSLog(@"This is segIndex : %ld", (long)segIndex);
-    NSArray *sortedArray;
+   // NSArray *sortedArray;
     if(segIndex == 0)   //Sort by DATE
     {
+        for (AiMWorkOrder *workOrder in _currentUser.workOrders) {
+            NSLog(@"Pre sort workorders date: %@", workOrder.dateCreated);
+        }
         [self sortWorkOrdersByDate];
         
+        /*
         for (AiMWorkOrder *workOrder in _currentUser.workOrders) {
             NSLog(@"12Post sort workorders: %@", workOrder.dateCreated);
         }
-        
-       /* NSLog(@"Sorting by date...");
-        sortedArray = [_currentUser.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            AiMWorkOrder *first = (AiMWorkOrder*) obj1;
-            AiMWorkOrder *second = (AiMWorkOrder*) obj2;
-            
-//            if (first.dateCreated < second.dateCreated) {
-//                return NSOrderedAscending;
-//            }else if(first.dateCreated > second.dateCreated)
-//            {
-//                return NSOrderedDescending;
-//            }else{
-//                return NSOrderedSame;
-//            }
-            NSLog(@"Sorting %@ with %@", first.taskID, second.taskID);
-            if ([first.taskID intValue] < [second.taskID intValue]) {
-                NSLog(@"Ascend");
-                return NSOrderedAscending;
-            }else if([first.taskID intValue] > [second.taskID intValue])
-            {
-                NSLog(@"Descend");
-                return NSOrderedDescending;
-            }else{
-                NSLog(@"Same");
-                return NSOrderedSame;
-            }
-            
-            
-        }];*/
+        */
+       
     }else if(segIndex == 1) //Sort by PRIORITY
     {
-        sortedArray = [_currentUser.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-           AiMWorkOrder *first = (AiMWorkOrder*) obj1;
-            AiMWorkOrder *second = (AiMWorkOrder*) obj2;
-            
-//            if (<#condition#>) {
-//                <#statements#>
-//            }
-            return NSOrderedSame;
-        }];
+        for (AiMWorkOrder *workOrder in _currentUser.workOrders) {
+            NSLog(@"Pre sort workorders priorityID: %@", workOrder.phase.priorityID);
+        }
+        
+        [self sortWorkOrdersByPriority];
+        
+        for (AiMWorkOrder *workOrder in _currentUser.workOrders) {
+            NSLog(@"Post sort workorders priorityID: %@", workOrder.phase.priorityID);
+        }
     }
     
     //_currentUser.workOrders = [NSMutableArray arrayWithArray:sortedArray];
@@ -91,9 +68,85 @@
     
 }
 
+- (void) sortWorkOrdersByPriority
+{
+   // NSLog(@"Pre sort workorders: %@", _currentUser.workOrders);
+    NSArray *sortedArray = [_currentUser.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        AiMWorkOrder *first = (AiMWorkOrder*) obj1;
+        AiMWorkOrder *second = (AiMWorkOrder*) obj2;
+        
+        if (!first.phase.priorityID || !second.phase.priorityID){
+            NSLog(@"nonexistent work order: %@ or %@", first.phase.priorityID, second.phase.priorityID);
+            return NSOrderedSame;
+        }
+        
+        NSLog(@"num1: %@, num2: %@", first.phase.priorityID, second.phase.priorityID);
+        
+        if ([first.phase.priorityID compare:second.phase.priorityID] == NSOrderedAscending) {
+            return NSOrderedAscending;
+        } else if ([first.phase.priorityID compare:second.phase.priorityID] == NSOrderedDescending)
+        {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
+    }];
+    
+    [self.sectionTitles removeAllObjects];
+    [self.numInEachSection removeAllObjects];
+    
+    
+    
+    for (int i = 0; i < [sortedArray count]; i++)
+    {
+        //NSNumber *priorityID = ((AiMWorkOrder*)sortedArray[i]).phase.priorityID;
+        NSString *priority = ((AiMWorkOrder*)sortedArray[i]).phase.priority;
+        
+        BOOL foundMatch = NO;
+        NSInteger sectionIndex = 0;
+        NSNumber *iNum = [NSNumber numberWithInt:i];
+        
+        if(priority == nil)
+        {
+            NSLog(@"Why is this nil...");
+            break;
+        }
+        if (i == 0)
+        {
+            [self.sectionTitles addObject:priority];
+            [self.numInEachSection addObject:[NSMutableArray arrayWithObject:iNum]];
+        } else {
+            for (NSString *testString in self.sectionTitles)
+            {
+                //If section title already exists, don't add it, but increment that section #
+                if ([testString isEqualToString:priority])
+                {
+                    foundMatch = YES;
+                    [((NSMutableArray*)self.numInEachSection[sectionIndex]) addObject:iNum];
+                    break;
+                }
+            }
+            //No existing found, so add section string, and create new # for new section
+            if (!foundMatch)
+            {
+                [self.sectionTitles addObject:priority];
+                [self.numInEachSection addObject:[NSMutableArray arrayWithObject:iNum]];
+                sectionIndex++;
+            }
+        }
+    }
+    self.numSections = [self.sectionTitles count];
+    
+    
+    
+    _currentUser.workOrders = [sortedArray mutableCopy];
+   // NSLog(@"Post sort workorders: %@", _currentUser.workOrders);
+
+}
+
 - (void) sortWorkOrdersByDate
 {
-    NSLog(@"Pre sort workorders: %@", _currentUser.workOrders);
+    //NSLog(@"Pre sort workorders: %@", _currentUser.workOrders);
     
     NSArray *sortedArray = [_currentUser.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         AiMWorkOrder *first = (AiMWorkOrder*) obj1;
@@ -110,7 +163,7 @@
             
         
     }];
-    NSLog(@"Post sort workorders: %@", _currentUser.workOrders);
+    //NSLog(@"Post sort workorders: %@", _currentUser.workOrders);
     //Acquire formatting variables for table groupings
   
     [self.sectionTitles removeAllObjects];
