@@ -28,6 +28,7 @@
 
 
 
+
 @end
 
 @implementation AiMTabMainViewController
@@ -66,9 +67,14 @@
     }else{
         self.location.text = [self.workOrder.building capitalizedString];
     }
+    [self.location sizeToFit];
     
     self.textView.text = self.workOrder.phase.description;
     [self.textView setFont:[UIFont systemFontOfSize:16]];
+
+    self.bottomView.backgroundColor = self.workOrder.phase.priorityColor;
+    
+    self.priority.text = self.workOrder.phase.priority;
     self.shop.text = self.workOrder.phase.shop;
     self.workCode.text = self.workOrder.phase.workCode;
     

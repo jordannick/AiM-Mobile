@@ -10,7 +10,6 @@
 #import "AiMNote.h"
 
 
-
 @implementation AiMUser
 
 
@@ -103,10 +102,10 @@
         NSError *jsonParsingError = nil;
         NSArray *arrayWorkOrders = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
         
-        NSUInteger count = [arrayWorkOrders count];
-        count = 3;
+        self.count = [arrayWorkOrders count];
+        self.count = 5;
         self.completionCount = 0;
-        for(int i = 0; i < count; i++)
+        for(int i = 0; i < self.count; i++)
         {
             NSDictionary *workOrder = [arrayWorkOrders objectAtIndex:i];
             NSString *proposalNum = [workOrder objectForKey:@"proposal"];
@@ -137,11 +136,7 @@
            */
             
             
-            if (i == (count - 1)) {
-                [self getWorkOrderPhase:url withProposalNum:proposalNum andPhaseNum:phaseNum andSender:sender andLastBool:YES];
-            } else {
-                [self getWorkOrderPhase:url withProposalNum:proposalNum andPhaseNum:phaseNum andSender:sender andLastBool:NO];
-            }
+            [self getWorkOrderPhase:url withProposalNum:proposalNum andPhaseNum:phaseNum andSender:sender];
 
         }
     }];
@@ -149,7 +144,7 @@
 }
 
 
--(void)getWorkOrderPhase:(NSURL*)url withProposalNum:(NSString*)proposalNum andPhaseNum:(NSString*)phaseNum andSender:(id)sender andLastBool:(BOOL)isLast
+-(void)getWorkOrderPhase:(NSURL*)url withProposalNum:(NSString*)proposalNum andPhaseNum:(NSString*)phaseNum andSender:(id)sender
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"GET";
@@ -221,6 +216,7 @@
                 phase.dateEdited = [df dateFromString:[phaseDict objectForKey:@"edit_date"]];
                 phase.priority = [phaseDict objectForKey:@"pri_code"];
                 phase.priorityID = [self assignPriorityID:phase.priority];
+                phase.priorityColor = [self assignPriorityColor:phase.priority];
                 phase.workCode = [phaseDict objectForKey:@"craft_code"];
                 phase.notesArray = workOrderNotes;
                 workOrder.phase = phase;
@@ -233,9 +229,8 @@
         self.completionCount++;
         
         
-        
-       // if (isLast)
-        if (self.completionCount == 3)
+    
+        if (self.completionCount == self.count)
             [sender segueToOverviewTable];
    
     }];
@@ -261,7 +256,21 @@
 
    // return priorityID;
 }
-
+-(UIColor*)assignPriorityColor:(NSString *)priority
+{
+    if ([priority isEqualToString:@"EMERGENCY"])
+        return [UIColor colorWithRed:1.00 green:0.60 blue:0.00 alpha:1.0];
+    else if ([priority isEqualToString:@"TIME SENSITIVE"])
+        return [UIColor colorWithRed:0.77 green:0.44 blue:1.00 alpha:1.0];
+    else if ([priority isEqualToString:@"URGENT"])
+        return [UIColor colorWithRed:1 green:0.847 blue:0.847 alpha:1]; /*#ffd8d8*/
+    else if ([priority isEqualToString:@"ROUTINE"])
+        return [UIColor colorWithRed:0.906 green:0.988 blue:0.906 alpha:1]; /*#e7fce7*/
+    else if ([priority isEqualToString:@"SCHEDULED"])
+        return [UIColor colorWithRed:0.918 green:0.992 blue:0.992 alpha:1]; /*#eafdfd*/
+    else
+        return [UIColor blackColor];
+}
 
 -(void)updateLastLogin
 {

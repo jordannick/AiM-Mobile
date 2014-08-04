@@ -267,7 +267,8 @@
     if ([textView.text isEqualToString:@"Enter additional notes here"]) {
         textView.text = @"";
     }
-    [self.scrollView setContentOffset:CGPointMake(0, 235) animated:YES];
+    CGFloat textViewOffset = textView.frame.origin.y;
+    [self.scrollView setContentOffset:CGPointMake(0, textViewOffset) animated:YES];
     
 }
 

@@ -263,8 +263,8 @@
     //aimUser = @"CLARKEM";
     //aimUser = @"BROOKESR";
     //aimUser = @"BROWNN";
-    aimUser = @"CROSST";
-    //aimUser = @"DEBAUWB";
+    //aimUser = @"CROSST";
+    aimUser = @"DEBAUWB";
     NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrders/", aimUser];
     
     [_currentUser sendRequestTo:[NSURL URLWithString:urlString] withLoginBool: YES andSender: self];
@@ -278,7 +278,7 @@
     NSLog(@"Started running");
     //[self testOnline];
     
-    
+    [self.usernameTextField becomeFirstResponder];
     
     UIImage *myImage = [UIImage imageNamed:@"osubackground.png"];
     //UIImage *myImage = [UIImage imageNamed:@"valleyBg.png"];

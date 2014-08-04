@@ -22,6 +22,7 @@
 @property(strong, nonatomic) NSDate *estEnd;
 @property(strong, nonatomic) NSString *priority;
 @property(strong, nonatomic) NSNumber *priorityID;
+@property(strong, nonatomic) UIColor *priorityColor;
 @property(strong, nonatomic) NSString *workCodeGroup;
 @property(strong, nonatomic) NSString *workCode;
 

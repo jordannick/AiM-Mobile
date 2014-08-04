@@ -346,15 +346,8 @@
     else
         cell.location.text = [[NSString stringWithFormat:@"%@ (%@)", workOrder.building, workOrder.phase.roomNum] capitalizedString];
     cell.workCode.text = workCodeWord;
-    
-    NSLog(@"Priority: %@", workOrder.phase.priority);
-    
-    if([workOrder.phase.priority isEqualToString:@"URGENT"])
-        cell.backgroundColor = [UIColor colorWithRed:1 green:0.847 blue:0.847 alpha:1]; /*#ffd8d8*/
-    else if ([workOrder.phase.priority isEqualToString:@"ROUTINE"])
-        cell.backgroundColor = [UIColor colorWithRed:0.906 green:0.988 blue:0.906 alpha:1]; /*#e7fce7*/
-    else if([workOrder.phase.priority isEqualToString:@"SCHEDULED"])
-        cell.backgroundColor = [UIColor colorWithRed:0.918 green:0.992 blue:0.992 alpha:1]; /*#eafdfd*/
+
+    cell.backgroundColor = workOrder.phase.priorityColor;
     
     NSLog(@"Priority: %@", workOrder.phase.priority);
     return cell;
