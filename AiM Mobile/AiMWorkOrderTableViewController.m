@@ -2,7 +2,7 @@
 //  AiMWorkOrderTableViewController.m
 //  AiM Mobile
 //
-//  Created by Nick on 7/22/14.
+//  Created by Nick on 8/5/14.
 //  Copyright (c) 2014 Oregon State University. All rights reserved.
 //
 
@@ -13,30 +13,26 @@
 #import "AiMTabMainViewController.h"
 #import "AiMTabBarViewController.h"
 
+
 @interface AiMWorkOrderTableViewController ()
-@property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UINavigationItem *narBar;
 @property (weak, nonatomic) IBOutlet UILabel *loggedInLabel;
 @property (strong, nonatomic) NSMutableArray *sectionTitles;
 @property (nonatomic) NSInteger numSections;
 @property (strong, nonatomic) NSMutableArray *numInEachSection;
 @property (strong,nonatomic) NSArray *uniqueDates;
-//@property (strong, nonatomic) AiMCustomTableCell *cellPrototype;
 
 @end
 
 @implementation AiMWorkOrderTableViewController
 
 
-- (IBAction)onSyncButtonPress:(UIBarButtonItem *)sender {
-    
-    [_currentUser syncWorkOrders];
-    
-}
-- (IBAction)sortBySegmentedControl:(UISegmentedControl *)sender
-{
+- (IBAction)sortBySegmentedControl:(UISegmentedControl *)sender {
     NSInteger segIndex = sender.selectedSegmentIndex;
     NSLog(@"This is segIndex : %ld", (long)segIndex);
-   // NSArray *sortedArray;
+    // NSArray *sortedArray;
     if(segIndex == 0)   //Sort by DATE
     {
         for (AiMWorkOrder *workOrder in _currentUser.workOrders) {
@@ -45,11 +41,11 @@
         [self sortWorkOrdersByDate];
         
         /*
-        for (AiMWorkOrder *workOrder in _currentUser.workOrders) {
-            NSLog(@"12Post sort workorders: %@", workOrder.dateCreated);
-        }
-        */
-       
+         for (AiMWorkOrder *workOrder in _currentUser.workOrders) {
+         NSLog(@"12Post sort workorders: %@", workOrder.dateCreated);
+         }
+         */
+        
     }else if(segIndex == 1) //Sort by PRIORITY
     {
         for (AiMWorkOrder *workOrder in _currentUser.workOrders) {
@@ -65,12 +61,12 @@
     
     //_currentUser.workOrders = [NSMutableArray arrayWithArray:sortedArray];
     [self.tableView reloadData ];
-    
 }
+
 
 - (void) sortWorkOrdersByPriority
 {
-   // NSLog(@"Pre sort workorders: %@", _currentUser.workOrders);
+    // NSLog(@"Pre sort workorders: %@", _currentUser.workOrders);
     NSArray *sortedArray = [_currentUser.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         AiMWorkOrder *first = (AiMWorkOrder*) obj1;
         AiMWorkOrder *second = (AiMWorkOrder*) obj2;
@@ -140,8 +136,8 @@
     
     
     _currentUser.workOrders = [sortedArray mutableCopy];
-   // NSLog(@"Post sort workorders: %@", _currentUser.workOrders);
-
+    // NSLog(@"Post sort workorders: %@", _currentUser.workOrders);
+    
 }
 
 - (void) sortWorkOrdersByDate
@@ -153,21 +149,20 @@
         AiMWorkOrder *second = (AiMWorkOrder*) obj2;
         
         if ([first.dateCreated compare:second.dateCreated] == NSOrderedDescending) {
-            return NSOrderedDescending;
+            return NSOrderedAscending;
         } else if ([first.dateCreated compare:second.dateCreated] == NSOrderedAscending)
         {
-            return NSOrderedAscending;
+            return NSOrderedDescending;
         } else {
             return NSOrderedSame;
         }
-            
         
     }];
     //NSLog(@"Post sort workorders: %@", _currentUser.workOrders);
     //Acquire formatting variables for table groupings
-  
+    
     [self.sectionTitles removeAllObjects];
-   [self.numInEachSection removeAllObjects];
+    [self.numInEachSection removeAllObjects];
     //self.sectionTitles = [[NSMutableArray alloc] init];
     //self.numInEachSection = [[NSMutableArray alloc] init];
     
@@ -196,7 +191,7 @@
             for (NSString *testString in self.sectionTitles)
             {
                 //If section title already exists, don't add it, but increment that section #
-               if ([testString isEqualToString:dateString])
+                if ([testString isEqualToString:dateString])
                 {
                     foundMatch = YES;
                     [((NSMutableArray*)self.numInEachSection[sectionIndex]) addObject:iNum];
@@ -216,14 +211,16 @@
     _currentUser.workOrders = [sortedArray mutableCopy];
 }
 
+/*
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        }
+    }
     return self;
 }
+ */
 
 
 - (void)viewDidLoad
@@ -234,7 +231,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-
+    
     //
     
     self.numSections = 1;
@@ -246,19 +243,19 @@
     //[self.numInEachSection addObject:@([_currentUser.workOrders count])];
     
     NSLog(@"This is my ID: %@", self);
-
-   // self.navBar.title = self.currentUser.username;
+    
+    // self.navBar.title = self.currentUser.username;
     self.loggedInLabel.text = [NSString stringWithFormat:@"Logged in as: %@", _currentUser.username];
     [self.navigationItem setHidesBackButton:YES];
-
-
+    
+    
     //NSLog(@"This is JSON: %@", self.currentUser.workOrders);
     
     for (int i = 0; i < [self.currentUser.workOrders count]; i++)
     {
         NSLog(@"%@", ((AiMWorkOrder *)self.currentUser.workOrders[i]).organization.contactName);
-    
-    
+        
+        
     }
     
     [self sortWorkOrdersByDate];
@@ -290,21 +287,21 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
+    
     // Return the number of rows in the section.
     //return [_currentUser.workOrders count];
-   // NSLog(@"Number of sections in %d is %d", section, [[self.numInEachSection objectAtIndex:section] count]);
-   // return [[self.numInEachSection objectAtIndex:section] count];
+    // NSLog(@"Number of sections in %d is %d", section, [[self.numInEachSection objectAtIndex:section] count]);
+    // return [[self.numInEachSection objectAtIndex:section] count];
     return [_currentUser.workOrders count];
     
 }
 
 
 /*
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return [self.sectionTitles objectAtIndex:section];
-}
+ - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+ {
+ return [self.sectionTitles objectAtIndex:section];
+ }
  */
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -336,11 +333,11 @@
     //NSLog(@"work orders are: %@", [_currentUser.workOrders objectAtIndex:0]);
     
     //NSNumber *index = [[self.numInEachSection objectAtIndex:[indexPath section]] objectAtIndex:[indexPath row]];
-   // AiMWorkOrder *workOrder = [self.currentUser.workOrders objectAtIndex:[index intValue]];
+    // AiMWorkOrder *workOrder = [self.currentUser.workOrders objectAtIndex:[index intValue]];
     
     AiMWorkOrder *workOrder = [self.currentUser.workOrders objectAtIndex:[indexPath row]];
     
-
+    
     
     AiMCustomTableCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
@@ -388,9 +385,9 @@
         
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         //NSNumber *index = [[self.numInEachSection objectAtIndex:[path section]] objectAtIndex:[path row]];
-     //   NSNumber *index = [[self.numInEachSection objectAtIndex:[path section]] objectAtIndex:[path row]];
-//        vc.workOrder = _currentUser.workOrders[[index intValue]];
-//        vc.currentUser = _currentUser;
+        //   NSNumber *index = [[self.numInEachSection objectAtIndex:[path section]] objectAtIndex:[path row]];
+        //        vc.workOrder = _currentUser.workOrders[[index intValue]];
+        //        vc.currentUser = _currentUser;
         
         
         vc.workOrder = _currentUser.workOrders[[indexPath row]];
@@ -398,48 +395,11 @@
         vc.currentUser = _currentUser;
         
     }
-
+    
     
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
 
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
 @end

@@ -92,7 +92,7 @@
 
 -(void)sendRequestTo:(NSURL*)url withLoginBool:(BOOL)login andSender:(id)sender
 {
-    //url = [[NSBundle mainBundle] URLForResource:@"CLARKEM" withExtension:@"txt"];//test local data
+    url = [[NSBundle mainBundle] URLForResource:@"DEBAUWB" withExtension:@"txt"];//test local data
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"GET";
@@ -105,7 +105,7 @@
         self.count = [arrayWorkOrders count];
         //if (self.count > 20)
         //    self.count = 20;
-        self.count = 3;
+        self.count = 5;
         self.completionCount = 0;
         for(int i = 0; i < self.count; i++)
         {
@@ -116,9 +116,9 @@
             //NSLog(@"%d workDict: %@", i, workOrder);
            // NSLog(@"%d proptest: %@", i, proposalNum);
             
-           NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrder/%@-%@", proposalNum, phaseNum]];
+          // NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrder/%@-%@", proposalNum, phaseNum]];
             
-            /*
+            
             //test local data
             NSURL *url;
             switch (i) {
@@ -131,11 +131,17 @@
                 case 2:
                     url = [[NSBundle mainBundle] URLForResource:@"148773-002" withExtension:@"txt"];
                     break;
+                case 3:
+                    url = [[NSBundle mainBundle] URLForResource:@"152982-002" withExtension:@"txt"];
+                    break;
+                case 4:
+                    url = [[NSBundle mainBundle] URLForResource:@"160551-001" withExtension:@"txt"];
+                    break;
                 default:
                     break;
             }
             //end test
-           */
+           
             
             
             [self getWorkOrderPhase:url withProposalNum:proposalNum andPhaseNum:phaseNum andSender:sender];
@@ -207,8 +213,13 @@
             NSDictionary *phaseDict = phases[i];
             if ([[phaseDict objectForKey:@"sort_code"] isEqualToString:phaseNum])
             {
-                phase.estStart = [df dateFromString:[phaseDict objectForKey:@"beg_dt"]];
-                phase.estEnd = [df dateFromString:[phaseDict objectForKey:@"end_dt"]];
+                if (![[phaseDict objectForKey:@"beg_dt"] isKindOfClass:[NSNull class]]){
+                    phase.estStart = [df dateFromString:[phaseDict objectForKey:@"beg_dt"]];
+                }
+                if (![[phaseDict objectForKey:@"end_dt"] isKindOfClass:[NSNull class]]){
+                    phase.estEnd = [df dateFromString:[phaseDict objectForKey:@"end_dt"]];
+                }
+                
                 phase.description = [phaseDict objectForKey:@"description"];
                 phase.building = [phaseDict objectForKey:@"building"];
                 phase.roomNum = [phaseDict objectForKey:@"loc_code"];
@@ -260,11 +271,11 @@
 }
 -(UIColor*)assignPriorityColor:(NSString *)priority
 {
-    /*
+    
     if ([priority isEqualToString:@"EMERGENCY"])
         return [UIColor colorWithRed:0.906 green:0.298 blue:0.235 alpha:1];
     else if ([priority isEqualToString:@"TIME SENSITIVE"])
-        return [UIColor colorWithRed:0.957 green:0.816 blue:0.247 alpha:1];
+        return [UIColor colorWithRed:0.953 green:0.792 blue:0.153 alpha:1];
     else if ([priority isEqualToString:@"URGENT"])
         return [UIColor colorWithRed:0.973 green:0.58 blue:0.024 alpha:1];
     else if ([priority isEqualToString:@"ROUTINE"])
@@ -273,21 +284,7 @@
         return [UIColor colorWithRed:0.145 green:0.455 blue:0.663 alpha:1];
     else
         return [UIColor blackColor];
-    */
     
-    if ([priority isEqualToString:@"EMERGENCY"])
-        return [UIColor colorWithRed:0.906 green:0.298 blue:0.235 alpha:1];
-    else if ([priority isEqualToString:@"TIME SENSITIVE"])
-        return [UIColor colorWithRed:0.957 green:0.816 blue:0.247 alpha:1];
-    else if ([priority isEqualToString:@"URGENT"])
-        return [UIColor colorWithRed:0.906 green:0.298 blue:0.235 alpha:1];
-    else if ([priority isEqualToString:@"ROUTINE"])
-        return [UIColor colorWithRed:0.953 green:0.792 blue:0.153 alpha:1];
-    else if ([priority isEqualToString:@"SCHEDULED"])
-        return [UIColor colorWithRed:0.145 green:0.455 blue:0.663 alpha:1];
-    else
-        return [UIColor blackColor];
-
 }
 
 -(void)updateLastLogin

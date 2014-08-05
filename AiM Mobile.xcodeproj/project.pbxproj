@@ -24,7 +24,9 @@
 		7C2D40BE198BF35200CDA365 /* DEBAUWB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 458DBB3E19883DC100E7DBF3 /* DEBAUWB.txt */; };
 		7C2D40C1198FF1E300CDA365 /* 148773-002.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D40BF198FF1E300CDA365 /* 148773-002.txt */; };
 		7C2D40C2198FF1E300CDA365 /* 157283-002.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D40C0198FF1E300CDA365 /* 157283-002.txt */; };
-		7C3A2FF3197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C3A2FF2197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m */; };
+		7C2D40C41991345800CDA365 /* 152982-002.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D40C31991345800CDA365 /* 152982-002.txt */; };
+		7C2D40C6199135AC00CDA365 /* 160551-001.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D40C5199135AC00CDA365 /* 160551-001.txt */; };
+		7C2D40C91991413800CDA365 /* AiMWorkOrderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D40C81991413800CDA365 /* AiMWorkOrderTableViewController.m */; };
 		7C97C469197EDD2000949B16 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C468197EDD2000949B16 /* Foundation.framework */; };
 		7C97C46B197EDD2000949B16 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C46A197EDD2000949B16 /* CoreGraphics.framework */; };
 		7C97C46D197EDD2000949B16 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C46C197EDD2000949B16 /* UIKit.framework */; };
@@ -84,8 +86,10 @@
 		45E24BD51981B61600AEB2F5 /* AiMBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMBackground.m; sourceTree = "<group>"; };
 		7C2D40BF198FF1E300CDA365 /* 148773-002.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "148773-002.txt"; path = "AiM Mobile/Resources/148773-002.txt"; sourceTree = "<group>"; };
 		7C2D40C0198FF1E300CDA365 /* 157283-002.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "157283-002.txt"; path = "AiM Mobile/Resources/157283-002.txt"; sourceTree = "<group>"; };
-		7C3A2FF1197F20AB00B7CC74 /* AiMWorkOrderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMWorkOrderTableViewController.h; sourceTree = "<group>"; };
-		7C3A2FF2197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMWorkOrderTableViewController.m; sourceTree = "<group>"; };
+		7C2D40C31991345800CDA365 /* 152982-002.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "152982-002.txt"; path = "AiM Mobile/Resources/152982-002.txt"; sourceTree = "<group>"; };
+		7C2D40C5199135AC00CDA365 /* 160551-001.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "160551-001.txt"; path = "AiM Mobile/Resources/160551-001.txt"; sourceTree = "<group>"; };
+		7C2D40C71991413800CDA365 /* AiMWorkOrderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMWorkOrderTableViewController.h; sourceTree = "<group>"; };
+		7C2D40C81991413800CDA365 /* AiMWorkOrderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMWorkOrderTableViewController.m; sourceTree = "<group>"; };
 		7C97C465197EDD2000949B16 /* AiM Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AiM Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C97C468197EDD2000949B16 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7C97C46A197EDD2000949B16 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -146,6 +150,8 @@
 		458DBB4219883DC600E7DBF3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7C2D40C5199135AC00CDA365 /* 160551-001.txt */,
+				7C2D40C31991345800CDA365 /* 152982-002.txt */,
 				7C2D40BF198FF1E300CDA365 /* 148773-002.txt */,
 				7C2D40C0198FF1E300CDA365 /* 157283-002.txt */,
 				458DBB3C19883DC100E7DBF3 /* 158270-001.txt */,
@@ -277,10 +283,10 @@
 		7C97C4A9197EDEAF00949B16 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7C2D40C71991413800CDA365 /* AiMWorkOrderTableViewController.h */,
+				7C2D40C81991413800CDA365 /* AiMWorkOrderTableViewController.m */,
 				7C97C499197EDD5000949B16 /* AiMLoginViewController.h */,
 				7C97C49A197EDD5000949B16 /* AiMLoginViewController.m */,
-				7C3A2FF1197F20AB00B7CC74 /* AiMWorkOrderTableViewController.h */,
-				7C3A2FF2197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m */,
 				45E24BCE19806DBF00AEB2F5 /* AiMAddActionViewController.h */,
 				45E24BCF19806DBF00AEB2F5 /* AiMAddActionViewController.m */,
 				458DBB4C1989A69B00E7DBF3 /* Tab Bar */,
@@ -366,6 +372,7 @@
 			files = (
 				7C2D40BC198BF35200CDA365 /* 158270-001.txt in Resources */,
 				7C2D40C2198FF1E300CDA365 /* 157283-002.txt in Resources */,
+				7C2D40C41991345800CDA365 /* 152982-002.txt in Resources */,
 				7C2D40BD198BF35200CDA365 /* CLARKEM.txt in Resources */,
 				7C2D40BE198BF35200CDA365 /* DEBAUWB.txt in Resources */,
 				7C97C473197EDD2000949B16 /* InfoPlist.strings in Resources */,
@@ -373,6 +380,7 @@
 				458DBAEB1987FD7500E7DBF3 /* CustomTableCell.xib in Resources */,
 				45AF647A198C4CA9005D1D6C /* osubackground.png in Resources */,
 				458DBAE4198715A300E7DBF3 /* TODO in Resources */,
+				7C2D40C6199135AC00CDA365 /* 160551-001.txt in Resources */,
 				7C97C498197EDD3C00949B16 /* iPhone_Main.storyboard in Resources */,
 				7C2D40C1198FF1E300CDA365 /* 148773-002.txt in Resources */,
 			);
@@ -395,11 +403,11 @@
 			files = (
 				458DBB4B1989726C00E7DBF3 /* AiMTabBarViewController.m in Sources */,
 				7C97C479197EDD2000949B16 /* AiMAppDelegate.m in Sources */,
-				7C3A2FF3197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m in Sources */,
 				7C97C475197EDD2000949B16 /* main.m in Sources */,
 				45A17133198FE07900237FBB /* AiMContactTableViewController.m in Sources */,
 				45E24BD3198077B400AEB2F5 /* AiMAction.m in Sources */,
 				458DBAEC1987FE2F00E7DBF3 /* AiMCustomTableCell.m in Sources */,
+				7C2D40C91991413800CDA365 /* AiMWorkOrderTableViewController.m in Sources */,
 				7C97C4AC197EDF4F00949B16 /* AiMUser.m in Sources */,
 				7C97C49B197EDD5000949B16 /* AiMLoginViewController.m in Sources */,
 				458DBB481989505000E7DBF3 /* AiMTabMainViewController.m in Sources */,
