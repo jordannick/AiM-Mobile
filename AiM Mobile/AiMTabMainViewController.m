@@ -62,6 +62,7 @@
 
 -(void)loadInitialData
 {
+    
     if(![self.workOrder.roomNum isEqual:[NSNull null]]){
         self.location.text = [NSString stringWithFormat:@"%@ (%@)", [self.workOrder.building capitalizedString], self.workOrder.roomNum];
     }else{
@@ -87,6 +88,42 @@
     self.estDate.text = [NSString stringWithFormat:@"%@ - %@", [formatter stringFromDate:startDate], [formatter stringFromDate:endDate]];
     
 }
+-(void)setScrollViewInsets
+{
+    CGFloat topOffset;
+    
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    UIDeviceOrientation otherOrientation = [[UIDevice currentDevice] orientation];
+    if(orientation == 4 || orientation == 3){
+        NSLog(@"Orientation Landscape! %d", orientation);
+        topOffset = 32 + [UIApplication sharedApplication].statusBarFrame.size.width;
+    }
+    else{
+        NSLog(@"Orientation Portrait! %d", orientation);
+        topOffset = 32 + [UIApplication sharedApplication].statusBarFrame.size.height;
+    }
+
+    NSLog(@"NavBar height: %f width: %f  and statusBar height: %f width: %f   %f   statbarorient: %d vs %d", self.navigationController.navigationBar.frame.size.height, self.navigationController.navigationBar.frame.size.width, [UIApplication sharedApplication].statusBarFrame.size.height, [UIApplication sharedApplication].statusBarFrame.size.width, self.view.frame.origin.y, [[UIApplication sharedApplication] statusBarOrientation], otherOrientation);
+    
+    UIEdgeInsets oldInset = self.scrollView.contentInset;
+    //self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    
+    
+    
+    //self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    UIEdgeInsets edgeInset = UIEdgeInsetsMake(topOffset, 0, self.tabBarController.tabBar.frame.size.height, 0);
+    //self.scrollView.contentInset = edgeInset;
+    self.scrollView.scrollIndicatorInsets = edgeInset;
+    //self.scrollView.contentOffset = CGPointMake(0, 0);
+    
+    NSLog(@"Old: %f New: %f", oldInset.top, self.scrollView.contentInset.top);
+}
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [self setScrollViewInsets];
+}
 
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -96,7 +133,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self setScrollViewInsets];
 }
+
 
 - (void)didReceiveMemoryWarning
 {

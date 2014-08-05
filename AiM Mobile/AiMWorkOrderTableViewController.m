@@ -327,7 +327,7 @@
     //Get workOrder for cell
     
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"MM/dd"];
+    [df setDateFormat:@"M/d"];
     
     
     [indexPath section];
@@ -359,6 +359,7 @@
         cell.location.text = [[NSString stringWithFormat:@"%@ (%@)", workOrder.building, workOrder.phase.roomNum] capitalizedString];
     cell.workCode.text = workCodeWord;
     cell.priorityLetter.text = [workOrder.phase.priority substringWithRange:NSMakeRange(0, 1)];
+    
     cell.dayMonth.text = [df stringFromDate:workOrder.dateCreated];
     [df setDateFormat:@"yyyy"];
     cell.year.text = [df stringFromDate:workOrder.dateCreated];

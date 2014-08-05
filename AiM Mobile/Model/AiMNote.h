@@ -14,5 +14,6 @@
 @property(strong, nonatomic) NSString *note;
 @property(strong, nonatomic) NSString *author;
 @property(strong, nonatomic) NSDate *date;
+@property(strong, nonatomic) NSString *error;
 
 @end

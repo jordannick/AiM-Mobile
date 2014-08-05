@@ -10,14 +10,14 @@
 #import "AiMTabBarViewController.h"
 #import "AiMNote.h"
 #import "AiMBackground.h"
+#import "AiMCustomNoteCell.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface AiMTabNotesViewController ()
 
 @property BOOL reversed;
-@property (strong, nonatomic) UIScrollView *scrollView;
+@property NSArray *noteArray;
 @property UIDeviceOrientation lastKnownOrientation;
-
 @end
 
 @implementation AiMTabNotesViewController
@@ -34,11 +34,134 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.reversed = NO;
-    // Do any additional setup after loading the view.
-    [self initScrollView];
 
+    
+    // Do any additional setup after loading the view.
+    //[self initScrollView];
+    NSLog(@"Yah loaded!");
+    
+    
+    AiMTabBarViewController *vc = (AiMTabBarViewController*)self.parentViewController;
+    self.noteArray = vc.workOrder.phase.notesArray;
+    
+    
+    
+    if([self.noteArray count] == 0){
+        AiMNote *newNote = [[AiMNote alloc] init];
+        newNote.error = @"No notes for this work order.";
+        
+        self.noteArray = [NSArray arrayWithObject:newNote];
+        
+        self.tableView.rowHeight = MAX(self.view.frame.size.height, self.view.frame.size.width);
+    }
+    
+    
+    NSLog(@"Top : %f  Bot:  %f", self.topLayoutGuide.length, self.bottomLayoutGuide.length);
+    
+    
 }
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self setTableViewInset];
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setTableViewInset];
+}
+
+-(void)setTableViewInset
+{
+    CGFloat topOffset = MIN(self.navigationController.navigationBar.frame.size.height, self.navigationController.navigationBar.frame.size.width);
+    if(![UIApplication sharedApplication].statusBarHidden){
+        topOffset += MIN([UIApplication sharedApplication].statusBarFrame.size.height,[UIApplication sharedApplication].statusBarFrame.size.width);
+    }
+    CGFloat bottomOffset = MIN(self.tabBarController.tabBar.frame.size.height, self.tabBarController.tabBar.frame.size.width);
+    self.tableView.contentInset = UIEdgeInsetsMake(topOffset, 0, bottomOffset, 0);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(topOffset, 0, bottomOffset, 0);
+    
+    CAGradientLayer *bg = [AiMBackground lightBlueGradient];
+    CGFloat side = MAX(self.view.frame.size.height, self.view.frame.size.width);
+    bg.frame = CGRectMake(-150, -150, side+300, side+300);
+    [self.view.layer insertSublayer:bg atIndex:0];
+}
+
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(void)setBackgroundColor
+{
+    CGFloat squareSize = MAX([[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width);
+    CAGradientLayer *bgLayer = [AiMBackground lightBlueGradient];
+    bgLayer.frame = self.view.superview.frame;
+    bgLayer.frame = CGRectMake(bgLayer.frame.origin.x, bgLayer.frame.origin.y, squareSize, squareSize);
+    [self.view.superview.layer insertSublayer:bgLayer atIndex:0];
+}
+
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"MM-dd-yyyy"];
+    AiMCustomNoteCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReuseNoteCell"];
+    if(!cell){
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomNoteCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    AiMNote *note = [self.noteArray objectAtIndex:[indexPath row]];
+    if(note.error){
+        cell.error.text = note.error;
+        cell.date.text = @"";
+        cell.name.text = @"";
+        cell.note.text = @"";
+    }else{
+        if(note.date)
+            cell.date.text = [df stringFromDate:note.date];
+        cell.name.text = note.author;
+        cell.note.text = note.note;
+    }
+    cell.backgroundColor = [UIColor clearColor];
+    return cell;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSLog(@"YAH! here!");
+    // Return the number of rows in the section.
+    return [self.noteArray count];
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 121;
+}
+/*
 -(void)initScrollView
 {
     //Initialize scrollView
@@ -104,12 +227,12 @@
         
         CGFloat lineWidth = halfScreen*2+20;
         UILabel *lineSpacer = [[UILabel alloc] initWithFrame:CGRectMake(leftPadding+10, lastYPosition, lineWidth, 1)];
-        lineSpacer.backgroundColor = [UIColor colorWithRed:0.141 green:0.263 blue:0.431 alpha:1]; /*#24436e*/
+        lineSpacer.backgroundColor = [UIColor colorWithRed:0.141 green:0.263 blue:0.431 alpha:1]; /*#24436e*/ /*
         [self.view addSubview:lineSpacer];
         
         lastYPosition += padding/2;
     }
-
+    
     if([phaseNotes count] == 0uL){
         UILabel *noNotesLabel = [[UILabel alloc] initWithFrame:noNotesRect];
         noNotesLabel.textAlignment = NSTextAlignmentCenter;
@@ -121,84 +244,11 @@
         CGRect contentRect = CGRectZero;
         for (UIView *view in self.view.subviews) {
             contentRect = CGRectUnion(contentRect, view.frame);
+            NSLog(@"ViewHeight: %f width: %f", view.frame.size.height, view.frame.size.width);
         }
         scrollView.contentSize = contentRect.size;
         scrollView.contentOffset = CGPointZero;
     }
 }
-
--(void)viewWillAppear:(BOOL)animated
-{
-    if(self.lastKnownOrientation){
-        UIDeviceOrientation newOrientation = [[UIDevice currentDevice] orientation];
-        if(newOrientation != self.lastKnownOrientation){
-            NSLog(@"Orientation changed while this view was not active!");
-            CGFloat screenHeight =[UIScreen mainScreen].bounds.size.height;
-            CGFloat screenWidth =[UIScreen mainScreen].bounds.size.width;
-            self.view.frame = CGRectMake(0, 0, screenWidth, screenHeight);
-            [self initScrollView];
-        }
-    }
-    
-    [super viewWillAppear:animated];
-    [self setBackgroundColor];
-}
--(void)viewWillDisappear:(BOOL)animated
-{
-    self.lastKnownOrientation = [[UIDevice currentDevice] orientation];
-    
-}
-
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    CGFloat screenHeight =[UIScreen mainScreen].bounds.size.height;
-    CGFloat screenWidth =[UIScreen mainScreen].bounds.size.width;
-    self.view.frame = CGRectMake(0, 0, screenWidth, screenHeight);
-    [self initScrollView];
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(void)setBackgroundColor
-{
-    CGFloat squareSize = MAX([[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width);
-    CAGradientLayer *bgLayer = [AiMBackground lightBlueGradient];
-    bgLayer.frame = self.view.superview.frame;
-    bgLayer.frame = CGRectMake(bgLayer.frame.origin.x, bgLayer.frame.origin.y, squareSize, squareSize);
-    [self.view.superview.layer insertSublayer:bgLayer atIndex:0];
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
 */
-
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    
-    // Return the number of rows in the section.
-    return 4;
-}
-
-
-
-
 @end

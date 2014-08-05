@@ -99,7 +99,7 @@
     //NSLog(@"Old frame = %@"
     
     CGFloat labelHeight = self.usernameTextField.frame.size.height;
-    CGRect oldFrame = CGRectMake(90, 106, 140, 30);
+    CGRect oldFrame = self.loginButton.frame;
     NSLog(@"viewDidLayoutSubviews");
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     if(orientation == 3 || orientation == 4){
