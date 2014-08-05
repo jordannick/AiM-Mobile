@@ -85,7 +85,11 @@
     self.created.text = [formatter stringFromDate:self.workOrder.dateCreated];
     NSDate *startDate = self.workOrder.phase.estStart;
     NSDate *endDate = self.workOrder.phase.estEnd;
-    self.estDate.text = [NSString stringWithFormat:@"%@ - %@", [formatter stringFromDate:startDate], [formatter stringFromDate:endDate]];
+    if (startDate && endDate)
+        self.estDate.text = [NSString stringWithFormat:@"%@ - %@", [formatter stringFromDate:startDate], [formatter stringFromDate:endDate]];
+    else
+        self.estDate.text = @"- - -";
+        
     
 }
 -(void)setScrollViewInsets
