@@ -12,6 +12,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *proposal;
 @property (weak, nonatomic) IBOutlet UILabel *workCode;
 @property (weak, nonatomic) IBOutlet UILabel *location;
+@property (weak, nonatomic) IBOutlet UILabel *priorityLetter;
+@property (weak, nonatomic) IBOutlet UILabel *dayMonth;
+@property (weak, nonatomic) IBOutlet UILabel *year;
+@property (weak, nonatomic) IBOutlet UIView *priorityView;
+
+
 
 -(int)getRowHeight;
 

@@ -103,7 +103,9 @@
         NSArray *arrayWorkOrders = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
         
         self.count = [arrayWorkOrders count];
-        self.count = 5;
+        //if (self.count > 20)
+        //    self.count = 20;
+        self.count = 3;
         self.completionCount = 0;
         for(int i = 0; i < self.count; i++)
         {
@@ -258,18 +260,34 @@
 }
 -(UIColor*)assignPriorityColor:(NSString *)priority
 {
+    /*
     if ([priority isEqualToString:@"EMERGENCY"])
-        return [UIColor colorWithRed:1.00 green:0.60 blue:0.00 alpha:1.0];
+        return [UIColor colorWithRed:0.906 green:0.298 blue:0.235 alpha:1];
     else if ([priority isEqualToString:@"TIME SENSITIVE"])
-        return [UIColor colorWithRed:0.77 green:0.44 blue:1.00 alpha:1.0];
+        return [UIColor colorWithRed:0.957 green:0.816 blue:0.247 alpha:1];
     else if ([priority isEqualToString:@"URGENT"])
-        return [UIColor colorWithRed:1 green:0.847 blue:0.847 alpha:1]; /*#ffd8d8*/
+        return [UIColor colorWithRed:0.973 green:0.58 blue:0.024 alpha:1];
     else if ([priority isEqualToString:@"ROUTINE"])
-        return [UIColor colorWithRed:0.906 green:0.988 blue:0.906 alpha:1]; /*#e7fce7*/
+        return [UIColor colorWithRed:0.149 green:0.651 blue:0.357 alpha:1];
     else if ([priority isEqualToString:@"SCHEDULED"])
-        return [UIColor colorWithRed:0.918 green:0.992 blue:0.992 alpha:1]; /*#eafdfd*/
+        return [UIColor colorWithRed:0.145 green:0.455 blue:0.663 alpha:1];
     else
         return [UIColor blackColor];
+    */
+    
+    if ([priority isEqualToString:@"EMERGENCY"])
+        return [UIColor colorWithRed:0.906 green:0.298 blue:0.235 alpha:1];
+    else if ([priority isEqualToString:@"TIME SENSITIVE"])
+        return [UIColor colorWithRed:0.957 green:0.816 blue:0.247 alpha:1];
+    else if ([priority isEqualToString:@"URGENT"])
+        return [UIColor colorWithRed:0.906 green:0.298 blue:0.235 alpha:1];
+    else if ([priority isEqualToString:@"ROUTINE"])
+        return [UIColor colorWithRed:0.953 green:0.792 blue:0.153 alpha:1];
+    else if ([priority isEqualToString:@"SCHEDULED"])
+        return [UIColor colorWithRed:0.145 green:0.455 blue:0.663 alpha:1];
+    else
+        return [UIColor blackColor];
+
 }
 
 -(void)updateLastLogin

@@ -2,10 +2,10 @@
 Syncing, updating data, offline mode
 
 
-                                --X--Table prototype cell setup
+                                ---X-Table prototype cell setup
 
 
-Details view layout
+        --X--Details view layout
 
 
                                 -X---Sorting of OverviewTable
@@ -14,16 +14,18 @@ Details view layout
                                 -X---ColorCode PRIORITY + Key
 
 
-AddAction Window, better one
+        --X--AddAction Window, better one
 
 
                                 ---X-OverviewTable Date Headers
 
 
-iPad layout & ALL layout issues
+-X---iPad layout & ALL layout issues
 
 
 Settings/Preferences?
+    -Date Format
+    -Default sorting
 
 
 Today's Summary

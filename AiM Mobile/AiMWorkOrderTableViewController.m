@@ -64,7 +64,7 @@
     }
     
     //_currentUser.workOrders = [NSMutableArray arrayWithArray:sortedArray];
-    [self.tableView reloadData];
+    [self.tableView reloadData ];
     
 }
 
@@ -234,6 +234,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+
     //
     
     self.numSections = 1;
@@ -281,9 +282,9 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    //return 1;
-    NSLog(@"Number of sections is %d", [self.numInEachSection count]);
-    return [self.numInEachSection count];
+    return 1;
+    //NSLog(@"Number of sections is %d", [self.numInEachSection count]);
+    //return [self.numInEachSection count];
     //return self.numSections;
 }
 
@@ -292,15 +293,19 @@
 
     // Return the number of rows in the section.
     //return [_currentUser.workOrders count];
-    NSLog(@"Number of sections in %d is %d", section, [[self.numInEachSection objectAtIndex:section] count]);
-    return [[self.numInEachSection objectAtIndex:section] count];
+   // NSLog(@"Number of sections in %d is %d", section, [[self.numInEachSection objectAtIndex:section] count]);
+   // return [[self.numInEachSection objectAtIndex:section] count];
+    return [_currentUser.workOrders count];
     
 }
 
+
+/*
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return [self.sectionTitles objectAtIndex:section];
 }
+ */
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -321,14 +326,21 @@
     static NSString *simpleTableIdentifier = @"CellIdentifier";
     //Get workOrder for cell
     
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"MM/dd"];
+    
     
     [indexPath section];
     [indexPath row];
     //NSLog(@"indexpath.row is %d", indexPath.row);
     //NSLog(@"work orders are: %@", [_currentUser.workOrders objectAtIndex:0]);
     
-    NSNumber *index = [[self.numInEachSection objectAtIndex:[indexPath section]] objectAtIndex:[indexPath row]];
-    AiMWorkOrder *workOrder = [self.currentUser.workOrders objectAtIndex:[index intValue]];
+    //NSNumber *index = [[self.numInEachSection objectAtIndex:[indexPath section]] objectAtIndex:[indexPath row]];
+   // AiMWorkOrder *workOrder = [self.currentUser.workOrders objectAtIndex:[index intValue]];
+    
+    AiMWorkOrder *workOrder = [self.currentUser.workOrders objectAtIndex:[indexPath row]];
+    
+
     
     AiMCustomTableCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
@@ -346,8 +358,14 @@
     else
         cell.location.text = [[NSString stringWithFormat:@"%@ (%@)", workOrder.building, workOrder.phase.roomNum] capitalizedString];
     cell.workCode.text = workCodeWord;
-
-    cell.backgroundColor = workOrder.phase.priorityColor;
+    cell.priorityLetter.text = [workOrder.phase.priority substringWithRange:NSMakeRange(0, 1)];
+    cell.dayMonth.text = [df stringFromDate:workOrder.dateCreated];
+    [df setDateFormat:@"yyyy"];
+    cell.year.text = [df stringFromDate:workOrder.dateCreated];
+    
+    cell.priorityView.backgroundColor = workOrder.phase.priorityColor;
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     NSLog(@"Priority: %@", workOrder.phase.priority);
     return cell;
@@ -368,14 +386,14 @@
         
         NSLog(@"This is workOrder: %@", [whatIsThis class]);
         
-        NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-        NSNumber *index = [[self.numInEachSection objectAtIndex:[path section]] objectAtIndex:[path row]];
-//        
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        //NSNumber *index = [[self.numInEachSection objectAtIndex:[path section]] objectAtIndex:[path row]];
+     //   NSNumber *index = [[self.numInEachSection objectAtIndex:[path section]] objectAtIndex:[path row]];
 //        vc.workOrder = _currentUser.workOrders[[index intValue]];
 //        vc.currentUser = _currentUser;
         
         
-        vc.workOrder = _currentUser.workOrders[[index intValue]];
+        vc.workOrder = _currentUser.workOrders[[indexPath row]];
         //vc.workOrderIndex = [index intValue];
         vc.currentUser = _currentUser;
         
