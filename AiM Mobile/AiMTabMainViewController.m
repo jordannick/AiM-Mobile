@@ -65,8 +65,7 @@
 //    [self.upperView.layer setShadowRadius:5.0];
 //    [self.upperView.layer setShadowOffset:CGSizeMake(3.0, 3.0)];
     
-    self.detailView.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.800]
-    ;
+    self.detailView.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.800];
     
     //self.location.frame = CGRectMake(100, 100, 100, 100);
 

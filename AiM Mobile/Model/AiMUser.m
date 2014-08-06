@@ -105,7 +105,7 @@
         self.count = [arrayWorkOrders count];
         //if (self.count > 20)
         //    self.count = 20;
-        self.count = 5;
+        self.count = 7;
         self.completionCount = 0;
         for(int i = 0; i < self.count; i++)
         {
@@ -135,6 +135,12 @@
                     break;
                 case 4:
                     url = [[NSBundle mainBundle] URLForResource:@"160551-001" withExtension:@"txt"];
+                    break;
+                case 5:
+                    url = [[NSBundle mainBundle] URLForResource:@"158270-001" withExtension:@"txt"];
+                    break;
+                case 6:
+                    url = [[NSBundle mainBundle] URLForResource:@"148773-002" withExtension:@"txt"];
                     break;
                 default:
                     break;

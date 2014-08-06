@@ -224,6 +224,8 @@
     
     [_currentUser.user sendRequestTo:[NSURL URLWithString:urlString] withLoginBool: YES andSender: self];
     
+    _currentUser.user.username = self.usernameTextField.text;
+    
 }
 
 - (void)viewDidLoad

@@ -18,7 +18,8 @@
 @interface AiMWorkOrderTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UINavigationItem *narBar;
+@property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
+
 @property (weak, nonatomic) IBOutlet UILabel *loggedInLabel;
 //@property (strong, nonatomic) NSMutableArray *sectionTitles;
 //@property (nonatomic) NSInteger numSections;
@@ -204,8 +205,25 @@
     self.numInEachSection = [[NSMutableArray alloc] init];
      */
     
-    self.loggedInLabel.text = [NSString stringWithFormat:@"Logged in as: %@", _currentUser.user.username];
+    self.navBar.title = [NSString stringWithFormat:@"Work Orders (%d)", [_currentUser.user.workOrders count]];
+    //self.loggedInLabel.text = [NSString stringWithFormat:@"Logged in as: %@", _currentUser.user.username];
     [self.navigationItem setHidesBackButton:YES];
+    
+    self.navigationController.toolbarHidden = NO;
+    
+    UIBarButtonItem *options = [[UIBarButtonItem alloc] initWithTitle:@"Options" style:UIBarButtonItemStylePlain target:self action:nil];
+    
+    UIBarButtonItem *space1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    UIBarButtonItem *username = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%@", _currentUser.user.username] style:UIBarButtonItemStylePlain target:self action:nil];
+    
+    UIBarButtonItem *space2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    UIBarButtonItem *signout = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:nil];
+
+    
+    
+    [self setToolbarItems:@[options, space1, username, space2, signout]];
     
     
     for (int i = 0; i < [self.currentUser.user.workOrders count]; i++)
@@ -216,6 +234,7 @@
     
     [self sortWorkOrdersByDate];
     [self loadInitialData];
+    
     
 }
 
@@ -265,7 +284,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"[IndexPath row] = %ld", (long)[indexPath row]);
     static NSString *simpleTableIdentifier = @"CellIdentifier";
     
     //Get workOrder for cell
@@ -303,7 +321,6 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    NSLog(@"Priority: %@", workOrder.phase.priority);
     return cell;
 }
 
@@ -312,8 +329,6 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
-    NSLog(@"Preparing for segue");
     if([[segue identifier] isEqualToString:@"SelectionSegue"])
     {
         AiMTabBarViewController *vc = [segue destinationViewController];
