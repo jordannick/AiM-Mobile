@@ -85,74 +85,75 @@
         </scene>
         <!--AiM Work Order Table View Controller-->
         <scene sceneID="37h-DD-B8u">
-<objects>
-<viewController storyboardIdentifier="WorkOrderTableView" id="ju7-eI-Y5E" customClass="AiMWorkOrderTableViewController" sceneMemberID="viewController">
-<layoutGuides>
-<viewControllerLayoutGuide type="top" id="5Y8-qf-bAk"/>
-<viewControllerLayoutGuide type="bottom" id="J2M-xj-SEr"/>
-</layoutGuides>
-<view key="view" contentMode="scaleToFill" id="E6r-01-AcB">
-<rect key="frame" x="0.0" y="64" width="320" height="416"/>
-<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-<subviews>
-<tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="GEy-nH-dIT">
-<rect key="frame" x="-1" y="36" width="320" height="380"/>
-<autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-<label key="tableFooterView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logged in as:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JzK-Qo-wd7">
-<rect key="frame" x="0.0" y="88" width="320" height="29"/>
-<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-<fontDescription key="fontDescription" type="system" pointSize="12"/>
-<color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-<nil key="highlightedColor"/>
-</label>
-<prototypes>
-<tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CustomTableCell" rowHeight="66" id="nly-7c-AGs">
-<rect key="frame" x="0.0" y="22" width="320" height="66"/>
-<autoresizingMask key="autoresizingMask"/>
-<tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nly-7c-AGs" id="yfP-9x-ZcI">
-<rect key="frame" x="0.0" y="0.0" width="253" height="65"/>
-<autoresizingMask key="autoresizingMask"/>
-</tableViewCellContentView>
-<connections>
-<segue destination="UW4-y7-JBj" kind="push" identifier="SelectionSegue" id="WcZ-de-Yue"/>
-</connections>
-</tableViewCell>
-</prototypes>
-</tableView>
-<segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1ao-jk-WDz">
-<rect key="frame" x="-1" y="0.0" width="321" height="29"/>
-<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-<segments>
-<segment title="Date"/>
-<segment title="Priority"/>
-</segments>
-<connections>
-<action selector="sortBySegmentedControl:" destination="ju7-eI-Y5E" eventType="valueChanged" id="OEv-zy-cNT"/>
-</connections>
-</segmentedControl>
-</subviews>
-<color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-<constraints>
-<constraint firstAttribute="trailing" secondItem="GEy-nH-dIT" secondAttribute="trailing" constant="1" id="5ik-Tk-34G"/>
-<constraint firstItem="GEy-nH-dIT" firstAttribute="top" secondItem="1ao-jk-WDz" secondAttribute="bottom" id="6pK-jt-at6"/>
-<constraint firstItem="GEy-nH-dIT" firstAttribute="leading" secondItem="E6r-01-AcB" secondAttribute="leading" constant="1" id="SM9-nF-TY4"/>
-<constraint firstAttribute="bottom" secondItem="GEy-nH-dIT" secondAttribute="bottom" id="Ua9-SN-bgi"/>
-<constraint firstItem="GEy-nH-dIT" firstAttribute="top" secondItem="1ao-jk-WDz" secondAttribute="bottom" id="Z7X-0D-Vy3"/>
-<constraint firstAttribute="trailing" secondItem="1ao-jk-WDz" secondAttribute="trailing" id="kda-pO-8ap"/>
-<constraint firstItem="1ao-jk-WDz" firstAttribute="top" secondItem="E6r-01-AcB" secondAttribute="top" id="p5U-eE-0P8"/>
-<constraint firstItem="1ao-jk-WDz" firstAttribute="leading" secondItem="E6r-01-AcB" secondAttribute="leading" constant="-1" id="pfA-KN-1Gl"/>
-</constraints>
-</view>
-<navigationItem key="navigationItem" id="Hzs-PE-2vU"/>
-<connections>
-<outlet property="loggedInLabel" destination="JzK-Qo-wd7" id="NJH-5x-kmQ"/>
-<outlet property="narBar" destination="Hzs-PE-2vU" id="6Aw-c9-jXA"/>
-<outlet property="tableView" destination="GEy-nH-dIT" id="wHw-y2-RCk"/>
-</connections>
-</viewController>
-<placeholder placeholderIdentifier="IBFirstResponder" id="2iD-4v-Pgh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-</objects>            <point key="canvasLocation" x="656" y="97"/>
+            <objects>
+                <viewController storyboardIdentifier="WorkOrderTableView" extendedLayoutIncludesOpaqueBars="YES" id="ju7-eI-Y5E" customClass="AiMWorkOrderTableViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5Y8-qf-bAk"/>
+                        <viewControllerLayoutGuide type="bottom" id="J2M-xj-SEr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="E6r-01-AcB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="GEy-nH-dIT">
+                                <rect key="frame" x="-1" y="36" width="320" height="444"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <label key="tableFooterView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logged in as:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JzK-Qo-wd7">
+                                    <rect key="frame" x="0.0" y="152" width="320" height="29"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CustomTableCell" rowHeight="66" id="nly-7c-AGs">
+                                        <rect key="frame" x="0.0" y="86" width="320" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nly-7c-AGs" id="yfP-9x-ZcI">
+                                            <rect key="frame" x="0.0" y="0.0" width="253" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="UW4-y7-JBj" kind="push" identifier="SelectionSegue" id="WcZ-de-Yue"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1ao-jk-WDz">
+                                <rect key="frame" x="0.0" y="65" width="321" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Date"/>
+                                    <segment title="Priority"/>
+                                </segments>
+                                <connections>
+                                    <action selector="sortBySegmentedControl:" destination="ju7-eI-Y5E" eventType="valueChanged" id="OEv-zy-cNT"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="GEy-nH-dIT" secondAttribute="trailing" constant="1" id="5ik-Tk-34G"/>
+                            <constraint firstItem="GEy-nH-dIT" firstAttribute="top" secondItem="1ao-jk-WDz" secondAttribute="bottom" constant="-57" id="6pK-jt-at6"/>
+                            <constraint firstItem="GEy-nH-dIT" firstAttribute="leading" secondItem="E6r-01-AcB" secondAttribute="leading" constant="1" id="SM9-nF-TY4"/>
+                            <constraint firstAttribute="bottom" secondItem="GEy-nH-dIT" secondAttribute="bottom" id="Ua9-SN-bgi"/>
+                            <constraint firstItem="GEy-nH-dIT" firstAttribute="top" secondItem="1ao-jk-WDz" secondAttribute="bottom" constant="-57" id="Z7X-0D-Vy3"/>
+                            <constraint firstAttribute="trailing" secondItem="1ao-jk-WDz" secondAttribute="trailing" constant="-1" id="kda-pO-8ap"/>
+                            <constraint firstItem="1ao-jk-WDz" firstAttribute="top" secondItem="E6r-01-AcB" secondAttribute="top" constant="65" id="p5U-eE-0P8"/>
+                            <constraint firstItem="1ao-jk-WDz" firstAttribute="leading" secondItem="E6r-01-AcB" secondAttribute="leading" id="pfA-KN-1Gl"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Hzs-PE-2vU"/>
+                    <connections>
+                        <outlet property="loggedInLabel" destination="JzK-Qo-wd7" id="NJH-5x-kmQ"/>
+                        <outlet property="narBar" destination="Hzs-PE-2vU" id="6Aw-c9-jXA"/>
+                        <outlet property="tableView" destination="GEy-nH-dIT" id="wHw-y2-RCk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2iD-4v-Pgh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="648" y="109"/>
         </scene>
         <!--AiM Add Action View Controller - New Action-->
         <scene sceneID="iid-9D-nu0">
