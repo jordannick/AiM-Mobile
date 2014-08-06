@@ -20,9 +20,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UINavigationItem *narBar;
 @property (weak, nonatomic) IBOutlet UILabel *loggedInLabel;
-@property (strong, nonatomic) NSMutableArray *sectionTitles;
-@property (nonatomic) NSInteger numSections;
-@property (strong, nonatomic) NSMutableArray *numInEachSection;
+//@property (strong, nonatomic) NSMutableArray *sectionTitles;
+//@property (nonatomic) NSInteger numSections;
+//@property (strong, nonatomic) NSMutableArray *numInEachSection;
 @property (strong,nonatomic) NSArray *uniqueDates;
 @property (strong, nonatomic) AiMCurrentUser *currentUser;
 
@@ -31,7 +31,8 @@
 @implementation AiMWorkOrderTableViewController
 
 
-- (IBAction)sortBySegmentedControl:(UISegmentedControl *)sender {
+- (IBAction)sortBySegmentedControl:(UISegmentedControl *)sender
+{
     NSInteger segIndex = sender.selectedSegmentIndex;
     if(segIndex == 0)   //Sort by DATE
     {
@@ -48,6 +49,7 @@
 
 - (void) sortWorkOrdersByPriority
 {
+    //Sorting
     NSArray *sortedArray = [_currentUser.user.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         AiMWorkOrder *first = (AiMWorkOrder*) obj1;
         AiMWorkOrder *second = (AiMWorkOrder*) obj2;
@@ -66,14 +68,14 @@
         }
     }];
     
+    //Section grouping organization - unused
+    /*
+     
     [self.sectionTitles removeAllObjects];
     [self.numInEachSection removeAllObjects];
     
-    
-    
     for (int i = 0; i < [sortedArray count]; i++)
     {
-        //NSNumber *priorityID = ((AiMWorkOrder*)sortedArray[i]).phase.priorityID;
         NSString *priority = ((AiMWorkOrder*)sortedArray[i]).phase.priority;
         
         BOOL foundMatch = NO;
@@ -110,6 +112,7 @@
         }
     }
     self.numSections = [self.sectionTitles count];
+    */
     
     _currentUser.user.workOrders = [sortedArray mutableCopy];
 }
@@ -117,6 +120,7 @@
 
 - (void) sortWorkOrdersByDate
 {
+    //Sorting
     NSArray *sortedArray = [_currentUser.user.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         AiMWorkOrder *first = (AiMWorkOrder*) obj1;
         AiMWorkOrder *second = (AiMWorkOrder*) obj2;
@@ -131,8 +135,10 @@
         }
         
     }];
-    //Acquire formatting variables for table groupings
     
+    //Section grouping organization - unused
+    /*
+     
     [self.sectionTitles removeAllObjects];
     [self.numInEachSection removeAllObjects];
     
@@ -176,6 +182,8 @@
         }
     }
     self.numSections = [self.sectionTitles count];
+     */
+    
     _currentUser.user.workOrders = [sortedArray mutableCopy];
 }
 
@@ -190,10 +198,11 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 
+    /*
     self.numSections = 1;
-    
     self.sectionTitles = [[NSMutableArray alloc] init];
     self.numInEachSection = [[NSMutableArray alloc] init];
+     */
     
     self.loggedInLabel.text = [NSString stringWithFormat:@"Logged in as: %@", _currentUser.user.username];
     [self.navigationItem setHidesBackButton:YES];
@@ -245,7 +254,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self performSegueWithIdentifier:@"SelectionSegue" sender:self];
-    //[self performSegueWithIdentifier:@"TabBarController" sender:self];
 }
 
 
@@ -286,7 +294,7 @@
         cell.location.text = [[NSString stringWithFormat:@"%@ (%@)", workOrder.building, workOrder.phase.roomNum] capitalizedString];
     cell.workCode.text = workCodeWord;
     cell.priorityLetter.text = [workOrder.phase.priority substringWithRange:NSMakeRange(0, 1)];
-    
+
     cell.dayMonth.text = [df stringFromDate:workOrder.dateCreated];
     [df setDateFormat:@"yyyy"];
     cell.year.text = [df stringFromDate:workOrder.dateCreated];
@@ -299,9 +307,9 @@
     return cell;
 }
 
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
@@ -317,12 +325,7 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         
         vc.workOrder = _currentUser.user.workOrders[[indexPath row]];
-        
-        //vc.workOrderIndex = [index intValue];
-        //vc.currentUser = _currentUser;
-        
     }
-    
 }
 
 

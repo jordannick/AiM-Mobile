@@ -57,12 +57,14 @@
     //Send each workOrder object in syncQueue to server.
     
     for (int i = 0; i < [self.syncQueue count]; i++) {
-        AiMAction *action = self.syncQueue[i];
+        //AiMAction *action = self.syncQueue[i];
         
+        /*
         NSString *param0 = [NSString stringWithFormat:@"%@",action.workOrderID];
         NSString *param1 = action.note;
         NSString *param2 = action.name;
         NSString *param3 = action.time;
+         */
         
         //Call push function to save actions to server.
         //call specific online API functions to push sync queue data
@@ -82,10 +84,8 @@
 //            
 //        }];
         
-
-        
-        
     }
+    
     //Clear syncQueue
     [self.syncQueue removeAllObjects];
 }
@@ -117,8 +117,7 @@
            // NSLog(@"%d proptest: %@", i, proposalNum);
             
           // NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrder/%@-%@", proposalNum, phaseNum]];
-            
-            
+
             //test local data
             NSURL *url;
             switch (i) {
@@ -142,8 +141,6 @@
             }
             //end test
            
-            
-            
             [self getWorkOrderPhase:url withProposalNum:proposalNum andPhaseNum:phaseNum andSender:sender];
 
         }

@@ -49,6 +49,7 @@
 		7CD3674B19818BF500154D78 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD3674A19818BF500154D78 /* Media.xcassets */; };
 		7CECD8DD19928E9A00E47FD5 /* AiMActionLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CECD8DC19928E9A00E47FD5 /* AiMActionLogTableViewController.m */; };
 		7CECD8E31992956200E47FD5 /* AiMCurrentUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CECD8E21992956200E47FD5 /* AiMCurrentUser.m */; };
+		7CECD8E51992C99300E47FD5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CECD8E41992C99300E47FD5 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,7 @@
 		7CECD8DC19928E9A00E47FD5 /* AiMActionLogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMActionLogTableViewController.m; sourceTree = "<group>"; };
 		7CECD8E11992956200E47FD5 /* AiMCurrentUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AiMCurrentUser.h; path = Model/AiMCurrentUser.h; sourceTree = "<group>"; };
 		7CECD8E21992956200E47FD5 /* AiMCurrentUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AiMCurrentUser.m; path = Model/AiMCurrentUser.m; sourceTree = "<group>"; };
+		7CECD8E41992C99300E47FD5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 		7C97C45C197EDD2000949B16 = {
 			isa = PBXGroup;
 			children = (
+				7CECD8E41992C99300E47FD5 /* Default-568h@2x.png */,
 				7C97C46E197EDD2000949B16 /* AiM Mobile */,
 				7C97C487197EDD2000949B16 /* AiM MobileTests */,
 				7C97C467197EDD2000949B16 /* Frameworks */,
@@ -391,6 +394,7 @@
 				7CD3674B19818BF500154D78 /* Media.xcassets in Resources */,
 				458DBAEB1987FD7500E7DBF3 /* CustomTableCell.xib in Resources */,
 				45AF647A198C4CA9005D1D6C /* osubackground.png in Resources */,
+				7CECD8E51992C99300E47FD5 /* Default-568h@2x.png in Resources */,
 				458DBAE4198715A300E7DBF3 /* TODO in Resources */,
 				7C97C498197EDD3C00949B16 /* iPhone_Main.storyboard in Resources */,
 				7C2D40C1198FF1E300CDA365 /* 148773-002.txt in Resources */,
@@ -550,7 +554,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AiM Mobile/AiM Mobile-Prefix.pch";
 				INFOPLIST_FILE = "AiM Mobile/AiM Mobile-Info.plist";
@@ -563,7 +566,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AiM Mobile/AiM Mobile-Prefix.pch";
 				INFOPLIST_FILE = "AiM Mobile/AiM Mobile-Info.plist";
