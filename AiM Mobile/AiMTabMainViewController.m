@@ -10,19 +10,22 @@
 #import "AiMTabBarViewController.h"
 #import "AiMUser.h"
 #import "AiMAddActionViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 @interface AiMTabMainViewController () <UIScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *priority;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
-@property (weak, nonatomic) IBOutlet UIView *bottomInnerView;
+
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UILabel *location;
 @property (weak, nonatomic) IBOutlet UILabel *shop;
 @property (weak, nonatomic) IBOutlet UILabel *workCode;
 @property (weak, nonatomic) IBOutlet UILabel *created;
 @property (weak, nonatomic) IBOutlet UILabel *estDate;
+@property (weak, nonatomic) IBOutlet UIView *detailView;
+
 
 
 
@@ -57,8 +60,32 @@
                              animated:NO];
     
     [self loadInitialData];
+    
+//    [self.upperView.layer setShadowColor:[UIColor blackColor].CGColor];
+//    [self.upperView.layer setShadowOpacity:0.8];
+//    [self.upperView.layer setShadowRadius:5.0];
+//    [self.upperView.layer setShadowOffset:CGSizeMake(3.0, 3.0)];
+    
+    self.detailView.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.800]
+    ;
+    
+    //self.location.frame = CGRectMake(100, 100, 100, 100);
+
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setScrollViewInsets];
+    CGFloat yOffset = self.topLayoutGuide.length;
+    NSLog(@"yOffset: %f and frameY: %f", yOffset, self.location.frame.origin.y);
+    [self.location setFrame:CGRectMake(0, yOffset, self.location.frame.size.width, self.location.frame.size.height)];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
 
 -(void)loadInitialData
 {
@@ -132,12 +159,6 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self setScrollViewInsets];
 }
 
 
