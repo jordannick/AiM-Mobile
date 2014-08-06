@@ -10,7 +10,7 @@
 #import "AiMTabBarViewController.h"
 #import "AiMUser.h"
 #import "AiMAddActionViewController.h"
-#import "AiMCurrentUser.h"
+//#import "AiMCurrentUser.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface AiMTabMainViewController () <UIScrollViewDelegate>
@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *created;
 @property (weak, nonatomic) IBOutlet UILabel *estDate;
 @property (weak, nonatomic) IBOutlet UIView *detailView;
+@property (weak, nonatomic) IBOutlet UIView *textViewContainer;
 
 
 
@@ -66,8 +67,10 @@
 //    [self.upperView.layer setShadowRadius:5.0];
 //    [self.upperView.layer setShadowOffset:CGSizeMake(3.0, 3.0)];
     
-    self.detailView.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.800]
+    self.detailView.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.90]
     ;
+    self.view.backgroundColor = self.detailView.backgroundColor;
+    
     
     //self.location.frame = CGRectMake(100, 100, 100, 100);
 
