@@ -18,11 +18,12 @@
 @interface AiMWorkOrderTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UINavigationItem *narBar;
+@property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
+
 @property (weak, nonatomic) IBOutlet UILabel *loggedInLabel;
-@property (strong, nonatomic) NSMutableArray *sectionTitles;
-@property (nonatomic) NSInteger numSections;
-@property (strong, nonatomic) NSMutableArray *numInEachSection;
+//@property (strong, nonatomic) NSMutableArray *sectionTitles;
+//@property (nonatomic) NSInteger numSections;
+//@property (strong, nonatomic) NSMutableArray *numInEachSection;
 @property (strong,nonatomic) NSArray *uniqueDates;
 @property (strong, nonatomic) AiMCurrentUser *currentUser;
 
@@ -31,7 +32,8 @@
 @implementation AiMWorkOrderTableViewController
 
 
-- (IBAction)sortBySegmentedControl:(UISegmentedControl *)sender {
+- (IBAction)sortBySegmentedControl:(UISegmentedControl *)sender
+{
     NSInteger segIndex = sender.selectedSegmentIndex;
     if(segIndex == 0)   //Sort by DATE
     {
@@ -48,6 +50,7 @@
 
 - (void) sortWorkOrdersByPriority
 {
+    //Sorting
     NSArray *sortedArray = [_currentUser.user.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         AiMWorkOrder *first = (AiMWorkOrder*) obj1;
         AiMWorkOrder *second = (AiMWorkOrder*) obj2;
@@ -66,14 +69,14 @@
         }
     }];
     
+    //Section grouping organization - unused
+    /*
+     
     [self.sectionTitles removeAllObjects];
     [self.numInEachSection removeAllObjects];
     
-    
-    
     for (int i = 0; i < [sortedArray count]; i++)
     {
-        //NSNumber *priorityID = ((AiMWorkOrder*)sortedArray[i]).phase.priorityID;
         NSString *priority = ((AiMWorkOrder*)sortedArray[i]).phase.priority;
         
         BOOL foundMatch = NO;
@@ -110,6 +113,7 @@
         }
     }
     self.numSections = [self.sectionTitles count];
+    */
     
     _currentUser.user.workOrders = [sortedArray mutableCopy];
 }
@@ -117,6 +121,7 @@
 
 - (void) sortWorkOrdersByDate
 {
+    //Sorting
     NSArray *sortedArray = [_currentUser.user.workOrders sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         AiMWorkOrder *first = (AiMWorkOrder*) obj1;
         AiMWorkOrder *second = (AiMWorkOrder*) obj2;
@@ -131,8 +136,10 @@
         }
         
     }];
-    //Acquire formatting variables for table groupings
     
+    //Section grouping organization - unused
+    /*
+     
     [self.sectionTitles removeAllObjects];
     [self.numInEachSection removeAllObjects];
     
@@ -176,6 +183,8 @@
         }
     }
     self.numSections = [self.sectionTitles count];
+     */
+    
     _currentUser.user.workOrders = [sortedArray mutableCopy];
 }
 
@@ -190,13 +199,31 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 
+    /*
     self.numSections = 1;
-    
     self.sectionTitles = [[NSMutableArray alloc] init];
     self.numInEachSection = [[NSMutableArray alloc] init];
+     */
     
-    self.loggedInLabel.text = [NSString stringWithFormat:@"Logged in as: %@", _currentUser.user.username];
+    self.navBar.title = [NSString stringWithFormat:@"Work Orders (%d)", [_currentUser.user.workOrders count]];
+    //self.loggedInLabel.text = [NSString stringWithFormat:@"Logged in as: %@", _currentUser.user.username];
     [self.navigationItem setHidesBackButton:YES];
+    
+    self.navigationController.toolbarHidden = NO;
+    
+    UIBarButtonItem *options = [[UIBarButtonItem alloc] initWithTitle:@"Options" style:UIBarButtonItemStylePlain target:self action:nil];
+    
+    UIBarButtonItem *space1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    UIBarButtonItem *username = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%@", _currentUser.user.username] style:UIBarButtonItemStylePlain target:self action:nil];
+    
+    UIBarButtonItem *space2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    UIBarButtonItem *signout = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:nil];
+
+    
+    
+    [self setToolbarItems:@[options, space1, username, space2, signout]];
     
     
     for (int i = 0; i < [self.currentUser.user.workOrders count]; i++)
@@ -207,6 +234,7 @@
     
     [self sortWorkOrdersByDate];
     [self loadInitialData];
+    
     
 }
 
@@ -245,7 +273,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self performSegueWithIdentifier:@"SelectionSegue" sender:self];
-    //[self performSegueWithIdentifier:@"TabBarController" sender:self];
 }
 
 
@@ -257,7 +284,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"[IndexPath row] = %ld", (long)[indexPath row]);
     static NSString *simpleTableIdentifier = @"CellIdentifier";
     
     //Get workOrder for cell
@@ -286,7 +312,7 @@
         cell.location.text = [[NSString stringWithFormat:@"%@ (%@)", workOrder.building, workOrder.phase.roomNum] capitalizedString];
     cell.workCode.text = workCodeWord;
     cell.priorityLetter.text = [workOrder.phase.priority substringWithRange:NSMakeRange(0, 1)];
-    
+
     cell.dayMonth.text = [df stringFromDate:workOrder.dateCreated];
     [df setDateFormat:@"yyyy"];
     cell.year.text = [df stringFromDate:workOrder.dateCreated];
@@ -295,17 +321,14 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    NSLog(@"Priority: %@", workOrder.phase.priority);
     return cell;
 }
 
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
-    NSLog(@"Preparing for segue");
     if([[segue identifier] isEqualToString:@"SelectionSegue"])
     {
         AiMTabBarViewController *vc = [segue destinationViewController];
@@ -317,12 +340,7 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         
         vc.workOrder = _currentUser.user.workOrders[[indexPath row]];
-        
-        //vc.workOrderIndex = [index intValue];
-        //vc.currentUser = _currentUser;
-        
     }
-    
 }
 
 

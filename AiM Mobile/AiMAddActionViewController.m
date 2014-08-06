@@ -38,19 +38,18 @@
 
 @implementation AiMAddActionViewController
     
-- (IBAction)viewActionSheet:(id)sender {
-    
+- (IBAction)viewActionSheet:(id)sender
+{
     UIActionSheet *actionSheet =  [[UIActionSheet alloc] initWithTitle:@"Select an Action" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"General maintenance", @"Fixed the toilet", @"Replaced the locks", @"Installed door access panel", @"Fixed water leak", @"Custom Action  \u270E", nil];
     
     
     [actionSheet showInView:self.view];
-    
 }
 
-- (IBAction)doneCustomButtonPressed:(id)sender {
-    
-   
-     [self transitionInputTo:@"right"];
+
+- (IBAction)doneCustomButtonPressed:(id)sender
+{
+    [self transitionInputTo:@"right"];
     [self.customActionTextField resignFirstResponder];
     
     [self.viewActionsButton setTitleColor:self.defaultColor forState:UIControlStateNormal];
@@ -65,9 +64,8 @@
         [self.viewActionsButton setTitle:self.actionTaken forState:UIControlStateNormal];
         self.actionSelected = YES;
     }
-    
-    
 }
+
 
 - (void)enterCustomAction
 {
@@ -76,55 +74,11 @@
     
 }
 
-/*
-
-- (IBAction)cancelButtonClicked:(UIBarButtonItem *)sender {
-    NSLog(@"Cancel button clicked! -");
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
-- (IBAction)saveButtonClicked:(UIBarButtonItem *)sender {
-    NSLog(@"Save button clicked! -");
-    
-    
-    CAKeyframeAnimation * jiggleAnim = [ CAKeyframeAnimation animationWithKeyPath:@"transform" ] ;
-    jiggleAnim.values = @[ [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(-5.0f, 0.0f, 0.0f) ], [ NSValue valueWithCATransform3D:CATransform3DMakeTranslation(5.0f, 0.0f, 0.0f) ] ] ;
-    jiggleAnim.autoreverses = YES;  jiggleAnim.repeatCount = 2.0f;  jiggleAnim.duration = 0.07f;
-    
-    if (!self.actionSelected)
-    {
-        self.selectedActionLabel.textColor = [UIColor redColor];
-        [self.selectedActionLabel.layer addAnimation:jiggleAnim forKey:nil];
-    }
-    if (!self.timeSelected)
-    {
-        self.selectedTimeLabel.textColor = [UIColor redColor];
-        [self.selectedTimeLabel.layer addAnimation:jiggleAnim forKey:nil];
-    }
-    if (self.actionSelected && self.timeSelected){
-        
-        self.actionToAdd.workOrderID = self.workOrder.taskID;
-        self.actionToAdd.name = self.selectedActionLabel.text;
-        self.actionToAdd.time = self.actionTime;
-        self.actionToAdd.note = self.notesTextField.text;
-        
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    //[self.navigationController popViewControllerAnimated:YES];
-}
-
-
-*/
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (![[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]){
-        //self.selectedActionLabel.textColor = [UIColor blackColor];
-        //self.selectedActionLabel.text = [actionSheet buttonTitleAtIndex:buttonIndex];
-        
-        
-        
+
         if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Custom Action  \u270E"])
         {
             [self enterCustomAction];
@@ -138,27 +92,12 @@
             
             self.actionSelected = YES;
         }
-        
-        
-        
     }
-    //NSLog(@"the button %@", [actionSheet buttonTitleAtIndex:buttonIndex]);
-
-
 }
 
 
 -(void)transitionInputTo:(NSString*)position
 {
-    NSLog(@"got to transition input");
-    /*
-    
-    @property (weak, nonatomic) IBOutlet UIButton *viewActionsButton;
-    @property (weak, nonatomic) IBOutlet UIButton *doneCustomButton;
-    @property (weak, nonatomic) IBOutlet UITextField *customActionTextField;
-    @property (weak, nonatomic) IBOutlet UILabel *actionTakenLabel;
-    */
-    
     CGFloat y1 = self.actionTakenLabel.layer.position.y;
     CGFloat y2 = self.viewActionsButton.layer.position.y;
     
@@ -166,17 +105,12 @@
     if([position isEqualToString:@"right"]) frameWidth = frameWidth*-1;     //If RIGHT, reverse direction
     
     [UIView animateWithDuration:0.5 animations:^{
-        
         self.viewActionsButton.layer.position = CGPointMake(self.viewActionsButton.layer.position.x - frameWidth, y2);
         self.doneCustomButton.layer.position = CGPointMake(self.doneCustomButton.layer.position.x - frameWidth, y1);
         self.customActionTextField.layer.position = CGPointMake(self.customActionTextField.layer.position.x - frameWidth, y1);
         self.actionTakenLabel.layer.position = CGPointMake(self.actionTakenLabel.layer.position.x - frameWidth, y1);
-        
     }];
-    
 }
-
-
 
 
 - (IBAction)sliderTimeChanged:(UISlider *)sender
@@ -205,7 +139,8 @@
     
 }
 
--(void)dismissKeyboard {
+-(void)dismissKeyboard
+{
     [self.notesTextField resignFirstResponder];
     [self.scrollView setContentOffset:CGPointZero animated:YES];
 }
@@ -215,9 +150,8 @@
 {
     if (index == 1) //The "Yes" option
         [self performSegueWithIdentifier:@"saveToDetail" sender:self.saveActionButton];
-
-
 }
+
 
 - (void)viewDidLoad
 {
@@ -228,7 +162,6 @@
     bgLayer.frame = self.view.frame;
     bgLayer.frame = CGRectMake(bgLayer.frame.origin.x, bgLayer.frame.origin.y, squareSize, squareSize);
     [self.view.layer insertSublayer:bgLayer atIndex:0];
-    
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
@@ -247,28 +180,22 @@
     
     _actionToAdd = [[AiMAction alloc] init];
     
-   // self.actionConfirmAlert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Work Order %@", self.workOrder.taskID] message:[NSString stringWithFormat:@"Are you sure you want to add this action?:\n%@, %@", self.actionTaken, self.actionTime] delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-    
-    
     self.actionConfirmAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     
-    
-    //Custom cancel button but with "back" effects
+    //Custom button but with "back" navigation effect
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
     barButton.title = @"Cancel";
     self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
  
-  
     self.viewActionsButton.titleLabel.numberOfLines = 2;
-    
-
-    NSLog(@"LeftBarButton action: %@",self.navigationItem.leftBarButtonItem.title);
-    
 }
+
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
 }
+
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
@@ -290,15 +217,15 @@
     }
     else
         textView.textColor = [UIColor blackColor];
-
-
 }
+
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -312,9 +239,9 @@
 
 #pragma mark - Navigation
 
+//Checks required fields and confirm dialog
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    
     if (sender != self.saveActionButton) //The "Cancel" button
         return YES;
     else //The "Save" button
@@ -349,8 +276,6 @@
 }
 
 
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if (sender != self.saveActionButton) return;
@@ -358,12 +283,10 @@
     {
         //Set the action - this will be grabbed by the Tab Controller unwind
         self.actionToAdd.workOrderID = self.workOrder.taskID;
-        self.actionToAdd.name = self.actionTaken;//self.selectedActionLabel.text;
+        self.actionToAdd.name = self.actionTaken;
         self.actionToAdd.time = self.actionTime;
         self.actionToAdd.note = self.notesTextField.text;
-        
     }
-    
 }
 
 @end

@@ -52,7 +52,6 @@
     [super viewDidLoad];
 
     AiMTabBarViewController *parentVc = (AiMTabBarViewController*)self.tabBarController;
-    //self.currentUser = parentVc.currentUser;
     self.workOrder = parentVc.workOrder;
     parentVc.navigationItem.title = self.workOrder.taskID;
 
@@ -92,7 +91,6 @@
 
 -(void)loadInitialData
 {
-    
     if(![self.workOrder.roomNum isEqual:[NSNull null]]){
         self.location.text = [NSString stringWithFormat:@"%@ (%@)", [self.workOrder.building capitalizedString], self.workOrder.roomNum];
     }else{
@@ -119,9 +117,9 @@
         self.estDate.text = [NSString stringWithFormat:@"%@ - %@", [formatter stringFromDate:startDate], [formatter stringFromDate:endDate]];
     else
         self.estDate.text = @"- - -";
-        
-    
 }
+
+
 -(void)setScrollViewInsets
 {
     CGFloat topOffset;
@@ -141,9 +139,7 @@
     
     UIEdgeInsets oldInset = self.scrollView.contentInset;
     //self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    
-    
-    
+
     //self.edgesForExtendedLayout = UIRectEdgeNone;
     
     UIEdgeInsets edgeInset = UIEdgeInsetsMake(topOffset, 0, self.tabBarController.tabBar.frame.size.height, 0);
@@ -153,11 +149,14 @@
     
     NSLog(@"Old: %f New: %f", oldInset.top, self.scrollView.contentInset.top);
 }
+
+
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     [self setScrollViewInsets];
 }
+
 
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -171,15 +170,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

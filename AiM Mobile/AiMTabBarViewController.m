@@ -10,7 +10,6 @@
 #import "AiMAddActionViewController.h"
 #import "AiMCurrentUser.h"
 
-
 @interface AiMTabBarViewController ()
 
 @property (strong, nonatomic) AiMAction *action;
@@ -37,8 +36,8 @@
     
     //Get the singleton instance
     _currentUser = [AiMCurrentUser shareUser];
-   
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -47,13 +46,8 @@
 }
 
 
-
-
-
 - (IBAction)unwindToTabView:(UIStoryboardSegue *)segue
 {
-   NSLog(@"Got to the unwind");
-    
     if ([segue.identifier isEqualToString:@"saveToDetail"]){
         AiMAddActionViewController *source = [segue sourceViewController];
         self.action = source.actionToAdd;
@@ -62,7 +56,6 @@
             [_currentUser.user.syncQueue addObject:self.action];
             
             //add to actions log
-            
             //[self.workOrder.phase.actionsLog addObject:self.action];
             //[((AiMWorkOrder*)_currentUser.workOrders[self.workOrderIndex]).phase.actionsLog addObject:self.action];
             
@@ -72,38 +65,24 @@
              NSLog(@"  ");
              }
              */
-            
-            
         }
-        
-                
-        
+  
         //Test
         for (int i = 0; i < [_currentUser.user.syncQueue count]; i++)
         {
-            
             NSLog(@"syncQueue time: %@", [(AiMAction *)[_currentUser.user.syncQueue objectAtIndex:i] time]);
         }
         NSLog(@"-----");
-        
     }
-    
-    
 }
 
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    
     AiMAddActionViewController *vc = [segue destinationViewController];
     vc.workOrder = self.workOrder;
-    
-    
 }
 
 

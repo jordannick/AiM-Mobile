@@ -203,8 +203,6 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         AiMWorkOrderTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WorkOrderTableView"];
-        //vc.currentUser = self.currentUser;
-        NSLog(@"Segueing now to next VC");
         [self.navigationController pushViewController:vc animated:NO];
     });
 }
@@ -225,6 +223,8 @@
     NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrders/", aimUser];
     
     [_currentUser.user sendRequestTo:[NSURL URLWithString:urlString] withLoginBool: YES andSender: self];
+    
+    _currentUser.user.username = self.usernameTextField.text;
     
 }
 
@@ -295,7 +295,7 @@
     _currentUser = [AiMCurrentUser shareUser];
     _currentUser.user = [[AiMUser alloc] init];
     
-    NSURLCredential *credential = [self getUserCredential];
+    //NSURLCredential *credential = [self getUserCredential];
     
 //    if (credential)
 //    {
@@ -307,7 +307,7 @@
 //        //Assume user will enter credentials into text fields and press login button
 //    }
 
-    
+    //General idea --
     /*
      Check properties for last user
      
