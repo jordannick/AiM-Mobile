@@ -10,6 +10,7 @@
 #import "AiMTabBarViewController.h"
 #import "AiMUser.h"
 #import "AiMAddActionViewController.h"
+#import "AiMCurrentUser.h"
 
 
 @interface AiMTabMainViewController () <UIScrollViewDelegate>
@@ -48,7 +49,7 @@
     [super viewDidLoad];
 
     AiMTabBarViewController *parentVc = (AiMTabBarViewController*)self.tabBarController;
-    self.currentUser = parentVc.currentUser;
+    //self.currentUser = parentVc.currentUser;
     self.workOrder = parentVc.workOrder;
     parentVc.navigationItem.title = self.workOrder.taskID;
 

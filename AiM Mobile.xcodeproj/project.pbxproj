@@ -47,6 +47,8 @@
 		7C97C4AF197EFE1700949B16 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C97C4AE197EFE1700949B16 /* SSKeychain.m */; };
 		7C97C4B1197EFEDD00949B16 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C97C4B0197EFEDD00949B16 /* Security.framework */; };
 		7CD3674B19818BF500154D78 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CD3674A19818BF500154D78 /* Media.xcassets */; };
+		7CECD8DD19928E9A00E47FD5 /* AiMActionLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CECD8DC19928E9A00E47FD5 /* AiMActionLogTableViewController.m */; };
+		7CECD8E31992956200E47FD5 /* AiMCurrentUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CECD8E21992956200E47FD5 /* AiMCurrentUser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +123,10 @@
 		7C97C4AE197EFE1700949B16 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		7C97C4B0197EFEDD00949B16 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7CD3674A19818BF500154D78 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		7CECD8DB19928E9A00E47FD5 /* AiMActionLogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiMActionLogTableViewController.h; sourceTree = "<group>"; };
+		7CECD8DC19928E9A00E47FD5 /* AiMActionLogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiMActionLogTableViewController.m; sourceTree = "<group>"; };
+		7CECD8E11992956200E47FD5 /* AiMCurrentUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AiMCurrentUser.h; path = Model/AiMCurrentUser.h; sourceTree = "<group>"; };
+		7CECD8E21992956200E47FD5 /* AiMCurrentUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AiMCurrentUser.m; path = Model/AiMCurrentUser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +272,8 @@
 		7C97C49C197EDD7E00949B16 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7CECD8E11992956200E47FD5 /* AiMCurrentUser.h */,
+				7CECD8E21992956200E47FD5 /* AiMCurrentUser.m */,
 				7C97C49D197EDDCD00949B16 /* AiMWorkOrder.h */,
 				7C97C49E197EDDCD00949B16 /* AiMWorkOrder.m */,
 				7C97C4A0197EDDF200949B16 /* AiMOrganization.h */,
@@ -285,6 +293,8 @@
 		7C97C4A9197EDEAF00949B16 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7CECD8DB19928E9A00E47FD5 /* AiMActionLogTableViewController.h */,
+				7CECD8DC19928E9A00E47FD5 /* AiMActionLogTableViewController.m */,
 				7C97C499197EDD5000949B16 /* AiMLoginViewController.h */,
 				7C97C49A197EDD5000949B16 /* AiMLoginViewController.m */,
 				7C3A2FF1197F20AB00B7CC74 /* AiMWorkOrderTableViewController.h */,
@@ -408,6 +418,7 @@
 				7C3A2FF3197F20AB00B7CC74 /* AiMWorkOrderTableViewController.m in Sources */,
 				7C97C475197EDD2000949B16 /* main.m in Sources */,
 				451237C1199171E9004ED735 /* AiMCustomNoteCell.m in Sources */,
+				7CECD8DD19928E9A00E47FD5 /* AiMActionLogTableViewController.m in Sources */,
 				45E24BD3198077B400AEB2F5 /* AiMAction.m in Sources */,
 				458DBAEC1987FE2F00E7DBF3 /* AiMCustomTableCell.m in Sources */,
 				7C97C4AC197EDF4F00949B16 /* AiMUser.m in Sources */,
@@ -415,6 +426,7 @@
 				458DBB481989505000E7DBF3 /* AiMTabMainViewController.m in Sources */,
 				7C97C49F197EDDCD00949B16 /* AiMWorkOrder.m in Sources */,
 				7C97C4AF197EFE1700949B16 /* SSKeychain.m in Sources */,
+				7CECD8E31992956200E47FD5 /* AiMCurrentUser.m in Sources */,
 				7C97C4A2197EDDF200949B16 /* AiMOrganization.m in Sources */,
 				458DBAE21987026100E7DBF3 /* AiMNote.m in Sources */,
 				45E24BD019806DBF00AEB2F5 /* AiMAddActionViewController.m in Sources */,

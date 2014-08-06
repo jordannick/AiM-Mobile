@@ -12,42 +12,25 @@
 #import "AiMUser.h"
 #import "SSKeychain.h"
 #import "AiMBackground.h"
+#import "AiMCurrentUser.h"
 #include <stdlib.h>
-
 
 #define AUTH_URL @"http://jsonplaceholder.typicode.com/posts"
 
-
 @interface AiMLoginViewController () <NSURLSessionDelegate, NSURLSessionDataDelegate, UITextFieldDelegate, NSURLSessionTaskDelegate>
-
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
-
-
 @property (strong, nonatomic)  NSURLProtectionSpace *loginProtectionSpace;
-
 @property (strong, nonatomic) NSURLSession *session;
-
 @property (strong, nonatomic) NSArray *priorities;
 @property (strong, nonatomic) NSString *currentState;
-@property (strong, nonatomic) AiMUser *currentUser;
+@property (strong, nonatomic) AiMCurrentUser *currentUser;
 
 @end
 
 @implementation AiMLoginViewController
-
-/*
-- (NSMutableArray *)receivedWorkOrders
-{
-    if(!_receivedWorkOrders)
-    {
-        _receivedWorkOrders = [[NSMutableArray alloc] init];
-    }
-    return _receivedWorkOrders;
-}
- */
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,20 +40,6 @@
     }
     return self;
 }
-
-
-- (void) getWorkOrdersJSON
-{
-    NSLog(@"This is the array... %@", self.priorities);
-    //Get JSON from http
-    
-    
-    
-    //Call segue, passing JSON to AiMOverviewTableController
-    
-
-}
-
 
 -(BOOL)validateInput:(UITextField*)textField
 {
@@ -89,15 +58,8 @@
     }
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    
-    NSLog(@"View Will Appear");
-}
 -(void)viewDidLayoutSubviews
 {
-    //NSLog(@"Old frame = %@"
-    
     CGFloat labelHeight = self.usernameTextField.frame.size.height;
     CGRect oldFrame = self.loginButton.frame;
     NSLog(@"viewDidLayoutSubviews");
@@ -136,7 +98,6 @@
     
     NSLog(@"gradientFrame:  X: %f Y:  %f  loginFrame:  X:  %f  Y:  %f", loginButtonGradient.frame.origin.x, loginButtonGradient.frame.origin.y, self.loginButton.frame.origin.x, self.loginButton.frame.origin.y);
     
-    
     [self.loginButton setNeedsDisplay];
     [self.loginButton setNeedsLayout];
 }
@@ -160,9 +121,9 @@
     }];
 
 }
+
 - (BOOL) textFieldShouldReturn: (UITextField *) textField
 {
-    
     if(textField == self.usernameTextField){
         if([self validateInput:textField]){
             [textField resignFirstResponder];
@@ -175,7 +136,6 @@
         }
     }
     return YES;
-
 }
 
 - (void) initProtectionSpace
@@ -186,7 +146,6 @@
                                                                   protocol:url.scheme
                                                                      realm:nil
                                                       authenticationMethod:NSURLAuthenticationMethodHTTPDigest];
-
 }
 
 - (void) setUserCredential: (NSString *)username withPassword:(NSString *)password
@@ -204,15 +163,12 @@
         credential = [NSURLCredential credentialWithUser:username password:password persistence:NSURLCredentialPersistencePermanent];
         [[NSURLCredentialStorage sharedCredentialStorage] setCredential:credential forProtectionSpace:self.loginProtectionSpace];
     }
-
 }
-
 
 
 - (NSURLCredential *) getUserCredential
 {
     //Find and return the first credential found
-    
     NSURLCredential *credential;
     NSDictionary *credentials;
     
@@ -231,7 +187,8 @@
     credentials = [[NSURLCredentialStorage sharedCredentialStorage] credentialsForProtectionSpace:self.loginProtectionSpace];
     
     //Search if it exists before removing
-    credential = [credentials objectForKey:_currentUser.username];
+   // credential = [credentials objectForKey:_currentUser.username];
+    credential = [credentials objectForKey:_currentUser.user.username];
     
     if (credential)
     {
@@ -246,7 +203,7 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         AiMWorkOrderTableViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"WorkOrderTableView"];
-        vc.currentUser = self.currentUser;
+        //vc.currentUser = self.currentUser;
         NSLog(@"Segueing now to next VC");
         [self.navigationController pushViewController:vc animated:NO];
     });
@@ -267,7 +224,8 @@
     aimUser = @"DEBAUWB";
     NSString *urlString = [NSString stringWithFormat:@"%@%@", @"http://apps-webdev.campusops.oregonstate.edu/robechar/portal/aim/api/1.0.0/getWorkOrders/", aimUser];
     
-    [_currentUser sendRequestTo:[NSURL URLWithString:urlString] withLoginBool: YES andSender: self];
+    [_currentUser.user sendRequestTo:[NSURL URLWithString:urlString] withLoginBool: YES andSender: self];
+    
 }
 
 - (void)viewDidLoad
@@ -302,29 +260,20 @@
     UIImage *blurredImage       = [UIImage imageWithCGImage:cgimg];
     CGImageRelease(cgimg);
     
-    
-    
-    
-    
     UIImageView *loginBackground = [[UIImageView alloc] initWithImage:blurredImage];
-    
     
     CGFloat bgWidth = loginBackground.frame.size.width;
     CGFloat bgHeight = loginBackground.frame.size.height;
     CGFloat xOffset = (bgWidth - self.view.frame.size.width)/2;
     
-    
     [loginBackground setFrame:CGRectMake(-xOffset, 0, bgWidth, bgHeight)];
     [self.view insertSubview:loginBackground atIndex:0];
-    
-    [self getWorkOrdersJSON];
     
     CAGradientLayer *bgLayer = [AiMBackground blueGradient];
     bgLayer.frame = self.view.bounds;
     CGFloat max = MAX(bgLayer.frame.size.height, bgLayer.frame.size.width);
     bgLayer.frame = CGRectMake(bgLayer.frame.origin.x, bgLayer.frame.origin.y, max, max);
     [self.view.layer insertSublayer:bgLayer atIndex:0];
-    
     
     self.currentState = @"username";
     
@@ -342,10 +291,10 @@
     
     self.passwordTextField.secureTextEntry = YES;
  
-    _currentUser = [[AiMUser alloc] init];
-   
+    //Get the singleton instance
+    _currentUser = [AiMCurrentUser shareUser];
+    _currentUser.user = [[AiMUser alloc] init];
     
-
     NSURLCredential *credential = [self getUserCredential];
     
 //    if (credential)
@@ -358,7 +307,6 @@
 //        //Assume user will enter credentials into text fields and press login button
 //    }
 
-    
     
     /*
      Check properties for last user
@@ -375,15 +323,8 @@
         do getworkerjson http stuff
      else 
         prompt user
-     
-     
-     
-     
-     
+    
      */
-    
-    
-    
     
 }
 
@@ -393,7 +334,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 
 #pragma mark - Navigation
@@ -423,8 +363,6 @@
 {
     NSLog(@"segue: %@", segue.identifier);
     [self removeUserCredential];
-
-    
 }
 
 

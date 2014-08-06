@@ -10,9 +10,6 @@
 
 @interface AiMLoginViewController : UIViewController
 
-//@property (strong, nonatomic) NSMutableArray *receivedWorkOrders;
-
 - (void)segueToOverviewTable;
-
 
 @end

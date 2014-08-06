@@ -15,6 +15,6 @@
 @interface AiMTabMainViewController : UIViewController
 
 @property AiMWorkOrder *workOrder;
-@property (strong, nonatomic) AiMUser *currentUser;
+//@property (strong, nonatomic) AiMUser *currentUser;
 
 @end

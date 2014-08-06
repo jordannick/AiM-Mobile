@@ -8,12 +8,13 @@
 
 #import "AiMTabBarViewController.h"
 #import "AiMAddActionViewController.h"
+#import "AiMCurrentUser.h"
 
 
 @interface AiMTabBarViewController ()
 
 @property (strong, nonatomic) AiMAction *action;
-
+@property (strong, nonatomic) AiMCurrentUser *currentUser;
 
 @end
 
@@ -31,10 +32,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     
-
-    
+    //Get the singleton instance
+    _currentUser = [AiMCurrentUser shareUser];
+   
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,7 +59,7 @@
         self.action = source.actionToAdd;
         if (self.action != nil) {
             //add to sync queue
-            [_currentUser.syncQueue addObject:self.action];
+            [_currentUser.user.syncQueue addObject:self.action];
             
             //add to actions log
             
@@ -76,10 +79,10 @@
                 
         
         //Test
-        for (int i = 0; i < [_currentUser.syncQueue count]; i++)
+        for (int i = 0; i < [_currentUser.user.syncQueue count]; i++)
         {
             
-            NSLog(@"syncQueue time: %@", [(AiMAction *)[_currentUser.syncQueue objectAtIndex:i] time]);
+            NSLog(@"syncQueue time: %@", [(AiMAction *)[_currentUser.user.syncQueue objectAtIndex:i] time]);
         }
         NSLog(@"-----");
         

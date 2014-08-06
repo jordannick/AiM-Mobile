@@ -12,6 +12,4 @@
 
 @interface AiMWorkOrderTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) AiMUser *currentUser;
-
 @end
