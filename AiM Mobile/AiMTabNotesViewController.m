@@ -72,6 +72,7 @@
 {
     [super viewDidAppear:animated];
     [self setTableViewInset];
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 
 -(void)setTableViewInset
@@ -84,10 +85,11 @@
     self.tableView.contentInset = UIEdgeInsetsMake(topOffset, 0, bottomOffset, 0);
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(topOffset, 0, bottomOffset, 0);
     
-    CAGradientLayer *bg = [AiMBackground lightBlueGradient];
-    CGFloat side = MAX(self.view.frame.size.height, self.view.frame.size.width);
-    bg.frame = CGRectMake(-150, -150, side+300, side+300);
-    [self.view.layer insertSublayer:bg atIndex:0];
+    //CAGradientLayer *bg = [AiMBackground lightBlueGradient];
+    //CGFloat side = MAX(self.view.frame.size.height, self.view.frame.size.width);
+    //bg.frame = CGRectMake(-150, -150, side+300, side+300);
+    //[self.view.layer insertSublayer:bg atIndex:0];
+    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 }
 
 
@@ -123,7 +125,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"MM-dd-yyyy"];
+    [df setDateFormat:@"M/d/yy"];
     AiMCustomNoteCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReuseNoteCell"];
     if(!cell){
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomNoteCell" owner:self options:nil];
@@ -134,12 +136,17 @@
     AiMNote *note = [self.noteArray objectAtIndex:[indexPath row]];
     if(note.error){
         cell.error.text = note.error;
-        cell.date.text = @"";
+        cell.monthDay.text = @"";
+        cell.year.text = @"";
         cell.name.text = @"";
         cell.note.text = @"";
+        cell.view0.backgroundColor = cell.view1.backgroundColor = [UIColor groupTableViewBackgroundColor];
     }else{
-        if(note.date)
-            cell.date.text = [df stringFromDate:note.date];
+        if(note.date){
+            cell.monthDay.text = [df stringFromDate:note.date];
+            [df setDateFormat:@"yyyy"];
+            cell.year.text = [df stringFromDate:note.date];
+        }
         cell.name.text = note.author;
         cell.note.text = note.note;
     }
@@ -159,7 +166,16 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 121;
+    //AiMCustomNoteCell *cell = (AiMCustomNoteCell*)[tableView cellForRowAtIndexPath:indexPath];
+//    if(cell.note.contentSize.height > cell.note.frame.size.height){
+//        NSLog(@"WE HAVE A WINNER!");
+//    }
+    // Retrieve our object to give to our size manager.
+//    AiMNote *object = (AiMNote*)[self.noteArray objectAtIndex:[indexPath row]];
+//    
+//    NSLog(@"Height: %uL", object.note.length);
+    
+    return 127;
 }
 /*
 -(void)initScrollView

@@ -75,7 +75,7 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" white="0.9509865419708029" alpha="1" colorSpace="calibratedWhite"/>
+                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 <constraints>
                     <constraint firstItem="pi6-hD-ttx" firstAttribute="leading" secondItem="7Sz-Ef-D9C" secondAttribute="trailing" constant="8" id="2BG-v0-YCD"/>
                     <constraint firstAttribute="bottom" secondItem="pi6-hD-ttx" secondAttribute="bottom" constant="10" id="6so-4j-PXe"/>
