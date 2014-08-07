@@ -31,7 +31,7 @@
 
 @implementation AiMWorkOrderTableViewController
 
-
+/*
 - (IBAction)sortBySegmentedControl:(UISegmentedControl *)sender
 {
     NSInteger segIndex = sender.selectedSegmentIndex;
@@ -46,6 +46,7 @@
     
     [self.tableView reloadData];
 }
+ */
 
 
 - (void) sortWorkOrdersByPriority
@@ -211,7 +212,7 @@
     
     self.navigationController.toolbarHidden = NO;
     
-    UIBarButtonItem *options = [[UIBarButtonItem alloc] initWithTitle:@"Options" style:UIBarButtonItemStylePlain target:self action:nil];
+    UIBarButtonItem *options = [[UIBarButtonItem alloc] initWithTitle:@"Options" style:UIBarButtonItemStylePlain target:self action:@selector(viewOptions)];
     
     UIBarButtonItem *space1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
@@ -239,10 +240,46 @@
 }
 
 
--(void)loadInitialData
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.toolbarHidden = NO;
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.navigationController.toolbarHidden = YES;
+}
+
+
+- (void)loadInitialData
 {
     
 }
+
+
+- (void)viewOptions
+{
+    NSLog(@"Got to view options");
+    UIActionSheet *actionSheet =  [[UIActionSheet alloc] initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Sort by date", @"Sort by priority", nil];
+    
+    
+    [actionSheet showInView:self.view];
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (![[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]){
+        if (buttonIndex == 0)
+            [self sortWorkOrdersByDate];
+        else if (buttonIndex == 1)
+            [self sortWorkOrdersByPriority];
+        
+        [self.tableView reloadData];
+    }
+}
+
 
 
 - (void)didReceiveMemoryWarning
@@ -329,6 +366,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    //self.navigationController.toolbarHidden = YES;
+    
     if([[segue identifier] isEqualToString:@"SelectionSegue"])
     {
         AiMTabBarViewController *vc = [segue destinationViewController];
