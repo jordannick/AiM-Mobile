@@ -27,6 +27,8 @@
 @property (strong,nonatomic) NSArray *uniqueDates;
 @property (strong, nonatomic) AiMCurrentUser *currentUser;
 
+@property (strong, nonatomic) UIAlertView *signoutConfirmAlert;
+
 @end
 
 @implementation AiMWorkOrderTableViewController
@@ -210,6 +212,8 @@
     //self.loggedInLabel.text = [NSString stringWithFormat:@"Logged in as: %@", _currentUser.user.username];
     [self.navigationItem setHidesBackButton:YES];
     
+    self.signoutConfirmAlert = [[UIAlertView alloc] initWithTitle:@"Sign Out" message:@"Are you sure you want to sign out?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    
     self.navigationController.toolbarHidden = NO;
     
     UIBarButtonItem *options = [[UIBarButtonItem alloc] initWithTitle:@"Options" style:UIBarButtonItemStylePlain target:self action:@selector(viewOptions)];
@@ -220,7 +224,7 @@
     
     UIBarButtonItem *space2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    UIBarButtonItem *signout = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:nil];
+    UIBarButtonItem *signout = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(shouldSignout)];
 
     
     
@@ -263,7 +267,6 @@
     NSLog(@"Got to view options");
     UIActionSheet *actionSheet =  [[UIActionSheet alloc] initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Sort by date", @"Sort by priority", nil];
     
-    
     [actionSheet showInView:self.view];
 }
 
@@ -280,6 +283,18 @@
     }
 }
 
+- (void)shouldSignout
+{
+    [self.signoutConfirmAlert show];
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1){
+        [self performSegueWithIdentifier:@"tableToLogin" sender:self];
+    }
+}
 
 
 - (void)didReceiveMemoryWarning

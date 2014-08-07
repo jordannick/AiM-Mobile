@@ -192,9 +192,10 @@
     
     if (credential)
     {
+        NSLog(@"Removing credential");
         [[NSURLCredentialStorage sharedCredentialStorage] removeCredential:credential forProtectionSpace:self.loginProtectionSpace];
     } else {
-        NSLog(@"Could not find credential to remove");
+        NSLog(@"Could not find credential to remove for user %@", _currentUser.user.username);
     }
 }
 
@@ -361,8 +362,11 @@
 
 - (IBAction)unwindToLoginView:(UIStoryboardSegue *)segue
 {
-    NSLog(@"segue: %@", segue.identifier);
+    //NSLog(@"segue: %@", segue.identifier);
+    NSLog(@"unwindToLoginView");
     [self removeUserCredential];
+    [self.loginButton setEnabled:YES];
+    
 }
 
 
