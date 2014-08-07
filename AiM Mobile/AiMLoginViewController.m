@@ -367,6 +367,12 @@
     [self removeUserCredential];
     [self.loginButton setEnabled:YES];
     
+    //Get the singleton instance
+    _currentUser = [AiMCurrentUser shareUser];
+    //Clear the user
+    _currentUser.user = nil;
+    //Make a new one
+    _currentUser.user = [[AiMUser alloc] init];
 }
 
 
