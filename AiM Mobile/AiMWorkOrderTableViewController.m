@@ -26,6 +26,7 @@
 //@property (strong, nonatomic) NSMutableArray *numInEachSection;
 @property (strong,nonatomic) NSArray *uniqueDates;
 @property (strong, nonatomic) AiMCurrentUser *currentUser;
+@property (strong, nonatomic) NSIndexPath *chosenWorkOrderIndex;
 
 @property (strong, nonatomic) UIAlertView *signoutConfirmAlert;
 
@@ -224,8 +225,9 @@
     
     UIBarButtonItem *space2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    UIBarButtonItem *signout = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(shouldSignout)];
-
+    UIBarButtonItem *signout = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(shouldSignout)];
+    
+    UIBarButtonItem *signoutIcon = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"exit"] style:UIBarButtonItemStylePlain target:self action:@selector(shouldSignout)];
     
     
     [self setToolbarItems:@[options, space1, username, space2, signout]];
@@ -245,6 +247,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.toolbarHidden = NO;
+    
+//    NSLog(@"ChosenWorkOrderIndex : %@" , self.chosenWorkOrderIndex);
+//    if(self.chosenWorkOrderIndex){
+//        NSLog(@"Made it.");
+//        AiMCustomTableCell *cell = (AiMCustomTableCell*)[self.tableView cellForRowAtIndexPath:self.chosenWorkOrderIndex];
+//        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+//        cell.selected = YES;
+//         
+//    }
 }
 
 
@@ -391,7 +402,10 @@
         
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         
+        self.chosenWorkOrderIndex = indexPath;
         vc.workOrder = _currentUser.user.workOrders[[indexPath row]];
+        
+        
     }
 }
 

@@ -133,10 +133,32 @@
         }
         cell.name.text = note.author;
         cell.note.text = note.note;
+        
     }
     cell.backgroundColor = [UIColor clearColor];
     return cell;
 }
+
+/*
+ 
+ 
+ NSRange range = [note.note rangeOfString:@"\n"];
+ if(range.location != NSNotFound){
+ NSLog(@"location: %d and lenght: %d  and %d", range.location, range.length, note.note.length);
+ NSString *noteHead = [note.note substringWithRange:NSMakeRange(0, range.location)];
+ 
+ NSUInteger num = note.note.length - range.location;
+ NSLog(@"NUM: %d   %@", num, noteHead);
+ 
+ NSString *noteBody = [note.note substringWithRange:NSMakeRange(range.location, (note.note.length - range.location))];
+ NSLog(@"This is range location: %d and length %d", range.location, range.length);
+ [noteBody ]
+ cell.note.text = [NSString stringWithFormat:@"%@%@", noteHead, [noteBody lowercaseString]];
+ }else
+ 
+ 
+ 
+ */
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

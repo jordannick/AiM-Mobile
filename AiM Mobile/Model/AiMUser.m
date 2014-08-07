@@ -173,6 +173,10 @@
         workOrder.taskID = [NSString stringWithFormat:@"%@-%@", proposalNum, phaseNum];
         workOrder.category = [workOrderPhase objectForKey:@"Category"];
         workOrder.building = [workOrderPhase objectForKey:@"Building"];
+        
+    
+        
+        
         workOrder.roomNum = [workOrderPhase objectForKey:@"Room"];
         workOrder.description = [workOrderPhase objectForKey:@"description"];
         workOrder.createdBy = [workOrderPhase objectForKey:@"ent_clerk"];
@@ -225,9 +229,14 @@
                 
                 phase.description = [phaseDict objectForKey:@"description"];
                 phase.building = [phaseDict objectForKey:@"building"];
-                NSRange forRange = [phase.building rangeOfString:@"For"];
+                NSRange forRange = [phase.building rangeOfString:@" FOR "];
+                NSLog(@"XXX: %lu  %@", (unsigned long)forRange.location, phase.building);
                 if(forRange.location != NSNotFound){
-                    phase.building = [phase.building substringWithRange:NSMakeRange(0, forRange.location-1)];
+                    
+                    NSString *substring = [phase.building substringWithRange:NSMakeRange(0, forRange.location)];
+                    phase.building = substring;
+                    workOrder.building = substring;
+                    NSLog(@"FOR found! for item: %@, %d, %@", workOrder.taskID, forRange.location, substring);
                 }
                 
                 
