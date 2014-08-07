@@ -52,8 +52,10 @@
         self.noteArray = [NSArray arrayWithObject:newNote];
         
         self.tableView.rowHeight = MAX(self.view.frame.size.height, self.view.frame.size.width);
+    }else{
+        NSEnumerator *enumerator = [self.noteArray reverseObjectEnumerator];
+        self.noteArray = [enumerator allObjects];
     }
-
     //NSLog(@"Top : %f  Bot:  %f", self.topLayoutGuide.length, self.bottomLayoutGuide.length);
 }
 
@@ -122,15 +124,12 @@
     if(note.error){
         cell.error.text = note.error;
         cell.monthDay.text = @"";
-        cell.year.text = @"";
         cell.name.text = @"";
         cell.note.text = @"";
         cell.view0.backgroundColor = cell.view1.backgroundColor = [UIColor groupTableViewBackgroundColor];
     }else{
         if(note.date){
             cell.monthDay.text = [df stringFromDate:note.date];
-            [df setDateFormat:@"yyyy"];
-            cell.year.text = [df stringFromDate:note.date];
         }
         cell.name.text = note.author;
         cell.note.text = note.note;

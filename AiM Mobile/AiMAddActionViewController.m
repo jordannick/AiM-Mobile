@@ -158,10 +158,12 @@
     [super viewDidLoad];
     
     CGFloat squareSize = MAX([[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width);
-    CAGradientLayer *bgLayer = [AiMBackground lightBlueGradient];
-    bgLayer.frame = self.view.frame;
-    bgLayer.frame = CGRectMake(bgLayer.frame.origin.x, bgLayer.frame.origin.y, squareSize, squareSize);
-    [self.view.layer insertSublayer:bgLayer atIndex:0];
+//    CAGradientLayer *bgLayer = [AiMBackground lightBlueGradient];
+//    bgLayer.frame = self.view.frame;
+//    bgLayer.frame = CGRectMake(bgLayer.frame.origin.x, bgLayer.frame.origin.y, squareSize, squareSize);
+//    [self.view.layer insertSublayer:bgLayer atIndex:0];
+    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];

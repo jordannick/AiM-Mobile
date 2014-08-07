@@ -25,6 +25,8 @@
 @property(strong, nonatomic) UIColor *priorityColor;
 @property(strong, nonatomic) NSString *workCodeGroup;
 @property(strong, nonatomic) NSString *workCode;
+@property(strong, nonatomic) NSString *status;
+@property(strong, nonatomic) NSString *requestMethod;
 
 @property(strong, nonatomic) NSMutableArray *notesArray;
 

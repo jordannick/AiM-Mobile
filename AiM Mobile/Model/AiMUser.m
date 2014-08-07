@@ -225,6 +225,12 @@
                 
                 phase.description = [phaseDict objectForKey:@"description"];
                 phase.building = [phaseDict objectForKey:@"building"];
+                NSRange forRange = [phase.building rangeOfString:@"For"];
+                if(forRange.location != NSNotFound){
+                    phase.building = [phase.building substringWithRange:NSMakeRange(0, forRange.location-1)];
+                }
+                
+                
                 phase.roomNum = [phaseDict objectForKey:@"loc_code"];
                 phase.createdBy = [phaseDict objectForKey:@"ent_clerk"];
                 phase.shop = [phaseDict objectForKey:@"shop"];
@@ -235,6 +241,8 @@
                 phase.priorityColor = [self assignPriorityColor:phase.priority];
                 phase.workCode = [phaseDict objectForKey:@"craft_code"];
                 phase.notesArray = workOrderNotes;
+                phase.status = [phaseDict objectForKey:@"status_code"];
+                phase.requestMethod = [phaseDict objectForKey:@"request_method"];
                 workOrder.phase = phase;
                 break;
             }

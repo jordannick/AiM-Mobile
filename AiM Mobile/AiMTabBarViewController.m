@@ -32,6 +32,10 @@
 {
     [super viewDidLoad];
     
+    UITabBarItem *item = [self.tabBar.items objectAtIndex:1];
+    if(self.workOrder.phase.notesArray)
+        item.badgeValue = [NSString stringWithFormat:@"%d",[self.workOrder.phase.notesArray count]];
+    
     // Do any additional setup after loading the view.
     
     //Get the singleton instance

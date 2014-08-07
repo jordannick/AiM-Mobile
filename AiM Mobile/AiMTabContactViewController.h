@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface AiMTabContactViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *requestor;
 @property (weak, nonatomic) IBOutlet UILabel *orgName;
-@property (weak, nonatomic) IBOutlet UILabel *orgId;
-@property (weak, nonatomic) IBOutlet UIButton *Phone;
+@property (weak, nonatomic) IBOutlet UILabel *contactName;
+@property (weak, nonatomic) IBOutlet UIButton *email;
+@property (weak, nonatomic) IBOutlet UIButton *phone;
+@property (weak, nonatomic) IBOutlet UILabel *method;
 
 @end

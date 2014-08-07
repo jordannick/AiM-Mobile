@@ -233,17 +233,14 @@
     }
     
     [self sortWorkOrdersByDate];
-    [self loadInitialData];
     
     
 }
 
-
--(void)loadInitialData
+-(void)viewWillDisappear:(BOOL)animated
 {
-    
+    self.navigationController.toolbarHidden = YES;
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -293,6 +290,7 @@
     [indexPath section];
     [indexPath row];
     
+    NSLog(@"FAULT WorkOrders: %@", self.currentUser.user.workOrders);
     AiMWorkOrder *workOrder = [self.currentUser.user.workOrders objectAtIndex:[indexPath row]];
     
     AiMCustomTableCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];

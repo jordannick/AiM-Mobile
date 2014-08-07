@@ -19,13 +19,13 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UILabel *status;
 @property (weak, nonatomic) IBOutlet UILabel *location;
 @property (weak, nonatomic) IBOutlet UILabel *shop;
 @property (weak, nonatomic) IBOutlet UILabel *workCode;
 @property (weak, nonatomic) IBOutlet UILabel *created;
 @property (weak, nonatomic) IBOutlet UILabel *estDate;
 @property (weak, nonatomic) IBOutlet UIView *detailView;
-@property (weak, nonatomic) IBOutlet UIView *textViewContainer;
 
 
 
@@ -103,6 +103,7 @@
 
     self.bottomView.backgroundColor = self.workOrder.phase.priorityColor;
     
+    self.status.text = self.workOrder.phase.status;
     self.priority.text = self.workOrder.phase.priority;
     self.shop.text = self.workOrder.phase.shop;
     self.workCode.text = self.workOrder.phase.workCode;
