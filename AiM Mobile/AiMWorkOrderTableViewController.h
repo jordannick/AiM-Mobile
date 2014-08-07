@@ -10,6 +10,6 @@
 #import "AiMWorkOrder.h"
 #import "AiMUser.h"
 
-@interface AiMWorkOrderTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface AiMWorkOrderTableViewController : UIViewController <UIActionSheetDelegate, UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @end

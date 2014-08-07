@@ -177,9 +177,11 @@
                     <connections>
                         <outlet property="navBar" destination="Hzs-PE-2vU" id="w4L-90-TSQ"/>
                         <outlet property="tableView" destination="XFR-qI-QGs" id="NVf-Sb-caW"/>
+                        <segue destination="euZ-4Q-Vff" kind="unwind" identifier="tableToLogin" unwindAction="unwindToLoginView:" id="bvS-h4-u2r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2iD-4v-Pgh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="euZ-4Q-Vff" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="660" y="97"/>
         </scene>
