@@ -1,4 +1,1 @@
-AiM-Mobile
-==========
-
-AiM Mobile app for iOS 
+Experimental app for tracking work orders, iOS platform.
